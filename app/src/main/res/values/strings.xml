@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WorkingTime</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="nav_worker">Workers</string>
+    <string name="nav_company">Companies</string>
+    <string name="nav_activity">Activities</string>
+    <string name="nav_subTitle_report">Reporting</string>
+    <string name="nav_reporting">Work time report</string>
+</resources>

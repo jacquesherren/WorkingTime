@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_worker"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="@string/nav_worker" />
+        <item
+            android:id="@+id/nav_company"
+            android:icon="@drawable/ic_business_black_24dp"
+            android:title="@string/nav_company" />
+        <item
+            android:id="@+id/nav_activity"
+            android:icon="@drawable/ic_update_black_24dp"
+            android:title="@string/nav_activity" />
+    </group>
+
+    <item android:title="@string/nav_subTitle_report">
+        <menu>
+            <item
+                android:id="@+id/nav_reporting"
+                android:icon="@drawable/ic_view_list_black_24dp"
+                android:title="@string/nav_reporting" />
+        </menu>
+    </item>
+
+</menu>
