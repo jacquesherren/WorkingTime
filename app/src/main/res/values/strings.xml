@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WorkingTime</string>
+    <string name="app_name">Working Time</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,5 +9,38 @@
     <string name="nav_company">Companies</string>
     <string name="nav_activity">Activities</string>
     <string name="nav_subTitle_report">Reporting</string>
-    <string name="nav_reporting">Work time report</string>
+    <string name="nav_reporting">Count of hours worked</string>
+    <string name="choose_worker">Choose a worker</string>
+    <string name="choose_company">Choose a company</string>
+    <string name="choose_activity">Choose an activity</string>
+    <string name="nav_task">Tasks</string>
+    <string name="nav_subTitle_basicdata">Basic data</string>
+    <string name="nav_subTitle_workcompleted">Tasks done</string>
+
+
+    <string name="btn_readyToStart">Ready to start...</string>
+
+    <string name="title_activity_companies_list">Companies</string>
+
+    <string name="title_activity_activities_list">Activities</string>
+
+    <string name="title_activity_tasks_list">Tasks</string>
+
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="worker_activated_hint">Activate this worker to make it available.</string>
+    <string name="worker_activated">Worker available</string>
+
+    <string name="title_activity_workers_list">Workers</string>
+    <string name="title_activity_worker_view"></string>
+    <string name="title_activity_worker_edit"></string>
+
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
+    <string name="action_back">Back</string>
 </resources>

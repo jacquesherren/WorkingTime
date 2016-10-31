@@ -1,9 +1,7 @@
 package ch.hevs.androidproject644.js.workingtime;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,7 +18,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,14 +77,21 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Intent intent;
         int id = item.getItemId();
 
-        if (id == R.id.nav_worker) {
-            // Handle the camera action
+        if (id == R.id.nav_task) {
+            intent = new Intent(MainActivity.this, TasksListActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_worker) {
+            intent = new Intent(MainActivity.this, WorkersListActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_company) {
-
+            intent = new Intent(MainActivity.this, CompaniesListActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_activity) {
-
+            intent = new Intent(MainActivity.this, ActivitiesListActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_reporting) {
 
         }
@@ -96,4 +100,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }

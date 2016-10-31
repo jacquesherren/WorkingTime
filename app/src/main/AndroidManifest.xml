@@ -18,6 +18,60 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".WorkersListActivity"
+            android:label="@string/title_activity_workers_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ActivitiesListActivity"
+            android:label="@string/title_activity_activities_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CompaniesListActivity"
+            android:label="@string/title_activity_companies_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".TasksListActivity"
+            android:label="@string/title_activity_tasks_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".WorkerEditActivity"
+            android:label="@string/title_activity_worker_edit"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".WorkerViewActivity"
+            android:label="@string/title_activity_worker_view"
+            android:parentActivityName=".WorkersListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.WorkersListActivity" />
+        </activity>
     </application>
 
 </manifest>

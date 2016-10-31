@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item android:title="@string/nav_subTitle_workcompleted">
+        <menu>
+            <item
+                android:id="@+id/nav_task"
+                android:icon="@drawable/ic_update_black_24dp"
+                android:title="@string/nav_task" />
+        </menu>
+    </item>
+    <item android:title="@string/nav_subTitle_basicdata">
+        <menu>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_worker"
@@ -12,15 +21,16 @@
             android:title="@string/nav_company" />
         <item
             android:id="@+id/nav_activity"
-            android:icon="@drawable/ic_update_black_24dp"
+            android:icon="@drawable/ic_view_list_black_24dp"
             android:title="@string/nav_activity" />
     </group>
-
+        </menu>
+    </item>
     <item android:title="@string/nav_subTitle_report">
         <menu>
             <item
                 android:id="@+id/nav_reporting"
-                android:icon="@drawable/ic_view_list_black_24dp"
+                android:icon="@drawable/ic_equalizer_black_24dp"
                 android:title="@string/nav_reporting" />
         </menu>
     </item>

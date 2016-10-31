@@ -16,56 +16,103 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/js_horizontal_margin"
-        android:paddingRight="@dimen/js_horizontal_margin"
-        android:paddingTop="@dimen/js_vertical_margin"
-        android:paddingBottom="@dimen/js_horizontal_margin">
-        <Spinner
-            android:id="@+id/company_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingLeft="@dimen/js_horizontal_margin"
-            android:paddingRight="@dimen/js_horizontal_margin">
-        </Spinner>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="+"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/js_horizontal_margin"
-        android:paddingRight="@dimen/js_horizontal_margin"
-        android:paddingTop="@dimen/js_vertical_margin"
-        android:paddingBottom="@dimen/js_horizontal_margin">
-        <Spinner
-            android:id="@+id/activitiy_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingLeft="@dimen/js_horizontal_margin"
-            android:paddingRight="@dimen/js_horizontal_margin">
-        </Spinner>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="+"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/js_horizontal_margin"
-        android:paddingRight="@dimen/js_horizontal_margin"
-        android:paddingTop="@dimen/js_vertical_margin"
-        android:paddingBottom="@dimen/js_horizontal_margin">
-        <Button
+        android:orientation="vertical">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="NEXT"/>
+            android:layout_height="wrap_content"
+            android:text="@string/choose_worker" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <Spinner
+                android:id="@+id/sp_chooseWorker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></Spinner>
+
+            <Button
+                android:id="@+id/btn_newWorker"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/ic_add_black_24dp"
+                android:elevation="0dp" />/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_company" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <Spinner
+                android:id="@+id/sp_chooseCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></Spinner>
+
+            <Button
+                android:id="@+id/btn_newCompany"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/ic_add_black_24dp" /> />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_activity" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <Spinner
+                android:id="@+id/sp_chooseActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></Spinner>
+            <Button
+                android:id="@+id/btn_newActivity"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/ic_add_black_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_readyToStart" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
