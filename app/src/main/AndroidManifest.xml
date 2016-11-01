@@ -72,6 +72,41 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.hevs.androidproject644.js.workingtime.WorkersListActivity" />
         </activity>
+        <activity
+            android:name=".ActivityViewActivity"
+            android:label="@string/title_activity_view"
+            android:parentActivityName=".ActivitiesListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.ActivitiesListActivity" />
+        </activity>
+        <activity
+            android:name=".ActivityEditActivity"
+            android:label="@string/title_activity_edit"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CompanyEditActivity"
+            android:label="@string/title_activity_company_edit"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CompanyViewActivity"
+            android:label="@string/title_activity_company_view"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

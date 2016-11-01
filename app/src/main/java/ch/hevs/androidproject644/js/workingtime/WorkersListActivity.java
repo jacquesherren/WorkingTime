@@ -3,7 +3,6 @@ package ch.hevs.androidproject644.js.workingtime;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,12 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
+import ch.hevs.androidproject644.js.workingtime.model.WorkersManager;
 
 public class WorkersListActivity extends AppCompatActivity {
 
@@ -27,17 +26,14 @@ public class WorkersListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workers_list_activity);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        Intent intent = getIntent();
-        intent.getClass();
+        //Intent intent = getIntent();
 
         _lvWorkers = (ListView) findViewById(R.id.lv_workers);
-        _workers = get_AllWorkers();
+        _workers = WorkersManager.getAllWorker();
 
         WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers);
         _lvWorkers.setAdapter(adapter);
@@ -50,9 +46,9 @@ public class WorkersListActivity extends AppCompatActivity {
                 Worker w = adapter.getItem(position);
 
                 Intent intent = new Intent(WorkersListActivity.this, WorkerViewActivity.class);
-                intent.putExtra(Datas.WORKER_MODE, Datas.WORKER_VIEW);
-                intent.putExtra(Datas.WORKER_VIEW, w);
-                WorkersListActivity.this.startActivity(intent);
+                intent.putExtra(Datas.MODE, Datas.VIEW);
+                intent.putExtra(Datas.VIEW, w);
+                WorkersListActivity.this.startActivityForResult(intent,1);
             }
         });
 
@@ -60,10 +56,9 @@ public class WorkersListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(WorkersListActivity.this, WorkerEditActivity.class);
-                intent.putExtra(Datas.WORKER_MODE, Datas.WORKER_NEW);
-                WorkersListActivity.this.startActivity(intent);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                WorkersListActivity.this.startActivityForResult(intent,1);
             }
         });
 
@@ -76,23 +71,17 @@ public class WorkersListActivity extends AppCompatActivity {
         return true;
     }
 
-    private List<Worker> get_AllWorkers(){
-        List<Worker> workers = new ArrayList<Worker>();
 
-        workers.add(new Worker(1,"Duchmol","Florent", Date.valueOf("1980-07-07"),'m',false));
-        workers.add(new Worker(2,"Schaler","Noémie", Date.valueOf("1991-12-12"),'f',true));
-        workers.add(new Worker(3,"Dupont","Thierry", Date.valueOf("1971-10-09"),'m',false));
-        workers.add(new Worker(4,"Fournier","Pierre", Date.valueOf("1996-01-08"),'m',true));
-        workers.add(new Worker(5,"Fournier","Pierre", Date.valueOf("1948-12-18"),'m',true));
-        workers.add(new Worker(6,"Fournier","Clémentine", Date.valueOf("1996-01-08"),'f',true));
-        workers.add(new Worker(7,"Nanchen","Xavier", Date.valueOf("1969-10-27"),'m',true));
-        workers.add(new Worker(8,"Coppey","Samuel", Date.valueOf("1991-05-18"),'m',true));
-        workers.add(new Worker(9,"Pannatier","Alphonse", Date.valueOf("1990-10-18"),'m',false));
-        workers.add(new Worker(10,"Herren","Jacques", Date.valueOf("1975-12-29"),'m',true));
-        workers.add(new Worker(11,"Herren","Véronique", Date.valueOf("1981-01-08"),'f',true));
-        workers.add(new Worker(12,"Nobs","Olivia", Date.valueOf("1986-05-05"),'f',true));
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        return workers;
-    }
-
+        if (requestCode == 1) {
+            if(resultCode == WorkerEditActivity.RESULT_OK){
+                Worker result=data.getParcelableExtra("result");
+            }
+            if (resultCode == WorkerEditActivity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 }

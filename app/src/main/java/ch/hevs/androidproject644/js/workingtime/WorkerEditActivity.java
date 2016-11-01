@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Switch;
@@ -34,7 +35,6 @@ public class WorkerEditActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         _etFirstname = (EditText) findViewById(R.id.et_firstname);
         _etLastname = (EditText) findViewById(R.id.et_lastname);
         _etBirthdate = (EditText) findViewById(R.id.et_Birthdate);
@@ -43,21 +43,21 @@ public class WorkerEditActivity extends AppCompatActivity {
         _swActive = (Switch) findViewById(R.id.sw_worker_activated);
 
         Intent intent = getIntent();
-        String sTypeOf = intent.getStringExtra(Datas.WORKER_MODE);
-        if (sTypeOf.equals(Datas.WORKER_EDIT)) {
-            _worker = intent.getParcelableExtra(Datas.WORKER_EDIT);
+        String sTypeOf = intent.getStringExtra(Datas.MODE);
+        if (sTypeOf.equals(Datas.EDIT)) {
+            _worker = intent.getParcelableExtra(Datas.EDIT);
 
             _etFirstname.setText(_worker.get_firstname());
             _etLastname.setText(_worker.get_lastname());
             _etBirthdate.setText(_worker.get_birthdate().toString());
             if (_worker.get_sex() == 'm') {
-                _rbSexM.setActivated(true);
-                _rbSexF.setActivated(false);
+                _rbSexM.setChecked(true);
+                _rbSexF.setChecked(false);
             } else {
-                _rbSexM.setActivated(false);
-                _rbSexF.setActivated(true);
+                _rbSexM.setChecked(false);
+                _rbSexF.setChecked(true);
             }
-            _swActive.setActivated(_worker.is_active());
+            _swActive.setChecked(_worker.is_active());
         }
     }
 
@@ -73,31 +73,38 @@ public class WorkerEditActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.action_save:
-                saveWorker();
+                save();
                 break;
 
             // action with ID action_settings was selected
             case R.id.action_cancel:
+                Intent returnIntent = new Intent();
+                setResult(WorkerEditActivity.RESULT_CANCELED, returnIntent);
+                finish();
                 break;
 
             case R.id.action_delete:
-                deleteWorker();
+                delete();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void saveWorker(){
+    private void save(){
         if(_worker!=null){
             Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT)
                     .show();
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("result",_worker);
+            setResult(WorkerEditActivity.RESULT_OK,returnIntent);
+            finish();
         }
         else {
             Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT)
                     .show();
         }
     }
-    private  void deleteWorker(){
+    private  void delete(){
         if(_worker!=null){
             Toast.makeText(this, "Deleting this worker...", Toast.LENGTH_SHORT)
                     .show();
@@ -105,6 +112,22 @@ public class WorkerEditActivity extends AppCompatActivity {
         else {
             Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
                     .show();
+        }
+    }
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.rb_male:
+                if (checked)
+                    // Pirates are the best
+                    break;
+            case R.id.rb_female:
+                if (checked)
+                    // Ninjas rule
+                    break;
         }
     }
 }

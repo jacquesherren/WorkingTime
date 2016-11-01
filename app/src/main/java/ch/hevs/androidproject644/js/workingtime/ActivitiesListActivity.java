@@ -1,14 +1,27 @@
 package ch.hevs.androidproject644.js.workingtime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ch.hevs.androidproject644.js.workingtime.model.ActivitiesManager;
+import ch.hevs.androidproject644.js.workingtime.model.Activity;
+import ch.hevs.androidproject644.js.workingtime.model.Datas;
+
 
 public class ActivitiesListActivity extends AppCompatActivity {
+
+    private ListView _lvActivities;
+    List<Activity> _activities = new ArrayList<Activity>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,16 +29,38 @@ public class ActivitiesListActivity extends AppCompatActivity {
         setContentView(R.layout.activities_list_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        _lvActivities = (ListView) findViewById(R.id.lv_activities);
+        _activities = ActivitiesManager.getAllActivities();
+
+        ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities);
+        _lvActivities.setAdapter(adapter);
+
+        _lvActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities);
+                Activity a = adapter.getItem(position);
+
+                Intent intent = new Intent(ActivitiesListActivity.this, ActivityViewActivity.class);
+                intent.putExtra(Datas.MODE, Datas.VIEW);
+                intent.putExtra(Datas.VIEW, a);
+                ActivitiesListActivity.this.startActivityForResult(intent,1);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(ActivitiesListActivity.this, ActivityEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                ActivitiesListActivity.this.startActivityForResult(intent,1);
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -34,5 +69,18 @@ public class ActivitiesListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.list_menu, menu);
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == ActivityEditActivity.RESULT_OK){
+                Activity result=data.getParcelableExtra("result");
+            }
+            if (resultCode == ActivityEditActivity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 
 }

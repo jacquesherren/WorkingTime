@@ -36,7 +36,6 @@ public class WorkerViewActivity extends AppCompatActivity {
         setContentView(R.layout.worker_view_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -45,12 +44,11 @@ public class WorkerViewActivity extends AppCompatActivity {
         _image_Sex = (ImageView) findViewById(R.id.image_Sex);
         _tv_Active = (TextView) findViewById(R.id.tv_active);
 
-
         Intent intent = getIntent();
-        String sTypeOf = intent.getStringExtra(Datas.WORKER_MODE);
-        if (sTypeOf.equals(Datas.WORKER_VIEW))
+        String sTypeOf = intent.getStringExtra(Datas.MODE);
+        if (sTypeOf.equals(Datas.VIEW))
         {
-            _worker = intent.getParcelableExtra(Datas.WORKER_VIEW);
+            _worker = intent.getParcelableExtra(Datas.VIEW);
 
             _tv_firstname_lastname.setText(_worker.get_firstname() + " " +  _worker.get_lastname());
             _tv_birthdate_value.setText(_worker.get_birthdate().toString());
@@ -82,12 +80,24 @@ public class WorkerViewActivity extends AppCompatActivity {
                 Toast.makeText(this, "Editing worker...", Toast.LENGTH_SHORT)
                         .show();
                 Intent intent = new Intent(WorkerViewActivity.this, WorkerEditActivity.class);
-                intent.putExtra(Datas.WORKER_MODE, Datas.WORKER_EDIT);
-                intent.putExtra(Datas.WORKER_EDIT, _worker);
-                WorkerViewActivity.this.startActivity(intent);
+                intent.putExtra(Datas.MODE, Datas.EDIT);
+                intent.putExtra(Datas.EDIT, _worker);
+                WorkerViewActivity.this.startActivityForResult(intent,1);
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == WorkerEditActivity.RESULT_OK){
+                Worker result=data.getParcelableExtra("result");
+            }
+            if (resultCode == WorkerEditActivity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 }

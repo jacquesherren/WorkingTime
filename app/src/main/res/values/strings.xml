@@ -1,4 +1,6 @@
 <resources>
+
+
     <string name="app_name">Working Time</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -16,6 +18,19 @@
     <string name="nav_task">Tasks</string>
     <string name="nav_subTitle_basicdata">Basic data</string>
     <string name="nav_subTitle_workcompleted">Tasks done</string>
+
+    <string-array name="companies">
+        <item>Clip Industrie</item>
+        <item>HES-SO Valais</item>
+    </string-array>
+    <string-array name="workers">
+        <item>Samuel</item>
+        <item>Jacques</item>
+    </string-array>
+    <string-array name="activities">
+        <item>Projet 1</item>
+        <item>Projet 2</item>
+    </string-array>
 
 
     <string name="btn_readyToStart">Ready to start...</string>
@@ -43,4 +58,14 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_save">Save</string>
     <string name="action_back">Back</string>
+    <string name="title_activity_view"></string>
+    <string name="activity_name">Name</string>
+    <string name="activity_activated">Activity available</string>
+    <string name="title_activity_edit"></string>
+    <string name="activity_activated_hint">Activate this activity to make it available.</string>
+    <string name="title_activity_company_edit">CompanyEditActivity</string>
+    <string name="company_name">Name</string>
+    <string name="company_activated_hint">Activate this company to make it available.</string>
+    <string name="company_activated">Company available</string>
+    <string name="title_activity_company_view">CompanyViewActivity</string>
 </resources>

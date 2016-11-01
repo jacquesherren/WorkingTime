@@ -14,11 +14,16 @@
     tools:showIn="@layout/worker_edit_activity">
 
     <LinearLayout
-        android:id="@+id/activity_edit_worker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/image_activity"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/ic_people_black_24dp"
+            tools:ignore="VectorDrawableCompat"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

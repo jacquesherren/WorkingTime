@@ -1,5 +1,6 @@
 package ch.hevs.androidproject644.js.workingtime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,8 +8,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ch.hevs.androidproject644.js.workingtime.model.ActivitiesManager;
+import ch.hevs.androidproject644.js.workingtime.model.Activity;
+import ch.hevs.androidproject644.js.workingtime.model.CompaniesManager;
+import ch.hevs.androidproject644.js.workingtime.model.Company;
+import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
 public class CompaniesListActivity extends AppCompatActivity {
+
+    private ListView _lvCompanies;
+    List<Company> _companies = new ArrayList<Company>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,16 +31,38 @@ public class CompaniesListActivity extends AppCompatActivity {
         setContentView(R.layout.companies_list_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        _lvCompanies = (ListView) findViewById(R.id.lv_companies);
+        _companies = CompaniesManager.getAllCompanies();
+
+        CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies);
+        _lvCompanies.setAdapter(adapter);
+
+        _lvCompanies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies);
+                Company c = adapter.getItem(position);
+
+                Intent intent = new Intent(CompaniesListActivity.this, CompanyViewActivity.class);
+                intent.putExtra(Datas.MODE, Datas.VIEW);
+                intent.putExtra(Datas.VIEW, c);
+                CompaniesListActivity.this.startActivityForResult(intent,1);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(CompaniesListActivity.this, CompanyEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                CompaniesListActivity.this.startActivityForResult(intent,1);
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -34,5 +71,17 @@ public class CompaniesListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.list_menu, menu);
         return true;
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == CompanyEditActivity.RESULT_OK){
+                Company result=data.getParcelableExtra("result");
+            }
+            if (resultCode == CompanyEditActivity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 
 }

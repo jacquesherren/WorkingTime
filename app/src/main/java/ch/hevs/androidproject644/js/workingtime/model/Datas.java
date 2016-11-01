@@ -6,9 +6,9 @@ package ch.hevs.androidproject644.js.workingtime.model;
 
 public class Datas {
 
-    public final static String WORKER_MODE = "ch.hevs.androidprojerct644.js.workingtime.WORKER_MODE";
-    public final static String WORKER_EDIT = "EDIT";
-    public final static String WORKER_NEW = "NEW";
-    public final static String WORKER_VIEW = "VIEW";
+    public final static String MODE = "ch.hevs.androidprojerct644.js.workingtime.MODE";
+    public final static String EDIT = "EDIT";
+    public final static String NEW = "NEW";
+    public final static String VIEW = "VIEW";
 
 }
