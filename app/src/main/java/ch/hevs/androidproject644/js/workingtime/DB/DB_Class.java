@@ -7,10 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.samuel.projet_android_644.DB.DB_Contract;
-import com.example.samuel.projet_android_644.Object.Worker;
 
-import ch.hevs.androidproject644.js.workingtime.DB.Object.Worker;
 
 public class DB_Class extends SQLiteOpenHelper {
     private SQLiteDatabase dbh;
@@ -47,7 +44,7 @@ public class DB_Class extends SQLiteOpenHelper {
 
     public void addInfo(String firstname, String lastname, String sexe, SQLiteDatabase db)
     {
-        db = dbh.getWritableDatabase();
+
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(DB_Contract.workers.COLUMN_NAME_FIRSTNAME, firstname);
@@ -62,8 +59,13 @@ public class DB_Class extends SQLiteOpenHelper {
 
     }
 
+    public void deleteWorker (Worker worker)
+    {
+        dbh.delete(DB_Contract.workers.TABLE_WORKERS,DB_Contract.workers.COLUMN_NAME_WORKER_ID, new String [] {String.valueOf(worker.getId())});
+        dbh.close();
+    }
 
-   Worker getWorker (int id) {
+  /* Worker getWorker (int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(DB_Contract.workers.TABLE_WORKERS, new String[]{DB_Contract.workers.COLUMN_NAME_FIRSTNAME
@@ -71,8 +73,8 @@ public class DB_Class extends SQLiteOpenHelper {
 
 
         //Filtrer les résultat WHERE si besoin
-        Worker worker = new Worker(cursor.getString(0), cursor.getString(1),  09.09.1990, 'm', true);
+       // Worker worker = new Worker(cursor.getString(0), cursor.getString(1),  09.09.1990, 'm', true);
 
-    }
+    }*/
 }
 

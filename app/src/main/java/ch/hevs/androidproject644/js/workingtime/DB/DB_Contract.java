@@ -16,6 +16,8 @@ public class DB_Contract  {
         public static final String COLUMN_NAME_BIRTHDATE = "Birthdate";
         public static final String COLUMN_NAME_SEXE = "Sexe";
 
+        //column from 
+
         //création de la table + les type
         public static final String CREATE_TABLE_WORKER = "CREATE TABLE "
                 + TABLE_WORKERS + "("

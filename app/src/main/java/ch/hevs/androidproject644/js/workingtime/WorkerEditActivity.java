@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
@@ -94,10 +95,13 @@ public class WorkerEditActivity extends AppCompatActivity {
         if(_worker!=null){
             Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT)
                     .show();
-            Intent returnIntent = new Intent();
+            /*Intent returnIntent = new Intent();
             returnIntent.putExtra("result",_worker);
             setResult(WorkerEditActivity.RESULT_OK,returnIntent);
-            finish();
+            finish();*/
+
+            //String [] workers = getResources().getStringArray(R.array.)
+
         }
         else {
             Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT)
