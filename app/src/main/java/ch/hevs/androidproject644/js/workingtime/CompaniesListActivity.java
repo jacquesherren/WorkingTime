@@ -62,7 +62,6 @@ public class CompaniesListActivity extends AppCompatActivity {
                 CompaniesListActivity.this.startActivityForResult(intent,1);
             }
         });
-
     }
 
     @Override

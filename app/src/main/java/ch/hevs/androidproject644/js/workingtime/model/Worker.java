@@ -28,7 +28,7 @@ public class Worker implements Parcelable {
 
     }
 
-    public Worker(int id , String lastname, String firstname, String birthdate, String sex, String active){
+ /*   public Worker(int id , String lastname, String firstname, String birthdate, String sex, String active){
         this._id = id;
         this._lastname=lastname;
         this._firstname=firstname;
@@ -39,7 +39,7 @@ public class Worker implements Parcelable {
         else
             _active=false;
 
-    }
+    }*/
 
     // GETTERS
     public int get_id() { return _id; }

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_task_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ch.hevs.androidproject644.js.workingtime.TaskViewActivity"
+    tools:showIn="@layout/task_view_activity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:id="@+id/tv_duration"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_very_big"
+            android:layout_centerHorizontal="true"
+            android:text="8h25"/>
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_big"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_duration"
+            android:text="2016-10-27"/>
+        <TextView
+            android:id="@+id/tv_worker_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/worker_label"
+            android:layout_below="@+id/tv_date"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_worker_name"
+            android:background="@android:color/darker_gray"/>
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/image_Sex"
+            android:layout_below="@+id/tv_worker_name"/>
+
+        <TextView
+            android:id="@+id/tv_firstname_lastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image_Sex"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/image_Sex"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:text="Firstname Lastname" />
+
+        <TextView
+            android:id="@+id/tv_birthdate_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_firstname_lastname"
+            android:layout_below="@+id/tv_firstname_lastname"
+            tools:text="Birthdate : " />
+
+        <TextView
+            android:id="@+id/tv_birthdate_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_firstname_lastname"
+            android:layout_toRightOf="@+id/tv_birthdate_name"
+            android:textColor="@android:color/black"
+            tools:text="17.07.1981" />
+
+        <TextView
+            android:id="@+id/tv_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/company_label"
+            android:layout_below="@+id/image_Sex"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_company_name"
+            android:background="@android:color/darker_gray"/>
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/image_company"
+            android:layout_below="@+id/tv_company_name"/>
+
+        <TextView
+            android:id="@+id/tv_company_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image_company"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/image_company"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:text="Company name" />
+
+        <TextView
+            android:id="@+id/tv_activity_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/activity_label"
+            android:layout_below="@+id/image_company"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_activity_name"
+            android:background="@android:color/darker_gray"/>
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/image_activity"
+            android:layout_below="@+id/tv_activity_name"/>
+
+        <TextView
+            android:id="@+id/tv_activity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image_activity"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/image_activity"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:text="Activity name" />
+
+        <TextView
+            android:id="@+id/tv_activity_com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_activity_value"
+            android:layout_below="@+id/tv_activity_value"
+            tools:text="Activity's comment" />
+    </RelativeLayout>
+</ScrollView>

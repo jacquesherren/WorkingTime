@@ -35,12 +35,9 @@
 
     <string name="btn_readyToStart">Ready to start...</string>
 
-    <string name="title_activity_companies_list">Companies</string>
-
-    <string name="title_activity_activities_list">Activities</string>
-
     <string name="title_activity_tasks_list">Tasks</string>
 
+    <string name="worker_label">Worker : </string>
     <string name="firstname">Firstname</string>
     <string name="lastname">Lastname</string>
     <string name="male">Male</string>
@@ -49,6 +46,8 @@
     <string name="worker_activated_hint">Activate this worker to make it available.</string>
     <string name="worker_activated">Worker available</string>
 
+    <string name="title_activity_activities_list">Activities</string>
+    <string name="activity_label">Activity : </string>
     <string name="title_activity_workers_list">Workers</string>
     <string name="title_activity_worker_view"></string>
     <string name="title_activity_worker_edit"></string>
@@ -64,8 +63,12 @@
     <string name="title_activity_edit"></string>
     <string name="activity_activated_hint">Activate this activity to make it available.</string>
     <string name="title_activity_company_edit">CompanyEditActivity</string>
+
+    <string name="title_activity_companies_list">Companies</string>
+    <string name="company_label">Company : </string>
     <string name="company_name">Name</string>
     <string name="company_activated_hint">Activate this company to make it available.</string>
     <string name="company_activated">Company available</string>
     <string name="title_activity_company_view">CompanyViewActivity</string>
+    <string name="title_activity_task_view">TaskViewActivity</string>
 </resources>

@@ -31,9 +31,9 @@
             android:layout_alignBaseline="@+id/tv_worker_name"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_big"
             android:textStyle="bold"
-            tools:text="24h00" />
+            android:textSize="@dimen/text_size_big"
+            android:text="24"/>
 
         <TextView
             android:id="@+id/tv_company_name"

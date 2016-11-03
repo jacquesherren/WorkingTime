@@ -11,18 +11,14 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
  */
 
 public class WorkersManager {
+
     private static List<Worker> _workers = new ArrayList<Worker>();
-
-    public static void addWorker(Worker worker){
-        _workers.add(worker);
-    }
-
     public static List<Worker> getAllWorker(){
         return _workers;
     }
+    public static void addWorker(Worker worker){ _workers.add(worker);}
 
     public static void set_AllWorkers(){
-
         _workers.add(new Worker(1,"Duchmol","Florent", Date.valueOf("1980-07-07"),'m',false));
         _workers.add(new Worker(2,"Schaler","Noémie", Date.valueOf("1991-12-12"),'f',true));
         _workers.add(new Worker(3,"Dupont","Thierry", Date.valueOf("1971-10-09"),'m',false));
@@ -35,7 +31,5 @@ public class WorkersManager {
         _workers.add(new Worker(10,"Herren","Jacques", Date.valueOf("1975-12-29"),'m',true));
         _workers.add(new Worker(11,"Herren","Véronique", Date.valueOf("1981-01-08"),'f',true));
         _workers.add(new Worker(12,"Nobs","Olivia", Date.valueOf("1986-05-05"),'f',true));
-
-        //return WorkersManager.getAllWorker();
     }
 }

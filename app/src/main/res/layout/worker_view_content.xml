@@ -46,10 +46,6 @@
             android:text="Available"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_birthdate_value"/>
-
-
-
-
     </RelativeLayout>
 
 </ScrollView>

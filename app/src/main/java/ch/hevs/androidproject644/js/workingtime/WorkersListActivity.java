@@ -30,8 +30,6 @@ public class WorkersListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Intent intent = getIntent();
-
         _lvWorkers = (ListView) findViewById(R.id.lv_workers);
         _workers = WorkersManager.getAllWorker();
 
