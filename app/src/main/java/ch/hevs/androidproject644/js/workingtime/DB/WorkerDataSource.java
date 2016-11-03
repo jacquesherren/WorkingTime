@@ -32,7 +32,7 @@ public class WorkerDataSource {
         values.put(DB_Contract.workers.COLUMN_NAME_NAME, worker.getName());
         values.put(DB_Contract.workers.COLUMN_NAME_FIRSTNAME, worker.getPrename());
         values.put(DB_Contract.workers.COLUMN_NAME_BIRTHDATE, worker.getBirthdate());
-        values.put(DB_Contract.workers.COLUMN_NAME_SEXE, worker.getSexe());
+        values.put(DB_Contract.workers.COLUMN_NAME_SEXE, "m");
 
         id = this.db.insert(DB_Contract.workers.TABLE_WORKERS, null, values);
 

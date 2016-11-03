@@ -26,6 +26,7 @@ public class WorkerEditActivity extends AppCompatActivity {
     private EditText _etBirthdate;
 
     private Worker _worker;
+    private ch.hevs.androidproject644.js.workingtime.DB.Worker workerdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,14 @@ public class WorkerEditActivity extends AppCompatActivity {
         if(_worker!=null){
             Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT)
                     .show();
+
+
+            workerdb.setName(_etLastname.getText().toString());
+            workerdb.setPrename(_etFirstname.getText().toString());
+            workerdb.setBirthdate(_etBirthdate.getText().toString());
+
+            WorkerDataSource addWorker = new WorkerDataSource();
+            addWorker.createWorker(workerdb);
 
             /*Intent returnIntent = new Intent();
             returnIntent.putExtra("result",_worker);
