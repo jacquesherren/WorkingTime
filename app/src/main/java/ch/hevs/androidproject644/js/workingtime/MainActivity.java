@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -23,9 +24,7 @@ import ch.hevs.androidproject644.js.workingtime.model.CompaniesManager;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 import ch.hevs.androidproject644.js.workingtime.model.WorkersManager;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Spinner _sp_chooseWorker;
     private Spinner _sp_chooseCompany;
     private Spinner _sp_chooseActivity;
@@ -40,11 +39,20 @@ public class MainActivity extends AppCompatActivity
         WorkersManager.set_AllWorkers();
         ActivitiesManager.set_AllActivities();
         CompaniesManager.set_AllCompanies();
-
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        _sp_chooseWorker = (Spinner) findViewById(R.id.sp_chooseWorker);
+        _sp_chooseCompany = (Spinner) findViewById(R.id.sp_chooseCompany);
+        _sp_chooseActivity = (Spinner) findViewById(R.id.sp_chooseActivity);
+        _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);
+        _btn_newCompany = (Button) findViewById(R.id.btn_newCompany);
+        _btn_newActivity = (Button) findViewById(R.id.btn_newActivity);
+
+        spinner_filler(_sp_chooseWorker.getId(),R.array.workers);
+        spinner_filler(_sp_chooseCompany.getId(), R.array.companies);
+        spinner_filler(_sp_chooseActivity.getId(), R.array.activities);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,24 +62,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        List<Worker> workers = new ArrayList<Worker>();
-        workers = WorkersManager.getAllWorker();
-        // Creating adapter for spinner
-        ArrayAdapter<Worker> dataAdapter = new ArrayAdapter<Worker>(this, android.R.layout.simple_spinner_item, workers);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-       // dataAdapter.setDropDownViewResource(R.layout.worker_row);
-
-        // attaching data adapter to spinner
-        Spinner sp_chooseWorker = (Spinner) findViewById(R.id.sp_chooseWorker);
-        sp_chooseWorker.setAdapter(dataAdapter);
-
-
-       spinner_filler(R.id.sp_chooseWorker,R.array.workers);
-       spinner_filler(R.id.sp_chooseCompany, R.array.companies);
-       spinner_filler(R.id.sp_chooseActivity, R.array.activities);
     }
 
     public void spinner_filler(int spinner_name, int array_name)
