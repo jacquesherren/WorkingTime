@@ -95,6 +95,7 @@ public class WorkerEditActivity extends AppCompatActivity {
         if(_worker!=null){
             Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT)
                     .show();
+
             /*Intent returnIntent = new Intent();
             returnIntent.putExtra("result",_worker);
             setResult(WorkerEditActivity.RESULT_OK,returnIntent);
