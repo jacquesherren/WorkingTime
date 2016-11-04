@@ -42,18 +42,6 @@ public class DB_Class extends SQLiteOpenHelper {
 
     }
 
-    public void addInfo(String firstname, String lastname, String sexe, SQLiteDatabase db)
-    {
-
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DB_Contract.workers.COLUMN_NAME_FIRSTNAME, firstname);
-        contentValues.put(DB_Contract.workers.COLUMN_NAME_NAME, lastname);
-        contentValues.put(DB_Contract.workers.COLUMN_NAME_SEXE, sexe);
-        db.insert(DB_Contract.workers.TABLE_WORKERS,null,contentValues);
-        Log.e("DATABASE OPERATIONS", "Worker added");
-    }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

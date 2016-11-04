@@ -1,5 +1,6 @@
 package ch.hevs.androidproject644.js.workingtime;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -98,17 +99,10 @@ public class WorkerEditActivity extends AppCompatActivity {
                     .show();
 
 
-            workerdb.setName(_etLastname.getText().toString());
-            workerdb.setPrename(_etFirstname.getText().toString());
-            workerdb.setBirthdate(_etBirthdate.getText().toString());
-
-            WorkerDataSource addWorker = new WorkerDataSource();
-            addWorker.createWorker(workerdb);
-
-            /*Intent returnIntent = new Intent();
+            Intent returnIntent = new Intent();
             returnIntent.putExtra("result",_worker);
             setResult(WorkerEditActivity.RESULT_OK,returnIntent);
-            finish();*/
+            finish();
 
             //String [] workers = getResources().getStringArray(R.array.)
 
@@ -116,6 +110,14 @@ public class WorkerEditActivity extends AppCompatActivity {
         else {
             Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT)
                     .show();
+
+
+            workerdb.setName(_etLastname.getText().toString());
+            workerdb.setPrename(_etFirstname.getText().toString());
+            workerdb.setBirthdate(_etBirthdate.getText().toString());
+
+            WorkerDataSource addWorker = new WorkerDataSource(this);
+            addWorker.createWorker(workerdb);
         }
     }
     private  void delete(){

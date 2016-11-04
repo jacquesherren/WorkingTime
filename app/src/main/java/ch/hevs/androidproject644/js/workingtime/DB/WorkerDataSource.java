@@ -24,7 +24,6 @@ public class WorkerDataSource {
     }
 
     //insert a new worker
-
     public long createWorker (Worker worker)
     {
         long id;
@@ -41,10 +40,9 @@ public class WorkerDataSource {
 
     public Worker getWorkerByID (long id)
     {
+        //getreadable ici
         String sql = "SELECT * FROM " + DB_Contract.workers.TABLE_WORKERS + " WHERE " + DB_Contract.workers.COLUMN_NAME_WORKER_ID + " = " + id;
-
         Cursor cursor = this.db.rawQuery(sql, null);
-
         if(cursor != null)
         {
             cursor.moveToFirst();
@@ -58,6 +56,12 @@ public class WorkerDataSource {
         worker.setSexe(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_SEXE)));
 
         return worker;
+    }
+
+    public void deleteWorker (Worker worker)
+    {
+        db.delete(DB_Contract.workers.TABLE_WORKERS,DB_Contract.workers.COLUMN_NAME_WORKER_ID, new String [] {String.valueOf(worker.getId())});
+        db.close();
     }
 }
 
