@@ -1,4 +1,4 @@
-package ch.hevs.androidproject644.js.workingtime.model;
+package ch.hevs.androidproject644.js.workingtime.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.R;
+import ch.hevs.androidproject644.js.workingtime.model.Task;
 
 /**
  * Created by Jacques on 26.10.2016.

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 
 public class DB_Class extends SQLiteOpenHelper {
@@ -37,21 +38,23 @@ public class DB_Class extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        dbh.execSQL(DB_Contract.workers.CREATE_TABLE_WORKER);
+        db.execSQL(DB_Contract.workers.CREATE_TABLE_WORKER);
         Log.e("DATABASE OPERATIONS", "Table created");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.workers.TABLE_WORKERS);
+        onCreate(db);
     }
 
-    public void deleteWorker (Worker worker)
+/*    public void deleteWorker (Worker worker)
     {
-        dbh.delete(DB_Contract.workers.TABLE_WORKERS,DB_Contract.workers.COLUMN_NAME_WORKER_ID, new String [] {String.valueOf(worker.getId())});
+        dbh.delete(DB_Contract.workers.TABLE_WORKERS,DB_Contract.workers.COLUMN_NAME_WORKER_ID, new String [] {String.valueOf(worker.get_id())});
         dbh.close();
-    }
+    }*/
 
   /* Worker getWorker (int id) {
         SQLiteDatabase db = this.getReadableDatabase();

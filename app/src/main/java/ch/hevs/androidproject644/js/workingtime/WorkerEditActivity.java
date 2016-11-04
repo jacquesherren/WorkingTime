@@ -27,7 +27,6 @@ public class WorkerEditActivity extends AppCompatActivity {
     private EditText _etBirthdate;
 
     private Worker _worker;
-    private ch.hevs.androidproject644.js.workingtime.DB.Worker workerdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,6 @@ public class WorkerEditActivity extends AppCompatActivity {
         setContentView(R.layout.worker_edit_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         _etFirstname = (EditText) findViewById(R.id.et_firstname);
@@ -111,13 +109,13 @@ public class WorkerEditActivity extends AppCompatActivity {
             Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT)
                     .show();
 
-
-            workerdb.setName(_etLastname.getText().toString());
-            workerdb.setPrename(_etFirstname.getText().toString());
-            workerdb.setBirthdate(_etBirthdate.getText().toString());
+            Worker worker = new Worker();
+            worker.set_lastname(_etLastname.getText().toString());
+            worker.set_firstname(_etFirstname.getText().toString());
+            //worker.set_birthdate(_etBirthdate.getText().toString());
 
             WorkerDataSource addWorker = new WorkerDataSource(this);
-            addWorker.createWorker(workerdb);
+            addWorker.createWorker(worker);
         }
     }
     private  void delete(){

@@ -13,6 +13,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.Adapters.WorkerAdapter;
+import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 import ch.hevs.androidproject644.js.workingtime.model.WorkersManager;
@@ -21,6 +23,7 @@ public class WorkersListActivity extends AppCompatActivity {
 
     private ListView _lvWorkers;
     List<Worker> _workers = new ArrayList<Worker>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,11 @@ public class WorkersListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         _lvWorkers = (ListView) findViewById(R.id.lv_workers);
-        _workers = WorkersManager.getAllWorker();
+       // _workers = WorkersManager.getAllWorker();
+        WorkerDataSource getAll = new WorkerDataSource(this);
+        _workers = getAll.getAllWorkers();
+
+
 
         WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers);
         _lvWorkers.setAdapter(adapter);

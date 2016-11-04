@@ -1,4 +1,4 @@
-package ch.hevs.androidproject644.js.workingtime;
+package ch.hevs.androidproject644.js.workingtime.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 /**
@@ -46,7 +47,7 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(worker.get_lastname() + " " + worker.get_firstname());
-        viewHolder.birthdate.setText(worker.get_birthdate().toString());
+   //     viewHolder.birthdate.setText(worker.get_birthdate().toString());
         if(worker.get_sex()=='m')
             viewHolder.sex.setImageDrawable(new ColorDrawable(Color.CYAN));
         else

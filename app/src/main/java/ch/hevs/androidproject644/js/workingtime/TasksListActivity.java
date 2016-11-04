@@ -2,8 +2,6 @@ package ch.hevs.androidproject644.js.workingtime;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,7 +14,7 @@ import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
-import ch.hevs.androidproject644.js.workingtime.model.TaskAdapter;
+import ch.hevs.androidproject644.js.workingtime.Adapters.TaskAdapter;
 import ch.hevs.androidproject644.js.workingtime.model.TasksManager;
 
 public class TasksListActivity extends AppCompatActivity {

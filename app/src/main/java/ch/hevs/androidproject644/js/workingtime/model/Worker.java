@@ -28,6 +28,10 @@ public class Worker implements Parcelable {
 
     }
 
+    public Worker (){
+
+    }
+
  /*   public Worker(int id , String lastname, String firstname, String birthdate, String sex, String active){
         this._id = id;
         this._lastname=lastname;
@@ -40,6 +44,30 @@ public class Worker implements Parcelable {
             _active=false;
 
     }*/
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public void set_lastname(String _lastname) {
+        this._lastname = _lastname;
+    }
+
+    public void set_firstname(String _firstname) {
+        this._firstname = _firstname;
+    }
+
+    public void set_birthdate(Date _birthdate) {
+        this._birthdate = _birthdate;
+    }
+
+    public void set_sex(char _sex) {
+        this._sex = _sex;
+    }
+
+    public void set_active(boolean _active) {
+        this._active = _active;
+    }
 
     // GETTERS
     public int get_id() { return _id; }
