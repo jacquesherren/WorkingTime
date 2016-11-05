@@ -9,7 +9,37 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ch.hevs.androidproject644.js.workingtime.TimeRecordingActivityFragment"
-    tools:showIn="@layout/time_recording_activity">
+    tools:showIn="@layout/time_recording_activity"
+    android:background="#999999">
+
+    <RelativeLayout
+        android:id="@+id/layout_informations_task"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"        >
+
+        <ImageView
+            android:id="@+id/image_worker"
+            android:layout_width="32dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_people_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:ri="@+id/image_worker"/>
+        <ImageView
+            android:id="@+id/image_company"
+            android:layout_width="32dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/image_worker"
+            android:src="@drawable/ic_business_black_24dp"/>
+        <ImageView
+            android:id="@+id/image_activity"
+            android:layout_width="32dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/image_company"
+            android:src="@drawable/ic_view_list_black_24dp"/>
+    </RelativeLayout>
 
 
 </RelativeLayout>
