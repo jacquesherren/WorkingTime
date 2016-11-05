@@ -2,8 +2,7 @@ package ch.hevs.androidproject644.js.workingtime.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by Jacques on 26.10.2016.

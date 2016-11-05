@@ -3,6 +3,7 @@ package ch.hevs.androidproject644.js.workingtime.Controler;
 
 import android.widget.RadioButton;
 import android.widget.Switch;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,11 +31,13 @@ public class C_Worker {
             return true;
         return false;
     }
-    
-    public static Date convertStringToDate(String sDate) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date parsed = format.parse(sDate);
-        java.sql.Date sql = new java.sql.Date(parsed.getTime());
-        return sql;
+
+    public static Date convertStringToDate(String sDate) {
+       // if(!(sDate.equals("")))
+     //       java.sql.Date sqlDate = new java.sql.Date(Long.parseLong(sDate));
+
+
+        //return java.sql.Date.valueOf();
+        return null;
     }
 }

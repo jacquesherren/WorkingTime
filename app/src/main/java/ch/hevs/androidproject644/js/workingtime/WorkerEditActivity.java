@@ -163,7 +163,7 @@ public class WorkerEditActivity extends AppCompatActivity {
             worker.set_firstname(_etFirstname.getText().toString());
             worker.set_sex(C_Worker.controlSex(_rbSexM, _rbSexF));
             worker.set_active(C_Worker.controlSwitch(_swActive));
-            worker.set_birthdate(_birthdate.getTime());
+            //worker.set_birthdate(_birthdate.getTime());
 
             WorkerDataSource addWorker = new WorkerDataSource(this);
             addWorker.createWorker(worker);
