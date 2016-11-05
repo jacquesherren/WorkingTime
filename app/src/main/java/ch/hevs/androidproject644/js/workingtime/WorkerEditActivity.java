@@ -38,6 +38,7 @@ public class WorkerEditActivity extends AppCompatActivity {
 
     private DatePickerDialog _DatePickerDialog_Birthdate;
     private SimpleDateFormat _dateFormatter;
+    private Calendar _birthdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,13 +97,12 @@ public class WorkerEditActivity extends AppCompatActivity {
         Calendar newCalendar = Calendar.getInstance();
         _DatePickerDialog_Birthdate = new DatePickerDialog(this,new OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                _etBirthdate.setText(_dateFormatter.format(newDate.getTime()));
+                //Calendar newDate = Calendar.getInstance();
+                _birthdate = Calendar.getInstance();
+                _birthdate.set(year, monthOfYear, dayOfMonth);
+                _etBirthdate.setText(_dateFormatter.format(_birthdate.getTime()));
             }
-
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
     }
 
     public void onClick(View view) {
@@ -163,7 +163,7 @@ public class WorkerEditActivity extends AppCompatActivity {
             worker.set_firstname(_etFirstname.getText().toString());
             worker.set_sex(C_Worker.controlSex(_rbSexM, _rbSexF));
             worker.set_active(C_Worker.controlSwitch(_swActive));
-            //worker.set_birthdate(_etBirthdate.getText().toString());
+            worker.set_birthdate(_birthdate.getTime());
 
             WorkerDataSource addWorker = new WorkerDataSource(this);
             addWorker.createWorker(worker);
