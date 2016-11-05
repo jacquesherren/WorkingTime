@@ -73,4 +73,5 @@
     <string name="title_activity_task_view">TaskViewActivity</string>
     <string name="title_activity_time_recording">TimeRecordingActivity</string>
     <string name="btn_createTask">Finalize and create task</string>
+    <string name="btn_StartToWork">Start to work</string>
 </resources>

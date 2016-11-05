@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="64dp"
     android:orientation="vertical">
 
 
@@ -14,7 +14,6 @@
     android:id="@+id/fragment_info"
     android:name="ch.hevs.androidproject644.js.workingtime.TimeRecordingActivityFragment"
     android:layout_width="match_parent"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
     android:layout_height="200dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:layout="@layout/time_recording_infos_fragment" />
@@ -25,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/time_recording_infos_fragment">
+        tools:layout="@layout/time_recording_actions_fragment">
 
     </fragment>
 </LinearLayout>
