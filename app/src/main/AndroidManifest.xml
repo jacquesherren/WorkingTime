@@ -116,6 +116,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.hevs.androidproject644.js.workingtime.TasksListActivity" />
         </activity>
+        <activity
+            android:name=".TimeRecordingActivity"
+            android:label="@string/title_activity_time_recording"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

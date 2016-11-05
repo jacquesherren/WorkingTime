@@ -71,4 +71,5 @@
     <string name="company_activated">Company available</string>
     <string name="title_activity_company_view">CompanyViewActivity</string>
     <string name="title_activity_task_view">TaskViewActivity</string>
+    <string name="title_activity_time_recording">TimeRecordingActivity</string>
 </resources>

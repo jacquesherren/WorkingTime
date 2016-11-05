@@ -50,22 +50,5 @@ public class DB_Class extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-/*    public void deleteWorker (Worker worker)
-    {
-        dbh.delete(DB_Contract.workers.TABLE_WORKERS,DB_Contract.workers.COLUMN_NAME_WORKER_ID, new String [] {String.valueOf(worker.get_id())});
-        dbh.close();
-    }*/
-
-  /* Worker getWorker (int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(DB_Contract.workers.TABLE_WORKERS, new String[]{DB_Contract.workers.COLUMN_NAME_FIRSTNAME
-                ,DB_Contract.workers.COLUMN_NAME_NAME, DB_Contract.workers.COLUMN_NAME_SEXE}, null, null, null, null, null);
-
-
-        //Filtrer les résultat WHERE si besoin
-       // Worker worker = new Worker(cursor.getString(0), cursor.getString(1),  09.09.1990, 'm', true);
-
-    }*/
 }
 
