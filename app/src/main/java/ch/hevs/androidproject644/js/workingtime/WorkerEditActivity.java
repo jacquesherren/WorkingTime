@@ -13,6 +13,10 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
 import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
@@ -25,7 +29,7 @@ public class WorkerEditActivity extends AppCompatActivity {
     private RadioButton _rbSexM;
     private Switch _swActive;
     private EditText _etBirthdate;
-
+    private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private Worker _worker;
 
     @Override
@@ -61,6 +65,7 @@ public class WorkerEditActivity extends AppCompatActivity {
             _swActive.setChecked(_worker.is_active());
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,7 +117,9 @@ public class WorkerEditActivity extends AppCompatActivity {
             Worker worker = new Worker();
             worker.set_lastname(_etLastname.getText().toString());
             worker.set_firstname(_etFirstname.getText().toString());
-            //worker.set_birthdate(_etBirthdate.getText().toString());
+            worker.set_sex(C_Worker.controlSex(_rbSexM, _rbSexF));
+            worker.set_active(C_Worker.controlSwitch(_swActive));
+            worker.set_birthdate(_etBirthdate.getText().toString());
 
             WorkerDataSource addWorker = new WorkerDataSource(this);
             addWorker.createWorker(worker);

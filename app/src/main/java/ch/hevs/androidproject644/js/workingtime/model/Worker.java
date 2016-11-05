@@ -32,19 +32,6 @@ public class Worker implements Parcelable {
 
     }
 
- /*   public Worker(int id , String lastname, String firstname, String birthdate, String sex, String active){
-        this._id = id;
-        this._lastname=lastname;
-        this._firstname=firstname;
-        this._birthdate= java.sql.Date.valueOf(birthdate);
-        this._sex= sex.charAt(0);
-        if(active.equals("Yes"))
-            _active=true;
-        else
-            _active=false;
-
-    }*/
-
     public void set_id(int _id) {
         this._id = _id;
     }

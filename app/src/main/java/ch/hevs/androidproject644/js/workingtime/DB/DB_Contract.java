@@ -15,6 +15,7 @@ public class DB_Contract  {
         public static final String COLUMN_NAME_NAME = "Name";
         public static final String COLUMN_NAME_BIRTHDATE = "Birthdate";
         public static final String COLUMN_NAME_SEXE = "Sexe";
+        public static final String COLUMN_NAME_AVAIABLE = "Avaiability";
 
         //column from
 
@@ -25,7 +26,8 @@ public class DB_Contract  {
                 + workers.COLUMN_NAME_FIRSTNAME + " TEXT, "
                 + workers.COLUMN_NAME_NAME + " TEXT, "
                 + workers.COLUMN_NAME_BIRTHDATE + " DATE ,"
-                + workers.COLUMN_NAME_SEXE + " TEXTE" + ");";
+                + workers.COLUMN_NAME_SEXE + " TEXTE"
+                + workers.COLUMN_NAME_AVAIABLE + "BOOLEAN" + ");";
     }
 
 }

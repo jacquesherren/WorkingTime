@@ -21,8 +21,8 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 public class WorkerAdapter extends ArrayAdapter<Worker> {
 
-
     public WorkerAdapter(Context context, List<Worker> workers) {
+
         super(context, 0, workers);
     }
 

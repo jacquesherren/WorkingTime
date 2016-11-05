@@ -32,7 +32,6 @@ public class DB_Class extends SQLiteOpenHelper {
             //Enable foreign key support
             instance.dbh.execSQL("PRAGMA foreign_keys = ON;");
         }
-
         return instance;
     }
 
@@ -40,7 +39,6 @@ public class DB_Class extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DB_Contract.workers.CREATE_TABLE_WORKER);
         Log.e("DATABASE OPERATIONS", "Table created");
-
     }
 
     @Override

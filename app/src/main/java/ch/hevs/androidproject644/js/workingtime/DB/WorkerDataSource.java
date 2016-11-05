@@ -16,14 +16,11 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
  */
 
 public class WorkerDataSource {
-
-    //private SQLiteDatabase db;
     private Context context;
     private DB_Class _dbclass;
 
     public WorkerDataSource(Context context) {
         _dbclass = DB_Class.getInstance(context);
-        //db = _dbclass.getWritableDatabase();
         this.context = context;
     }
 
@@ -34,7 +31,7 @@ public class WorkerDataSource {
         ContentValues values = new ContentValues();
         values.put(DB_Contract.workers.COLUMN_NAME_NAME, worker.get_lastname());
         values.put(DB_Contract.workers.COLUMN_NAME_FIRSTNAME, worker.get_firstname());
- //       values.put(DB_Contract.workers.COLUMN_NAME_BIRTHDATE, worker.get_birthdate().toString());
+        values.put(DB_Contract.workers.COLUMN_NAME_BIRTHDATE, worker.get_birthdate().toString());
         values.put(DB_Contract.workers.COLUMN_NAME_SEXE, "m");
 
         id = db.insert(DB_Contract.workers.TABLE_WORKERS, null, values);
