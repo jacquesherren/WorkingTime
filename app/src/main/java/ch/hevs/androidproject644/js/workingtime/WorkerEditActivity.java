@@ -1,20 +1,25 @@
 package ch.hevs.androidproject644.js.workingtime;
 
-import android.content.Context;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
 import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
@@ -29,8 +34,10 @@ public class WorkerEditActivity extends AppCompatActivity {
     private RadioButton _rbSexM;
     private Switch _swActive;
     private EditText _etBirthdate;
-    private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private Worker _worker;
+
+    private DatePickerDialog _DatePickerDialog_Birthdate;
+    private SimpleDateFormat _dateFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +47,13 @@ public class WorkerEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _etFirstname = (EditText) findViewById(R.id.et_firstname);
-        _etLastname = (EditText) findViewById(R.id.et_lastname);
-        _etBirthdate = (EditText) findViewById(R.id.et_Birthdate);
-        _rbSexF = (RadioButton) findViewById(R.id.rb_female);
-        _rbSexM = (RadioButton) findViewById(R.id.rb_male);
-        _swActive = (Switch) findViewById(R.id.sw_worker_activated);
+        _dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+
+        findViewsById();
+
+        setDateTimeField();
+
+
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -66,6 +74,42 @@ public class WorkerEditActivity extends AppCompatActivity {
         }
     }
 
+    private void findViewsById(){
+        _etFirstname = (EditText) findViewById(R.id.et_firstname);
+        _etLastname = (EditText) findViewById(R.id.et_lastname);
+        _etBirthdate = (EditText) findViewById(R.id.et_Birthdate);
+        _etBirthdate.setInputType(InputType.TYPE_NULL);
+
+        _rbSexF = (RadioButton) findViewById(R.id.rb_female);
+        _rbSexM = (RadioButton) findViewById(R.id.rb_male);
+        _swActive = (Switch) findViewById(R.id.sw_worker_activated);
+    }
+
+    private void setDateTimeField() {
+        _etBirthdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _DatePickerDialog_Birthdate.show();
+            }
+        });
+
+        Calendar newCalendar = Calendar.getInstance();
+        _DatePickerDialog_Birthdate = new DatePickerDialog(this,new OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                _etBirthdate.setText(_dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+    }
+
+    public void onClick(View view) {
+        if(view == _etBirthdate) {
+            _DatePickerDialog_Birthdate.show();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,7 +163,7 @@ public class WorkerEditActivity extends AppCompatActivity {
             worker.set_firstname(_etFirstname.getText().toString());
             worker.set_sex(C_Worker.controlSex(_rbSexM, _rbSexF));
             worker.set_active(C_Worker.controlSwitch(_swActive));
-            worker.set_birthdate(_etBirthdate.getText().toString());
+            //worker.set_birthdate(_etBirthdate.getText().toString());
 
             WorkerDataSource addWorker = new WorkerDataSource(this);
             addWorker.createWorker(worker);

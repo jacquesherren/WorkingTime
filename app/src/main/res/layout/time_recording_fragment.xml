@@ -21,24 +21,48 @@
         <ImageView
             android:id="@+id/image_worker"
             android:layout_width="32dp"
-            android:layout_height="48dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:src="@drawable/ic_people_black_24dp"/>
         <TextView
+            android:id="@+id/tv_worker_value"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:ri="@+id/image_worker"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/image_worker"
+            android:layout_alignBottom="@id/image_worker"
+            android:text="Firstname Lastname"/>
         <ImageView
             android:id="@+id/image_company"
             android:layout_width="32dp"
-            android:layout_height="48dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_below="@id/image_worker"
             android:src="@drawable/ic_business_black_24dp"/>
+        <TextView
+            android:id="@+id/tv_company_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_alignBottom="@+id/image_company"
+            android:layout_toRightOf="@+id/image_company"
+            android:text="Company name"/>
         <ImageView
             android:id="@+id/image_activity"
             android:layout_width="32dp"
-            android:layout_height="48dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_below="@id/image_company"
             android:src="@drawable/ic_view_list_black_24dp"/>
+        <TextView
+            android:id="@+id/tv_activity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+
+            android:layout_toRightOf="@+id/image_activity"
+            android:layout_alignBottom="@id/image_activity"
+            android:text="Activity name"/>
     </RelativeLayout>
 
 
