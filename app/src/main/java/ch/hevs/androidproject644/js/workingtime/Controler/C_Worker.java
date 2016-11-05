@@ -1,8 +1,12 @@
 package ch.hevs.androidproject644.js.workingtime.Controler;
 
+
 import android.widget.RadioButton;
 import android.widget.Switch;
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by Samuel on 05.11.2016.
@@ -26,9 +30,11 @@ public class C_Worker {
             return true;
         return false;
     }
-    public static Calendar convertStringToDate(String date){
-        Calendar cdate = Calendar.getInstance();
-        convertStringToDate(date);
-        return cdate;
+    
+    public static Date convertStringToDate(String sDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date parsed = format.parse(sDate);
+        java.sql.Date sql = new java.sql.Date(parsed.getTime());
+        return sql;
     }
 }
