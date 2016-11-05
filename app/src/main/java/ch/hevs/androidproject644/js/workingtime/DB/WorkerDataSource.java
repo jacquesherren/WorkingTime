@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class WorkerDataSource {
         values.put(DB_Contract.workers.COLUMN_NAME_FIRSTNAME, worker.get_firstname());
         values.put(DB_Contract.workers.COLUMN_NAME_BIRTHDATE, worker.get_birthdate().toString());
         values.put(DB_Contract.workers.COLUMN_NAME_SEXE, Character.toString(worker.get_sex()));
-        values.put(DB_Contract.workers.COLUMN_NAME_AVAIABLE, worker.is_active());
+      //  values.put(DB_Contract.workers.COLUMN_NAME_AVAIABLE, worker.is_active());
 
         id = db.insert(DB_Contract.workers.TABLE_WORKERS, null, values);
         Log.e("WORKER CREATED", "test created");
@@ -60,7 +61,7 @@ public class WorkerDataSource {
         return worker;
     }
 
-    public List<Worker> getAllWorkers() {
+    public List<Worker> getAllWorkers() throws ParseException {
         List<Worker> workers = new ArrayList<Worker>();
         //getreadable ici
         SQLiteDatabase db = _dbclass.getReadableDatabase();
@@ -73,7 +74,7 @@ public class WorkerDataSource {
                 worker.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_WORKER_ID)));
                 worker.set_lastname(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_NAME)));
                 worker.set_firstname(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_FIRSTNAME)));
-               // worker.set_birthdate(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_BIRTHDATE)));
+                worker.set_birthdate(C_Worker.convertStringToDate(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_BIRTHDATE))));
                // worker.set_sex(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_SEXE)));
                 workers.add(worker);
             } while (cursor.moveToNext());
