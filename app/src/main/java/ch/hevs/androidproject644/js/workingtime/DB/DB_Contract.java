@@ -15,7 +15,7 @@ public class DB_Contract  {
         public static final String COLUMN_NAME_NAME = "Name";
         public static final String COLUMN_NAME_BIRTHDATE = "Birthdate";
         public static final String COLUMN_NAME_SEXE = "Sexe";
-        public static final String COLUMN_NAME_AVAIABLE = "Avaiability";
+      //  public static final String COLUMN_NAME_AVAIABLE = "Avaiability";
 
         //création de la table + les type
         public static final String CREATE_TABLE_WORKER = "CREATE TABLE "
@@ -24,8 +24,8 @@ public class DB_Contract  {
                 + workers.COLUMN_NAME_FIRSTNAME + " TEXT, "
                 + workers.COLUMN_NAME_NAME + " TEXT, "
                 + workers.COLUMN_NAME_BIRTHDATE + " DATETIME ,"
-                + workers.COLUMN_NAME_SEXE + " CHAR"
-                + workers.COLUMN_NAME_AVAIABLE + "BOOLEAN" + ");";
+                + workers.COLUMN_NAME_SEXE + " CHAR" +");";
+               // + workers.COLUMN_NAME_AVAIABLE + "BOOLEAN" + ");";
     }
 
     public static abstract class company implements BaseColumns {
