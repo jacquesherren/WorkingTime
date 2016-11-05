@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 /**
@@ -32,7 +33,8 @@ public class WorkerDataSource {
         values.put(DB_Contract.workers.COLUMN_NAME_NAME, worker.get_lastname());
         values.put(DB_Contract.workers.COLUMN_NAME_FIRSTNAME, worker.get_firstname());
         values.put(DB_Contract.workers.COLUMN_NAME_BIRTHDATE, worker.get_birthdate().toString());
-        values.put(DB_Contract.workers.COLUMN_NAME_SEXE, "m");
+        values.put(DB_Contract.workers.COLUMN_NAME_SEXE, Character.toString(worker.get_sex()));
+        values.put(DB_Contract.workers.COLUMN_NAME_AVAIABLE, worker.is_active());
 
         id = db.insert(DB_Contract.workers.TABLE_WORKERS, null, values);
         Log.e("WORKER CREATED", "test created");

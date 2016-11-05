@@ -17,8 +17,6 @@ public class DB_Contract  {
         public static final String COLUMN_NAME_SEXE = "Sexe";
         public static final String COLUMN_NAME_AVAIABLE = "Avaiability";
 
-        //column from
-
         //création de la table + les type
         public static final String CREATE_TABLE_WORKER = "CREATE TABLE "
                 + TABLE_WORKERS + "("
@@ -26,7 +24,7 @@ public class DB_Contract  {
                 + workers.COLUMN_NAME_FIRSTNAME + " TEXT, "
                 + workers.COLUMN_NAME_NAME + " TEXT, "
                 + workers.COLUMN_NAME_BIRTHDATE + " DATETIME ,"
-                + workers.COLUMN_NAME_SEXE + " TEXT"
+                + workers.COLUMN_NAME_SEXE + " CHAR"
                 + workers.COLUMN_NAME_AVAIABLE + "BOOLEAN" + ");";
     }
 
@@ -43,14 +41,14 @@ public class DB_Contract  {
     }
 
     public static abstract class activity implements  BaseColumns {
-        public  static final String TABLE_TASKLIST = "TasksList";
+        public  static final String TABLE_ACTIVITY = "TasksList";
 
         public static final String COLUMN_NAME_ACTIVITY_ID = "idTaskList";
         public static final String COLUMN_NAME_ACTIVITY_NAME = "Name";
         public static final String COLUMN_NAME_ACTIVITY_STATUS = "Status";
 
         public static final String CREATE_TABLE_TASK = "CREATE TABLE "
-                + TABLE_TASKLIST + "("
+                + TABLE_ACTIVITY + "("
                 + activity.COLUMN_NAME_ACTIVITY_ID + "INTEGER PRIMARY KEY, "
                 + activity.COLUMN_NAME_ACTIVITY_NAME + "TEXT, "
                 + activity.COLUMN_NAME_ACTIVITY_STATUS + "BOOLEAN, " + ");";
@@ -76,7 +74,10 @@ public class DB_Contract  {
                 + task.FK_COLUMN_NAME_TASK_COMPANYID + "INTEGER, "
                 + task.FK_COLUMN_NAME_TASK_ACTIVITYID + "INTEGER, "
                 + task.FK_COLUMN_NAME_TASK_WORKERID + "INTEGER, "
-                + "FOREIGN KEY (" + task.FK_COLUMN_NAME_TASK_COMPANYID + ") REFERENCES " + company.+ " (" +
+                + "FOREIGN KEY (" + task.FK_COLUMN_NAME_TASK_WORKERID + ") REFERENCES " + workers.TABLE_WORKERS + " (" + workers.COLUMN_NAME_WORKER_ID +"), "
+                + "FOREIGN KEY (" + task.FK_COLUMN_NAME_TASK_ACTIVITYID + ") REFERENCES " + activity.TABLE_ACTIVITY + "( " + activity.COLUMN_NAME_ACTIVITY_ID +"), "
+                + "FOREIGN KEY (" + task.FK_COLUMN_NAME_TASK_COMPANYID + ") REFERENCES " + company.TABLE_COMPANY + " (" + company.COLUMN_NAME_COMPANY_ID + "));";
+
     }
 
     public static  abstract class time implements  BaseColumns{
