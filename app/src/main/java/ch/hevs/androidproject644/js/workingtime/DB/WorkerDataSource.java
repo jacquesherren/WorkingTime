@@ -31,11 +31,11 @@ public class WorkerDataSource {
         long id;
         SQLiteDatabase db = _dbclass.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DB_Contract.workers.COLUMN_NAME_NAME, worker.get_lastname());
         values.put(DB_Contract.workers.COLUMN_NAME_FIRSTNAME, worker.get_firstname());
-        values.put(DB_Contract.workers.COLUMN_NAME_BIRTHDATE, worker.get_birthdate().toString());
+        values.put(DB_Contract.workers.COLUMN_NAME_LASTNAME, worker.get_lastname());
+        values.put(DB_Contract.workers.COLUMN_NAME_BIRTHDATE, worker.get_birthdate().getTimeInMillis());
         values.put(DB_Contract.workers.COLUMN_NAME_SEXE, Character.toString(worker.get_sex()));
-      //  values.put(DB_Contract.workers.COLUMN_NAME_AVAIABLE, worker.is_active());
+        values.put(DB_Contract.workers.COLUMN_NAME_AVAILABLE, worker.is_active_int());
 
         id = db.insert(DB_Contract.workers.TABLE_WORKERS, null, values);
         Log.e("WORKER CREATED", "test created");
@@ -49,16 +49,10 @@ public class WorkerDataSource {
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null) {
             cursor.moveToFirst();
+            Worker worker = cursorToWorker(cursor);
+            return worker;
         }
-
-        Worker worker = new Worker();
-        worker.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_WORKER_ID)));
-        worker.set_lastname(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_NAME)));
-        worker.set_firstname(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_FIRSTNAME)));
-       // worker.set_birthdate(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_BIRTHDATE)));
-       // worker.set_sex(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_SEXE)));
-
-        return worker;
+        return null;
     }
 
     public List<Worker> getAllWorkers() {
@@ -68,24 +62,36 @@ public class WorkerDataSource {
         String sql = "SELECT * FROM " + DB_Contract.workers.TABLE_WORKERS;
         Cursor cursor = db.rawQuery(sql, null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                Worker worker = new Worker();
-                worker.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_WORKER_ID)));
-                worker.set_lastname(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_NAME)));
-                worker.set_firstname(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_FIRSTNAME)));
-                worker.set_birthdate(java.sql.Date.valueOf(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_BIRTHDATE))));
-               // worker.set_sex(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_SEXE)));
+        //if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Worker worker = cursorToWorker(cursor);
                 workers.add(worker);
-            } while (cursor.moveToNext());
-        }
-        Log.e("WORKERS LIST ", workers.toString());
+                cursor.moveToNext();
+            }
+        //}
+
+        Log.e("WORKERS LIST ",workers.toString());
+        cursor.close();
         return workers;
-    }
+}
 
     public void deleteWorker(Worker worker) {
         //db.delete(DB_Contract.workers.TABLE_WORKERS, DB_Contract.workers.COLUMN_NAME_WORKER_ID, new String[]{String.valueOf(worker.get_id())});
         //db.close();
+    }
+
+    private Worker cursorToWorker(Cursor cursor) {
+        Worker worker = new Worker();
+
+        worker.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_WORKER_ID)));
+        worker.set_firstname(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_FIRSTNAME)));
+        worker.set_lastname(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_LASTNAME)));
+        worker.set_birthdate(cursor.getLong(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_BIRTHDATE)));
+        worker.set_sex(cursor.getString(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_SEXE)).charAt(0));
+        worker.set_active_int(cursor.getInt(cursor.getColumnIndex(DB_Contract.workers.COLUMN_NAME_AVAILABLE)));
+
+        return worker;
     }
 }
 

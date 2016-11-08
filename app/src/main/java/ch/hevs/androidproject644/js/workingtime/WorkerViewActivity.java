@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
@@ -38,11 +40,7 @@ public class WorkerViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);
-        _tv_birthdate_value = (TextView) findViewById(R.id.tv_birthdate_value);
-        _image_Sex = (ImageView) findViewById(R.id.image_Sex);
-        _tv_Active = (TextView) findViewById(R.id.tv_active);
+        findViewsById();
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -51,19 +49,25 @@ public class WorkerViewActivity extends AppCompatActivity {
             _worker = intent.getParcelableExtra(Datas.VIEW);
 
             _tv_firstname_lastname.setText(_worker.get_firstname() + " " +  _worker.get_lastname());
-            _tv_birthdate_value.setText(_worker.get_birthdate().toString());
+            _tv_birthdate_value.setText(Datas.DATE_FORMATTER.format(_worker.get_birthdate().getTime()));
 
             if(_worker.get_sex()=='m')
-                _image_Sex.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.mipmap.ic_male));   //.setImageDrawable(new ColorDrawable(Color.CYAN));
-            else
+                _image_Sex.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.mipmap.ic_male));
+            else if(_worker.get_sex()=='f')
                 _image_Sex.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.mipmap.ic_female));
-
 
             if(_worker.is_active()==true)
                 _tv_Active.setText("Available");
             else
                 _tv_Active.setText("Unavailable");
         }
+    }
+
+    private void findViewsById(){
+        _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);
+        _tv_birthdate_value = (TextView) findViewById(R.id.tv_birthdate_value);
+        _image_Sex = (ImageView) findViewById(R.id.image_Sex);
+        _tv_Active = (TextView) findViewById(R.id.tv_active);
     }
 
     @Override

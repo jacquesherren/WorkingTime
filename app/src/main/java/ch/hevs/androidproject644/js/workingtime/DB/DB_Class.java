@@ -37,7 +37,7 @@ public class DB_Class extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DB_Contract.workers.CREATE_TABLE_WORKER);
+        db.execSQL(DB_Contract.workers.CREATE_TABLE_WORKERS);
         Log.e("DATABASE OPERATIONS", "Table created");
     }
 

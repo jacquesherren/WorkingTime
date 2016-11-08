@@ -3,6 +3,7 @@ package ch.hevs.androidproject644.js.workingtime.Adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.R;
+import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 /**
@@ -38,7 +40,6 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
             viewHolder.birthdate = (TextView) convertView.findViewById(R.id.tv_birthdate_value);
             viewHolder.sex = (ImageView) convertView.findViewById(R.id.tv_sex);
             viewHolder.active = (TextView) convertView.findViewById(R.id.tv_active);
-            //viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
             convertView.setTag(viewHolder);
         }
 
@@ -47,9 +48,9 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(worker.get_lastname() + " " + worker.get_firstname());
-   //     viewHolder.birthdate.setText(worker.get_birthdate().toString());
+        viewHolder.birthdate.setText(Datas.DATE_FORMATTER.format(worker.get_birthdate().getTime()));
         if(worker.get_sex()=='m')
-            viewHolder.sex.setImageDrawable(new ColorDrawable(Color.CYAN));
+            viewHolder.sex.setImageDrawable(ActivityCompat.getDrawable(getContext(), R.mipmap.ic_male));
         else
             viewHolder.sex.setImageDrawable(new ColorDrawable(Color.MAGENTA));
 

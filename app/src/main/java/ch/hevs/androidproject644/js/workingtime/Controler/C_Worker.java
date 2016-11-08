@@ -32,12 +32,4 @@ public class C_Worker {
         return false;
     }
 
-    public static Date convertStringToDate(String sDate) {
-       // if(!(sDate.equals("")))
-     //       java.sql.Date sqlDate = new java.sql.Date(Long.parseLong(sDate));
-
-
-        //return java.sql.Date.valueOf();
-        return null;
-    }
 }

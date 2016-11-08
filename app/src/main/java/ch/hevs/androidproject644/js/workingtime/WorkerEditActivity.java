@@ -16,9 +16,7 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
@@ -37,7 +35,6 @@ public class WorkerEditActivity extends AppCompatActivity {
     private Worker _worker;
 
     private DatePickerDialog _DatePickerDialog_Birthdate;
-    private SimpleDateFormat _dateFormatter;
     private Calendar _birthdate;
 
     @Override
@@ -48,13 +45,10 @@ public class WorkerEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+
 
         findViewsById();
-
         setDateTimeField();
-
-
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -63,7 +57,7 @@ public class WorkerEditActivity extends AppCompatActivity {
 
             _etFirstname.setText(_worker.get_firstname());
             _etLastname.setText(_worker.get_lastname());
-            _etBirthdate.setText(_worker.get_birthdate().toString());
+            _etBirthdate.setText(Datas.DATE_FORMATTER.format(_worker.get_birthdate().getTime()));
             if (_worker.get_sex() == 'm') {
                 _rbSexM.setChecked(true);
                 _rbSexF.setChecked(false);
@@ -79,7 +73,7 @@ public class WorkerEditActivity extends AppCompatActivity {
         _etFirstname = (EditText) findViewById(R.id.et_firstname);
         _etLastname = (EditText) findViewById(R.id.et_lastname);
         _etBirthdate = (EditText) findViewById(R.id.et_Birthdate);
-        _etBirthdate.setInputType(InputType.TYPE_NULL);
+        _etBirthdate.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         _rbSexF = (RadioButton) findViewById(R.id.rb_female);
         _rbSexM = (RadioButton) findViewById(R.id.rb_male);
@@ -100,7 +94,7 @@ public class WorkerEditActivity extends AppCompatActivity {
                 //Calendar newDate = Calendar.getInstance();
                 _birthdate = Calendar.getInstance();
                 _birthdate.set(year, monthOfYear, dayOfMonth);
-                _etBirthdate.setText(_dateFormatter.format(_birthdate.getTime()));
+                _etBirthdate.setText(Datas.DATE_FORMATTER.format(_birthdate.getTime()));
             }
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -163,7 +157,7 @@ public class WorkerEditActivity extends AppCompatActivity {
             worker.set_firstname(_etFirstname.getText().toString());
             worker.set_sex(C_Worker.controlSex(_rbSexM, _rbSexF));
             worker.set_active(C_Worker.controlSwitch(_swActive));
-            //worker.set_birthdate(_birthdate.getTime());
+            worker.set_birthdate(_birthdate);
 
             WorkerDataSource addWorker = new WorkerDataSource(this);
             addWorker.createWorker(worker);

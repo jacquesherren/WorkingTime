@@ -6,57 +6,71 @@ import android.os.Bundle;
 
 public class DB_Contract  {
 
-    public static abstract class workers implements BaseColumns {   //table name
+    //WORKERS ***
+    public static abstract class workers implements BaseColumns {
+        //table name
         public static final String TABLE_WORKERS = "Workers";
 
         //column from table Worker
         public static final String COLUMN_NAME_WORKER_ID = "idWorker";
         public static final String COLUMN_NAME_FIRSTNAME = "Firstname";
-        public static final String COLUMN_NAME_NAME = "Name";
+        public static final String COLUMN_NAME_LASTNAME = "Name";
         public static final String COLUMN_NAME_BIRTHDATE = "Birthdate";
         public static final String COLUMN_NAME_SEXE = "Sexe";
-      //  public static final String COLUMN_NAME_AVAIABLE = "Avaiability";
+        public static final String COLUMN_NAME_AVAILABLE = "Availability";
 
         //création de la table + les type
-        public static final String CREATE_TABLE_WORKER = "CREATE TABLE "
+        public static final String CREATE_TABLE_WORKERS = "CREATE TABLE "
                 + TABLE_WORKERS + "("
                 + workers.COLUMN_NAME_WORKER_ID + " INTEGER PRIMARY KEY, "
                 + workers.COLUMN_NAME_FIRSTNAME + " TEXT, "
-                + workers.COLUMN_NAME_NAME + " TEXT, "
-                + workers.COLUMN_NAME_BIRTHDATE + " DATETIME ,"
-                + workers.COLUMN_NAME_SEXE + " CHAR" +");";
-               // + workers.COLUMN_NAME_AVAIABLE + "BOOLEAN" + ");";
+                + workers.COLUMN_NAME_LASTNAME + " TEXT, "
+                + workers.COLUMN_NAME_BIRTHDATE + " NUMERIC, "
+                + workers.COLUMN_NAME_SEXE + " TEXT , " //+");";
+                + workers.COLUMN_NAME_AVAILABLE + " INTEGER" + ");";
     }
 
-    public static abstract class company implements BaseColumns {
-        public static final String TABLE_COMPANY = "Company";
+    //COMPANIES ***
+    public static abstract class companies implements BaseColumns {
+        //table name
+        public static final String TABLE_COMPANIES = "Companies";
 
+        //column from table companies
         public static final String COLUMN_NAME_COMPANY_ID = "idCompany";
         public static final String COLUMN_NAME_COMPANY_NAME = "Name";
+        public static final String COLUMN_NAME_AVAILABLE = "Availability";
 
-        public  static final String CREATE_TABLE_COMPANY = "CREATE TABLE "
-                + TABLE_COMPANY + "("
-                + company.COLUMN_NAME_COMPANY_ID + "INTEGER PRIMARY KEY, "
-                + company.COLUMN_NAME_COMPANY_NAME + "TEXT, " + ");";
+        //création de la table + les type
+        public  static final String CREATE_TABLE_COMPANIES = "CREATE TABLE "
+                + TABLE_COMPANIES + "("
+                + companies.COLUMN_NAME_COMPANY_ID + "INTEGER PRIMARY KEY, "
+                + companies.COLUMN_NAME_COMPANY_NAME + " TEXT, "
+                + companies.COLUMN_NAME_AVAILABLE + " INTEGER" + ");";
     }
 
-    public static abstract class activity implements  BaseColumns {
-        public  static final String TABLE_ACTIVITY = "TasksList";
+    //ACTIVITIES ***
+    public static abstract class activities implements BaseColumns {
+        //table name
+        public static final String TABLE_ACTIVITIES = "Activities";
 
-        public static final String COLUMN_NAME_ACTIVITY_ID = "idTaskList";
+        //column from table activities
+        public static final String COLUMN_NAME_ACTIVITY_ID = "idActivity";
         public static final String COLUMN_NAME_ACTIVITY_NAME = "Name";
-        public static final String COLUMN_NAME_ACTIVITY_STATUS = "Status";
+        public static final String COLUMN_NAME_AVAILABLE = "Availability";
 
-        public static final String CREATE_TABLE_TASK = "CREATE TABLE "
-                + TABLE_ACTIVITY + "("
-                + activity.COLUMN_NAME_ACTIVITY_ID + "INTEGER PRIMARY KEY, "
-                + activity.COLUMN_NAME_ACTIVITY_NAME + "TEXT, "
-                + activity.COLUMN_NAME_ACTIVITY_STATUS + "BOOLEAN, " + ");";
+        //création de la table + les type
+        public  static final String CREATE_TABLE_ACTIVITIES = "CREATE TABLE "
+                + TABLE_ACTIVITIES + "("
+                + activities.COLUMN_NAME_ACTIVITY_ID + "INTEGER PRIMARY KEY, "
+                + activities.COLUMN_NAME_ACTIVITY_NAME + " TEXT, "
+                + activities.COLUMN_NAME_AVAILABLE + " INTEGER" + ");";
     }
 
-    public static abstract class task implements BaseColumns {
-        public static final String TABLE_TASK = "Task";
+    public static abstract class tasks implements BaseColumns {
+        //table name
+        public static final String TABLE_TASKS = "Tasks";
 
+        //column from table tasks
         public static final String COLUMN_NAME_TASK_ID = "idTask";
         public static final String COLUMN_NAME_TASK_DATE = "Date";
         public static final String COLUMN_NAME_TASK_DURATION = "Duration";
@@ -65,23 +79,25 @@ public class DB_Contract  {
         public static final String FK_COLUMN_NAME_TASK_WORKERID ="FK_idWorker";
         public static final String FK_COLUMN_NAME_TASK_ACTIVITYID = "FK_idActivity";
 
-        public static final String CREATE_TABLE_TASK = "CREATE TABLE "
-                + TABLE_TASK + "("
-                + task.COLUMN_NAME_TASK_ID + "INTEGER PRIMARY KEY, "
-                + task.COLUMN_NAME_TASK_DATE + "DATE, "
-                + task.COLUMN_NAME_TASK_DURATION + "INTEGER, "
-                + task.COLUMN_NAME_TASK_DESCRIPTION + "TEXT, "
-                + task.FK_COLUMN_NAME_TASK_COMPANYID + "INTEGER, "
-                + task.FK_COLUMN_NAME_TASK_ACTIVITYID + "INTEGER, "
-                + task.FK_COLUMN_NAME_TASK_WORKERID + "INTEGER, "
-                + "FOREIGN KEY (" + task.FK_COLUMN_NAME_TASK_WORKERID + ") REFERENCES " + workers.TABLE_WORKERS + " (" + workers.COLUMN_NAME_WORKER_ID +"), "
-                + "FOREIGN KEY (" + task.FK_COLUMN_NAME_TASK_ACTIVITYID + ") REFERENCES " + activity.TABLE_ACTIVITY + "( " + activity.COLUMN_NAME_ACTIVITY_ID +"), "
-                + "FOREIGN KEY (" + task.FK_COLUMN_NAME_TASK_COMPANYID + ") REFERENCES " + company.TABLE_COMPANY + " (" + company.COLUMN_NAME_COMPANY_ID + "));";
+        //création de la table + les type
+        public static final String CREATE_TABLE_TASKS = "CREATE TABLE "
+                + TABLE_TASKS + "("
+                + tasks.COLUMN_NAME_TASK_ID + " INTEGER PRIMARY KEY, "
+                + tasks.COLUMN_NAME_TASK_DATE + " NUMERIC, "
+                + tasks.COLUMN_NAME_TASK_DURATION + " INTEGER, "
+                + tasks.COLUMN_NAME_TASK_DESCRIPTION + " TEXT, "
+                + tasks.FK_COLUMN_NAME_TASK_COMPANYID + " INTEGER, "
+                + tasks.FK_COLUMN_NAME_TASK_ACTIVITYID + " INTEGER, "
+                + tasks.FK_COLUMN_NAME_TASK_WORKERID + " INTEGER, "
+                + "FOREIGN KEY (" + tasks.FK_COLUMN_NAME_TASK_WORKERID + ") REFERENCES " + workers.TABLE_WORKERS + " (" + workers.COLUMN_NAME_WORKER_ID +"), "
+                + "FOREIGN KEY (" + tasks.FK_COLUMN_NAME_TASK_ACTIVITYID + ") REFERENCES " + activities.TABLE_ACTIVITIES + "( " + activities.COLUMN_NAME_ACTIVITY_ID +"), "
+                + "FOREIGN KEY (" + tasks.FK_COLUMN_NAME_TASK_COMPANYID + ") REFERENCES " + companies.TABLE_COMPANIES + " (" + companies.COLUMN_NAME_COMPANY_ID + "));";
 
     }
 
-    public static  abstract class time implements  BaseColumns{
-        public static final String TABLE_TIME = "Time";
+    public static  abstract class times implements  BaseColumns{
+        //table name
+        public static final String TABLE_TIMES = "Time";
 
         public static final String COLUMN_NAME_TIME_ID = "idTime";
         public static final String COLUMN_NAME_TIME_STARTTIME = "Start";
@@ -90,13 +106,13 @@ public class DB_Contract  {
         public static final String FK_COLUMN_NAME_TIME_IDTASK = "FK_idTask";
 
         public static final String CREATE_TABLE_TIME = "CREATE TABLE "
-                + TABLE_TIME + "("
-                + time.COLUMN_NAME_TIME_ID + "INTEGER PRIMARY KEY, "
-                + time.COLUMN_NAME_TIME_STARTTIME + "TIME, "
-                + time.COLUMN_NAME_TIME_ENDTIME + "TIME, "
-                + time.COLUMN_NAME_TIME_DURATION + "INTEGER, "
-                + time.FK_COLUMN_NAME_TIME_IDTASK + "INTEGER, "
-                + "FOREIGN KEY (" + time.FK_COLUMN_NAME_TIME_IDTASK +") REFERENCES " + task.TABLE_TASK + " (" + task.COLUMN_NAME_TASK_ID + "));";
+                + TABLE_TIMES + "("
+                + times.COLUMN_NAME_TIME_ID + "INTEGER PRIMARY KEY, "
+                + times.COLUMN_NAME_TIME_STARTTIME + "NUMERIC, "
+                + times.COLUMN_NAME_TIME_ENDTIME + "NUMERIC, "
+                + times.COLUMN_NAME_TIME_DURATION + "INTEGER, "
+                + times.FK_COLUMN_NAME_TIME_IDTASK + "INTEGER, "
+                + "FOREIGN KEY (" + times.FK_COLUMN_NAME_TIME_IDTASK +") REFERENCES " + tasks.TABLE_TASKS + " (" + tasks.COLUMN_NAME_TASK_ID + "));";
 
     }
 

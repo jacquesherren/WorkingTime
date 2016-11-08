@@ -3,6 +3,7 @@ package ch.hevs.androidproject644.js.workingtime.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.sql.Date;
+import java.util.Calendar;
 
 /**
  * Created by Jacques on 26.10.2016.
@@ -12,12 +13,12 @@ public class Worker implements Parcelable {
     private int _id;
     private String _lastname;
     private String _firstname;
-    private Date _birthdate;
+    private Calendar _birthdate;
     private char _sex;
     private boolean _active;
 
 
-    public Worker(int id,String lastname, String firstname, Date birthdate, char sex, boolean active){
+    public Worker(int id,String lastname, String firstname, Calendar birthdate, char sex, boolean active){
         this._id = id;
         this._lastname=lastname;
         this._firstname=firstname;
@@ -31,31 +32,25 @@ public class Worker implements Parcelable {
 
     }
 
+    // SETTERS ***
     public void set_id(int _id) {
         this._id = _id;
     }
-
     public void set_lastname(String _lastname) {
         this._lastname = _lastname;
     }
-
     public void set_firstname(String _firstname) {
         this._firstname = _firstname;
     }
-
-    public void set_birthdate(Date _birthdate) {
-        this._birthdate = _birthdate;
-    }
-
+    public void set_birthdate(Calendar _birthdate) { this._birthdate = _birthdate;  }
     public void set_sex(char _sex) {
         this._sex = _sex;
     }
-
     public void set_active(boolean _active) {
         this._active = _active;
     }
 
-    // GETTERS
+    // GETTERS ***
     public int get_id() { return _id; }
     public String get_lastname() {
         return _lastname;
@@ -63,7 +58,7 @@ public class Worker implements Parcelable {
     public String get_firstname() {
         return _firstname;
     }
-    public Date get_birthdate() {
+    public Calendar get_birthdate() {
         return _birthdate;
     }
     public char get_sex() {
@@ -71,6 +66,8 @@ public class Worker implements Parcelable {
     }
     public boolean is_active() { return _active;  }
 
+
+    // Methods ***
     @Override
     public int describeContents() {
         return 0;
@@ -92,8 +89,8 @@ public class Worker implements Parcelable {
         this._id = in.readInt();
         this._lastname= in.readString();
         this._firstname= in.readString();
-        this._birthdate= java.sql.Date.valueOf(in.readString());
-
+        //this._birthdate= (in.readString());
+        this._birthdate = (Calendar) in.readValue(getClass().getClassLoader());
         char[] myCharArr = new char[1];
         in.readCharArray(myCharArr);
         this._sex= myCharArr[0];
@@ -107,12 +104,28 @@ public class Worker implements Parcelable {
         dest.writeInt(_id);
         dest.writeString(_firstname);
         dest.writeString(_lastname);
-        dest.writeString(_birthdate.toString());
+        dest.writeValue(_birthdate);
 
         char[] myCharArr = {_sex}; //= new boolean[1];
         dest.writeCharArray(myCharArr);
 
         boolean[] myBooleanArr = {_active}; //= new boolean[1];
         dest.writeBooleanArray(myBooleanArr);
+    }
+
+    public void set_birthdate(long birthdate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(birthdate);
+        this._birthdate=calendar;
+    }
+    public int is_active_int() {
+        if(this._active)
+            return 1;
+        return 0;
+    }
+    public void set_active_int(int active) {
+        if(active==1)
+            this._active=true;
+        this._active=false;
     }
 }
