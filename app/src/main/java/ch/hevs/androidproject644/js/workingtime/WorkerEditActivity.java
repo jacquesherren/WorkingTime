@@ -58,10 +58,10 @@ public class WorkerEditActivity extends AppCompatActivity {
             _etFirstname.setText(_worker.get_firstname());
             _etLastname.setText(_worker.get_lastname());
             _etBirthdate.setText(Datas.DATE_FORMATTER.format(_worker.get_birthdate().getTime()));
-            if (_worker.get_sex() == 'm') {
+            if (_worker.get_sex() == 'M') {
                 _rbSexM.setChecked(true);
                 _rbSexF.setChecked(false);
-            } else {
+            } else if (_worker.get_sex() == 'F') {
                 _rbSexM.setChecked(false);
                 _rbSexF.setChecked(true);
             }
@@ -139,39 +139,51 @@ public class WorkerEditActivity extends AppCompatActivity {
             Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT)
                     .show();
 
+            setWorker();
 
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("result",_worker);
-            setResult(WorkerEditActivity.RESULT_OK,returnIntent);
-            finish();
-
-            //String [] workers = getResources().getStringArray(R.array.)
+            WorkerDataSource updateWorker = new WorkerDataSource(this);
+            updateWorker.updateWorker(_worker);
 
         }
         else {
             Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT)
                     .show();
 
-            Worker worker = new Worker();
-            worker.set_lastname(_etLastname.getText().toString());
-            worker.set_firstname(_etFirstname.getText().toString());
-            worker.set_sex(C_Worker.controlSex(_rbSexM, _rbSexF));
-            worker.set_active(C_Worker.controlSwitch(_swActive));
-            worker.set_birthdate(_birthdate);
+            _worker = new Worker();
+            setWorker();
 
             WorkerDataSource addWorker = new WorkerDataSource(this);
-            addWorker.createWorker(worker);
+            addWorker.createWorker(_worker);
         }
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",_worker);
+        setResult(WorkerEditActivity.RESULT_OK,returnIntent);
+        finish();
     }
     private  void delete(){
         if(_worker!=null){
             Toast.makeText(this, "Deleting this worker...", Toast.LENGTH_SHORT)
                     .show();
+            WorkerDataSource deleteWorker = new WorkerDataSource(this);
+            deleteWorker.deleteWorker(_worker);
         }
         else {
             Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
                     .show();
         }
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",_worker);
+        setResult(WorkerEditActivity.RESULT_OK,returnIntent);
+        finish();
+    }
+
+    private void setWorker(){
+        _worker.set_lastname(_etLastname.getText().toString());
+        _worker.set_firstname(_etFirstname.getText().toString());
+        _worker.set_sex(C_Worker.controlSex(_rbSexM, _rbSexF));
+        _worker.set_active(C_Worker.controlSwitch(_swActive));
+        if(!(_birthdate==null))
+            _worker.set_birthdate(_birthdate);
     }
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?

@@ -18,12 +18,10 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
  */
 
 public class WorkerDataSource {
-    private Context context;
     private DB_Class _dbclass;
 
     public WorkerDataSource(Context context) {
         _dbclass = DB_Class.getInstance(context);
-        this.context = context;
     }
 
     //insert a new worker
@@ -40,6 +38,22 @@ public class WorkerDataSource {
         id = db.insert(DB_Contract.workers.TABLE_WORKERS, null, values);
         Log.e("WORKER CREATED", "test created");
         return id;
+    }
+
+    // Updating single contact
+    public int updateWorker(Worker worker) {
+        SQLiteDatabase db = _dbclass.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DB_Contract.workers.COLUMN_NAME_FIRSTNAME, worker.get_firstname());
+        values.put(DB_Contract.workers.COLUMN_NAME_LASTNAME, worker.get_lastname());
+        values.put(DB_Contract.workers.COLUMN_NAME_BIRTHDATE, worker.get_birthdate().getTimeInMillis());
+        values.put(DB_Contract.workers.COLUMN_NAME_SEXE, Character.toString(worker.get_sex()));
+        values.put(DB_Contract.workers.COLUMN_NAME_AVAILABLE, worker.is_active_int());
+
+        // updating row
+        return db.update(DB_Contract.workers.TABLE_WORKERS, values, DB_Contract.workers.COLUMN_NAME_WORKER_ID + " = ?",
+                new String[] { String.valueOf(worker.get_id()) });
     }
 
     public Worker getWorkerByID(long id) {
@@ -77,8 +91,10 @@ public class WorkerDataSource {
 }
 
     public void deleteWorker(Worker worker) {
-        //db.delete(DB_Contract.workers.TABLE_WORKERS, DB_Contract.workers.COLUMN_NAME_WORKER_ID, new String[]{String.valueOf(worker.get_id())});
-        //db.close();
+        SQLiteDatabase db = _dbclass.getWritableDatabase();
+        db.delete(DB_Contract.workers.TABLE_WORKERS, DB_Contract.workers.COLUMN_NAME_WORKER_ID + " = ?",
+                new String[] { String.valueOf(worker.get_id()) });
+        db.close();
     }
 
     private Worker cursorToWorker(Cursor cursor) {

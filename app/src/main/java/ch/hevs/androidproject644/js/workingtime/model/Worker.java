@@ -119,13 +119,14 @@ public class Worker implements Parcelable {
         this._birthdate=calendar;
     }
     public int is_active_int() {
-        if(this._active)
+        if(this._active==true)
             return 1;
         return 0;
     }
     public void set_active_int(int active) {
         if(active==1)
             this._active=true;
-        this._active=false;
+        else if(active==0)
+            this._active=false;
     }
 }

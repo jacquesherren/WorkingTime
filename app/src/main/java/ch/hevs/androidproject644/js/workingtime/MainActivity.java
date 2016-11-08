@@ -1,6 +1,5 @@
 package ch.hevs.androidproject644.js.workingtime;
 
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,16 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.model.ActivitiesManager;
 import ch.hevs.androidproject644.js.workingtime.model.CompaniesManager;
-import ch.hevs.androidproject644.js.workingtime.model.Worker;
-import ch.hevs.androidproject644.js.workingtime.model.WorkersManager;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Spinner _sp_chooseWorker;
@@ -36,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        WorkersManager.set_AllWorkers();
+
         ActivitiesManager.set_AllActivities();
         CompaniesManager.set_AllCompanies();
         setContentView(R.layout.main_activity);

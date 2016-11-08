@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
@@ -50,11 +51,7 @@ public class WorkerViewActivity extends AppCompatActivity {
 
             _tv_firstname_lastname.setText(_worker.get_firstname() + " " +  _worker.get_lastname());
             _tv_birthdate_value.setText(Datas.DATE_FORMATTER.format(_worker.get_birthdate().getTime()));
-
-            if(_worker.get_sex()=='m')
-                _image_Sex.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.mipmap.ic_male));
-            else if(_worker.get_sex()=='f')
-                _image_Sex.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.mipmap.ic_female));
+            _image_Sex.setImageDrawable(C_Worker.get_ImageSex(this,_worker.get_sex()));
 
             if(_worker.is_active()==true)
                 _tv_Active.setText("Available");
@@ -62,6 +59,8 @@ public class WorkerViewActivity extends AppCompatActivity {
                 _tv_Active.setText("Unavailable");
         }
     }
+
+    
 
     private void findViewsById(){
         _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);

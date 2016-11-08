@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
@@ -22,10 +23,11 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
  */
 
 public class WorkerAdapter extends ArrayAdapter<Worker> {
-
+    private Context _context;
     public WorkerAdapter(Context context, List<Worker> workers) {
 
         super(context, 0, workers);
+        this._context=context;
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
@@ -43,16 +45,16 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
             convertView.setTag(viewHolder);
         }
 
-        //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
+        //getItem(position) va récupérer l'item [position] de la List<Worker> worker
         Worker worker = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(worker.get_lastname() + " " + worker.get_firstname());
         viewHolder.birthdate.setText(Datas.DATE_FORMATTER.format(worker.get_birthdate().getTime()));
-        if(worker.get_sex()=='m')
-            viewHolder.sex.setImageDrawable(ActivityCompat.getDrawable(getContext(), R.mipmap.ic_male));
-        else
-            viewHolder.sex.setImageDrawable(new ColorDrawable(Color.MAGENTA));
+        //if(worker.get_sex()=='m')
+        viewHolder.sex.setImageDrawable(C_Worker.get_ImageSex(_context,worker.get_sex()));
+        //else
+        //    viewHolder.sex.setImageDrawable(new ColorDrawable(Color.MAGENTA));
 
         if(worker.is_active()==true)
             viewHolder.active.setText("Available");
