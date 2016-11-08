@@ -12,21 +12,45 @@ public class Company implements Parcelable {
     private String _name;
     private boolean _active;
 
-    public Company(int id , String name, boolean active) {
+    public Company(int id, String name, boolean active) {
         this._id = id;
         this._name = name;
         this._active = active;
     }
 
+    public void set_name(String _name) {
+        this._name = _name;
+    }
+
+    public void set_active(boolean _active) {
+        this._active = _active;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public Company() {
+
+    }
+
     // GETTERS
-    public int get_id() { return _id; }
-    public String get_name() { return _name;  }
+    public int get_id() {
+        return _id;
+    }
+
+    public String get_name() {
+        return _name;
+    }
+
     public boolean is_active() {
         return _active;
     }
 
     @Override
-    public int describeContents() {  return 0; }
+    public int describeContents() {
+        return 0;
+    }
 
     public static final Creator<Company> CREATOR = new Creator<Company>() {
         @Override
@@ -40,18 +64,31 @@ public class Company implements Parcelable {
         }
     };
 
-    protected Company(Parcel in){
+    protected Company(Parcel in) {
         this._id = in.readInt();
-        this._name= in.readString();
+        this._name = in.readString();
         boolean[] myBooleanArr = new boolean[1];
         in.readBooleanArray(myBooleanArr);
         _active = myBooleanArr[0];
     }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(_id);
         dest.writeString(_name.toString());
         boolean[] myBooleanArr = {_active}; //= new boolean[1];
         dest.writeBooleanArray(myBooleanArr);
+    }
+
+    public int is_active_int() {
+        if (this._active)
+            return 1;
+        return 0;
+
+    }
+    public void set_active_int(int active) {
+        if(active==1)
+            this._active=true;
+        this._active=false;
     }
 }

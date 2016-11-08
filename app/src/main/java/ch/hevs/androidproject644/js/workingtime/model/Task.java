@@ -29,6 +29,11 @@ public class Task implements Parcelable{
         this._activity=activity;
     }
 
+    public Task()
+    {
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -89,4 +94,33 @@ public class Task implements Parcelable{
     public Activity get_activity() { return _activity;  }
 
     public static Creator<Task> getCREATOR() { return CREATOR;  }
+
+    public void set_date(Date _date) {
+        this._date = _date;
+    }
+
+    public void set_duration(int _duration) {
+        this._duration = _duration;
+    }
+
+    public void set_description(String _description) {
+        this._description = _description;
+    }
+
+    public void set_worker(Worker _worker) {
+        this._worker = _worker;
+    }
+
+    public void set_company(Company _company) {
+        this._company = _company;
+    }
+
+    public void set_activity(Activity _activity) {
+        this._activity = _activity;
+    }
+
+    public void set_id(int _id) {
+
+        this._id = _id;
+    }
 }

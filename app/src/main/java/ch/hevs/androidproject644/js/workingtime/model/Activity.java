@@ -18,6 +18,11 @@ public class Activity implements Parcelable {
         this._active = active;
     }
 
+    public Activity()
+    {
+
+    }
+
     // GETTERS
     public int get_id() { return _id; }
     public String get_name() {
@@ -55,5 +60,29 @@ public class Activity implements Parcelable {
         dest.writeString(_name.toString());
         boolean[] myBooleanArr = {_active}; //= new boolean[1];
         dest.writeBooleanArray(myBooleanArr);
+    }
+
+    public int is_active_int() {
+        if (this._active)
+            return 1;
+        return 0;
+
+    }
+    public void set_active_int(int active) {
+        if(active==1)
+            this._active=true;
+        this._active=false;
+    }
+
+    public void set_name(String _name) {
+        this._name = _name;
+    }
+
+    public void set_active(boolean _active) {
+        this._active = _active;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 }
