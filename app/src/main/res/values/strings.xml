@@ -74,4 +74,6 @@
     <string name="title_activity_time_recording">TimeRecordingActivity</string>
     <string name="btn_createTask">Finalize and create task</string>
     <string name="btn_StartToWork">Start to work</string>
+    <string name="tgb_WorkBreak_OFF">Let\'s go working</string>
+    <string name="tgb_WorkBreak_ON">Let\'s take a break</string>
 </resources>

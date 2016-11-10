@@ -89,7 +89,6 @@ public class Worker implements Parcelable {
         this._id = in.readInt();
         this._lastname= in.readString();
         this._firstname= in.readString();
-        //this._birthdate= (in.readString());
         this._birthdate = (Calendar) in.readValue(getClass().getClassLoader());
         char[] myCharArr = new char[1];
         in.readCharArray(myCharArr);

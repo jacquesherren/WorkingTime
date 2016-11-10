@@ -8,21 +8,57 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ch.hevs.androidproject644.js.workingtime.TimeRecordingActivityFragment"
-    tools:showIn="@layout/time_recording_activity"
-    android:background="#999999">
+    tools:context="ch.hevs.androidproject644.js.workingtime.TimeRecordingActivityFragment_Infos"
+    tools:showIn="@layout/time_recording_activity">
 
     <RelativeLayout
         android:id="@+id/layout_informations_task"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="240dp"
         android:orientation="vertical"        >
-
+        <TextView
+            android:id="@+id/tv_date_name"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:text="Date"
+            />
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_date_name"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/text_size_big"
+            android:text="07.11.2016"
+            />
+        <TextView
+            android:id="@+id/tv_duration_name"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Duration"
+            />
+        <TextView
+            android:id="@+id/tv_duration_value"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_duration_name"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_big"
+            android:text="00h00"/>
         <ImageView
             android:id="@+id/image_worker"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+
+            android:layout_below="@id/tv_duration_value"
             android:src="@drawable/ic_people_black_24dp"/>
         <TextView
             android:id="@+id/tv_worker_value"

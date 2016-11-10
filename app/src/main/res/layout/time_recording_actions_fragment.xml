@@ -7,9 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ch.hevs.androidproject644.js.workingtime.TimeRecordingActivityFragment"
-    tools:showIn="@layout/time_recording_activity"
-    android:background="#124589">
+    tools:context="ch.hevs.androidproject644.js.workingtime.TimeRecordingActivityFragment_Infos"
+    tools:showIn="@layout/time_recording_activity">
 
 
     <LinearLayout
@@ -21,16 +20,18 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
         <ImageView
+            android:id="@+id/img_WorkBreak"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            />
-        <Button
-            android:id="@+id/btn_StartToWork"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_break" />
+        <ToggleButton
+            android:id="@+id/tgb_WorkBreak"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_StartToWork"
-            android:layout_gravity="end"
-            android:background="@color/colorActionOK"/>
+            android:layout_height="64dp"
+            android:textOff="@string/tgb_WorkBreak_OFF"
+            android:textOn="@string/tgb_WorkBreak_ON"
+            android:layout_gravity="end" />
 
     </LinearLayout>
 

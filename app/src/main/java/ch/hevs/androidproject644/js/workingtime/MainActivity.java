@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 
 import ch.hevs.androidproject644.js.workingtime.model.ActivitiesManager;
 import ch.hevs.androidproject644.js.workingtime.model.CompaniesManager;
+import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button _btn_newWorker;
     private Button _btn_newCompany;
     private Button _btn_newActivity;
+    private Button _btn_ReadyToStart;
+    private Button _btn_EndSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        _sp_chooseWorker = (Spinner) findViewById(R.id.sp_chooseWorker);
-        _sp_chooseCompany = (Spinner) findViewById(R.id.sp_chooseCompany);
-        _sp_chooseActivity = (Spinner) findViewById(R.id.sp_chooseActivity);
-        _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);
-        _btn_newCompany = (Button) findViewById(R.id.btn_newCompany);
-        _btn_newActivity = (Button) findViewById(R.id.btn_newActivity);
+        findViewById();
+        setListener();
+
 
         spinner_filler(_sp_chooseWorker.getId(),R.array.workers);
         spinner_filler(_sp_chooseCompany.getId(), R.array.companies);
@@ -57,6 +58,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setListener() {
+        _btn_ReadyToStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO : Create Task and set id (When?)
+                Intent intent = new Intent(MainActivity.this, TimeRecordingActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                MainActivity.this.startActivityForResult(intent,1);
+
+            }
+        });
+        _btn_EndSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    private void findViewById() {
+        _sp_chooseWorker = (Spinner) findViewById(R.id.sp_chooseWorker);
+        _sp_chooseCompany = (Spinner) findViewById(R.id.sp_chooseCompany);
+        _sp_chooseActivity = (Spinner) findViewById(R.id.sp_chooseActivity);
+        _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);
+        _btn_newCompany = (Button) findViewById(R.id.btn_newCompany);
+        _btn_newActivity = (Button) findViewById(R.id.btn_newActivity);
+
+        _btn_ReadyToStart = (Button) findViewById(R.id.btn_ReadyToStart);
+        _btn_EndSave = (Button) findViewById(R.id.btn_EndSave);
     }
 
     public void spinner_filler(int spinner_name, int array_name)
