@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         _btn_EndSave = (Button) findViewById(R.id.btn_EndSave);
     }
 
+
+
     public void spinner_filler(int spinner_name, int array_name)
     {
         Spinner spinner = (Spinner) findViewById(spinner_name);

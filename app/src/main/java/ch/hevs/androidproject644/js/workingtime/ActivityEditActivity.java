@@ -87,7 +87,8 @@ public class ActivityEditActivity extends AppCompatActivity {
 
             setActivity();
 
-            req.updateActivity(_activity);
+            ActivityDataSource updateActivity = new ActivityDataSource(this);
+            updateActivity.updateActivity(_activity);
         }
         else {
             Toast.makeText(this, "Creating a new activity...", Toast.LENGTH_SHORT)
@@ -96,7 +97,8 @@ public class ActivityEditActivity extends AppCompatActivity {
             _activity = new Activity();
             setActivity();
 
-            req.createActivity(_activity);
+            ActivityDataSource addActivity = new ActivityDataSource(this);
+            addActivity.createActivity(_activity);
         }
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result",_activity);
@@ -110,7 +112,8 @@ public class ActivityEditActivity extends AppCompatActivity {
             Toast.makeText(this, "Deleting this activity...", Toast.LENGTH_SHORT)
                     .show();
 
-            req.deleteActivity(_activity);
+            ActivityDataSource deleteActivity = new ActivityDataSource(this);
+            deleteActivity.deleteActivity(_activity);
         }
         else {
             Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)

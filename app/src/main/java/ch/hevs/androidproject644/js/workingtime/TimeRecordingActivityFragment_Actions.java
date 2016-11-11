@@ -10,6 +10,8 @@ import android.widget.ToggleButton;
 
 import ch.hevs.androidproject644.js.workingtime.R;
 
+import static ch.hevs.androidproject644.js.workingtime.R.id.tgb_WorkBreak;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -19,6 +21,7 @@ public class TimeRecordingActivityFragment_Actions extends Fragment {
     public TimeRecordingActivityFragment_Actions() {
 
     }
+
 
 
     @Override
