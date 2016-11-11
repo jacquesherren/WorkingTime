@@ -1,6 +1,7 @@
 package ch.hevs.androidproject644.js.workingtime;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class CompaniesListActivity extends AppCompatActivity {
 
     private ListView _lvCompanies;
     List<Company> _companies = new ArrayList<Company>();
+    Resources _res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +37,14 @@ public class CompaniesListActivity extends AppCompatActivity {
         CompanyDataSource getAll = new CompanyDataSource(this);
         _companies = getAll.getAllCompanies();
 
-        CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies);
+        CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies,_res);
         _lvCompanies.setAdapter(adapter);
 
         _lvCompanies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies);
+                CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies,_res);
                 Company c = adapter.getItem(position);
 
                 Intent intent = new Intent(CompaniesListActivity.this, CompanyViewActivity.class);

@@ -25,28 +25,28 @@ public class CompanyAdapter extends ArrayAdapter<Company> {
     public Resources _res;
     LayoutInflater _inflater;
 
-    private ArrayList<Company> _companies;
+    private List<Company> _companies;
 
-    public CompanyAdapter(Context context, List<Company> companies) {
+    public CompanyAdapter(Context context, List<Company> companies, Resources resLocal) {
         super(context, 0, companies);
-    }
 
-    public CompanyAdapter(MainActivity act, int resId, ArrayList<Company> workers, Resources resLocal){
-        super(act, resId, workers);
+        this._context = context;
+        this._companies = companies;
+        this._res  = resLocal;
 
-        this._act = act;
-        this._companies = workers;
-        this._res  =resLocal;
-
-        _inflater = (LayoutInflater)act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        _inflater = (LayoutInflater.from(context));
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
         return getCustomView(position, convertView, parent);
     }
 
-    public View getDropDownView(int position, View convertView,ViewGroup parent) {
+    @Override
+    public void setDropDownViewResource(int resource) {
+        super.setDropDownViewResource(resource);
+    }
+
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
         return getCustomView(position, convertView, parent);
     }
 

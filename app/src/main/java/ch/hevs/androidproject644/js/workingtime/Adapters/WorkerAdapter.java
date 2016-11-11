@@ -32,24 +32,16 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
     public Resources _res;
     LayoutInflater _inflater;
 
-    private ArrayList<Worker> _workers;
+    private List<Worker> _workers;
 
-    public WorkerAdapter(Context context, List<Worker> workers) {
-
+    public WorkerAdapter(Context context, List<Worker> workers,Resources resLocal) {
         super(context, 0, workers);
-        this._context=context;
 
-
-    }
-    public WorkerAdapter(MainActivity act, int resId, ArrayList<Worker> workers, Resources resLocal){
-        super(act, resId, workers);
-
-        this._act = act;
+        this._context = context;
         this._workers = workers;
-        this._res  =resLocal;
+        this._res  = resLocal;
 
-        _inflater = (LayoutInflater)act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        _inflater = (LayoutInflater.from(context));
     }
 
     public View getCustomView(int position, View convertView, ViewGroup parent){
@@ -73,10 +65,7 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(worker.get_lastname() + " " + worker.get_firstname());
         viewHolder.birthdate.setText(Datas.DATE_FORMATTER.format(worker.get_birthdate().getTime()));
-        //if(worker.get_sex()=='m')
         viewHolder.sex.setImageDrawable(C_Worker.get_ImageSex(_context,worker.get_sex()));
-        //else
-        //    viewHolder.sex.setImageDrawable(new ColorDrawable(Color.MAGENTA));
 
         if(worker.is_active()==true)
             viewHolder.active.setText("Available");
@@ -88,6 +77,11 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
     @Override
     public View getDropDownView(int position, View convertView,ViewGroup parent) {
         return getCustomView(position, convertView, parent);
+    }
+
+    @Override
+    public void setDropDownViewResource(int resource) {
+        super.setDropDownViewResource(resource);
     }
 
     public View getView(int position, View convertView, ViewGroup parent){

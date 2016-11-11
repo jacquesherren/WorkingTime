@@ -25,23 +25,19 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
     public Resources _res;
     LayoutInflater _inflater;
 
-    private ArrayList<Activity> _activities;
+    private List<Activity> _activities;
 
 
-    public ActivityAdapter(Context context, List<Activity> activities) {
+    public ActivityAdapter(Context context, List<Activity> activities,Resources resLocal) {
         super(context, 0, activities);
-    }
 
-    public ActivityAdapter(MainActivity act, int resId, ArrayList<Activity> activities, Resources resLocal){
-        super(act, resId, activities);
-
-        this._act = act;
+        this._context = context;
         this._activities = activities;
-        this._res  =resLocal;
+        this._res  = resLocal;
 
-        _inflater = (LayoutInflater)act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        _inflater = (LayoutInflater.from(context));
     }
+
 
     public View getCustomView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
@@ -77,7 +73,10 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
     public View getDropDownView(int position, View convertView,ViewGroup parent) {
         return getCustomView(position, convertView, parent);
     }
-
+    @Override
+    public void setDropDownViewResource(int resource) {
+        super.setDropDownViewResource(resource);
+    }
     private class ActivitiyViewHolder{
         private  TextView name;
         private TextView active;

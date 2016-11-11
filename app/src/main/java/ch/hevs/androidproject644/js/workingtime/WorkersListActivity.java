@@ -1,6 +1,7 @@
 package ch.hevs.androidproject644.js.workingtime;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,8 @@ public class WorkersListActivity extends AppCompatActivity {
 
     private ListView _lvWorkers;
     List<Worker> _workers = new ArrayList<Worker>();
+    Resources _res;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +38,14 @@ public class WorkersListActivity extends AppCompatActivity {
         WorkerDataSource getAll = new WorkerDataSource(this);
         _workers = getAll.getAllWorkers();
 
-        WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers);
+        WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers,_res);
         _lvWorkers.setAdapter(adapter);
 
         _lvWorkers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers);
+                WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers,_res);
                 Worker w = adapter.getItem(position);
 
                 Intent intent = new Intent(WorkersListActivity.this, WorkerViewActivity.class);

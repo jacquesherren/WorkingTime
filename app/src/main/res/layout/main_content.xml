@@ -36,14 +36,19 @@
                 android:id="@+id/sp_chooseWorker"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"></Spinner>
+                android:layout_weight="1"
+                android:prompt="@string/choose_worker"
+                android:tag="dfsdfsdfdsf ds fs"
+                android:contentDescription="sdsdfd dsf df dsf ">
+
+            </Spinner>
 
             <Button
                 android:id="@+id/btn_newWorker"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="@drawable/ic_add_black_24dp"
-                android:elevation="0dp" />/>
+                android:elevation="0dp" />
         </LinearLayout>
 
         <TextView
@@ -64,7 +69,8 @@
                 android:id="@+id/sp_chooseCompany"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"></Spinner>
+                android:layout_weight="1"
+                android:prompt="@string/choose_company"></Spinner>
 
             <Button
                 android:id="@+id/btn_newCompany"
@@ -91,7 +97,8 @@
                 android:id="@+id/sp_chooseActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"></Spinner>
+                android:layout_weight="1"
+                android:prompt="@string/choose_activity"></Spinner>
             <Button
                 android:id="@+id/btn_newActivity"
                 android:layout_width="36dp"

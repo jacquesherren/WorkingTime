@@ -1,6 +1,7 @@
 package ch.hevs.androidproject644.js.workingtime;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class ActivitiesListActivity extends AppCompatActivity {
 
     private ListView _lvActivities;
     List<Activity> _activities = new ArrayList<Activity>();
+    Resources _res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,14 @@ public class ActivitiesListActivity extends AppCompatActivity {
         ActivityDataSource getAll = new ActivityDataSource(this);
         _activities = getAll.getAllActivities();
 
-        ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities);
+        ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities,_res);
         _lvActivities.setAdapter(adapter);
 
         _lvActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities);
+                ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities,_res);
                 Activity a = adapter.getItem(position);
 
                 Intent intent = new Intent(ActivitiesListActivity.this, ActivityViewActivity.class);
