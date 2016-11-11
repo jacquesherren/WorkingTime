@@ -34,7 +34,7 @@ public class ActivitiesListActivity extends AppCompatActivity {
 
         _lvActivities = (ListView) findViewById(R.id.lv_activities);
         ActivityDataSource getAll = new ActivityDataSource(this);
-        _activities = getAll.getAllWorkers();
+        _activities = getAll.getAllActivities();
 
         ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities);
         _lvActivities.setAdapter(adapter);

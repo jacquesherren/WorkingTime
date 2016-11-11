@@ -1,6 +1,7 @@
 package ch.hevs.androidproject644.js.workingtime;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,16 +12,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ch.hevs.androidproject644.js.workingtime.Adapters.ActivityAdapter;
+import ch.hevs.androidproject644.js.workingtime.Adapters.CompanyAdapter;
+import ch.hevs.androidproject644.js.workingtime.Adapters.WorkerAdapter;
+import ch.hevs.androidproject644.js.workingtime.DB.ActivityDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.CompanyDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
+import ch.hevs.androidproject644.js.workingtime.model.Activity;
+import ch.hevs.androidproject644.js.workingtime.model.Company;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
+import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     private Spinner _sp_chooseWorker;
     private Spinner _sp_chooseCompany;
     private Spinner _sp_chooseActivity;
@@ -29,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button _btn_newActivity;
     private Button _btn_ReadyToStart;
     private Button _btn_EndSave;
+
+    private List<Worker> _workers = new ArrayList<Worker>();
+    private List<Activity> _activities = new ArrayList<Activity>();
+    private List<Company> _companies = new ArrayList<Company>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +62,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         findViewById();
         setListener();
 
+        WorkerDataSource wreq = new WorkerDataSource(this);
+        _workers = wreq.getAllWorkers();
 
-        spinner_filler(_sp_chooseWorker.getId(),R.array.workers);
-        spinner_filler(_sp_chooseCompany.getId(), R.array.companies);
-        spinner_filler(_sp_chooseActivity.getId(), R.array.activities);
+        ActivityDataSource areq = new ActivityDataSource(this);
+        _activities = areq.getAllActivities();
+
+        CompanyDataSource creq = new CompanyDataSource(this);
+        _companies = creq.getAllCompanies();
+
+        // Resources passed to adapter to get image
+        Resources res = getResources();
+
+
+
+        // Create custom adapter object ( see below CustomAdapter.java )
+        WorkerAdapter wAdapter = new WorkerAdapter(this,_workers);
+        ActivityAdapter aAdapter = new ActivityAdapter(this,_activities);
+        CompanyAdapter cAdapter = new CompanyAdapter(this, _companies);
+
+        // Set adapter to spinner
+        _sp_chooseWorker.setAdapter(wAdapter);
+        _sp_chooseActivity.setAdapter(aAdapter);
+        _sp_chooseCompany.setAdapter(cAdapter);
+
+        setListener();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 // TODO : Create Task and set id (When?)
                 Task task = new Task();
+
                 Intent intent = new Intent(MainActivity.this, TimeRecordingActivity.class);
                 intent.putExtra(Datas.MODE, Datas.NEW);
                 MainActivity.this.startActivityForResult(intent,1);
@@ -74,6 +116,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
 
             }
+        });
+
+        // Listener called when spinner item selected
+        _sp_chooseCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
+                CompanyAdapter adapter = new CompanyAdapter(MainActivity.this, _companies);
+                Company c = adapter.getItem(position);
+
+                Toast.makeText(
+                        getApplicationContext(),c.toString(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
         });
     }
 
@@ -159,4 +219,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

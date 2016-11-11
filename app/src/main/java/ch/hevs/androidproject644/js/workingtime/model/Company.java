@@ -90,4 +90,13 @@ public class Company implements Parcelable {
         else if(active==0)
             this._active=false;
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "_id=" + _id +
+                ", _name='" + _name + '\'' +
+                ", _active=" + _active +
+                '}';
+    }
 }

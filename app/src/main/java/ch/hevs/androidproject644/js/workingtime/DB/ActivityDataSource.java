@@ -59,7 +59,7 @@ public class ActivityDataSource {
         return null;
     }
 
-    public List<Activity> getAllWorkers()
+    public List<Activity> getAllActivities()
     {
         List<Activity> activities = new ArrayList<>();
         //getreadable ici

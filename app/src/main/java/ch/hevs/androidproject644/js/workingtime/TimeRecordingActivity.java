@@ -37,19 +37,13 @@ public class TimeRecordingActivity extends AppCompatActivity {
         findViewById();
         setListener();
         _tv_duration_value.setBase(SystemClock.elapsedRealtime());
-        //_tv_duration_value.setFormat("HH:MM.SS");
+        _tv_duration_value.setFormat("HH:MM.SS");
         //_tv_duration_value.setText(Datas.TIME_FORMATTER.format(_task.get_duration()));
 
 
         _tv_duration_value.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
-
-                //long minutes = ((SystemClock.elapsedRealtime()-chronometer.getBase())/1000)/60;
-                //long seconds = ((SystemClock.elapsedRealtime()-chronometer.getBase())/1000)%60;
-                //String currentTime = minutes+":"+seconds;
-                //chronometer.setText(currentTime);
-
 
             }
         });

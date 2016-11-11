@@ -1,14 +1,17 @@
 package ch.hevs.androidproject644.js.workingtime.Adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Activity;
 
@@ -17,13 +20,30 @@ import ch.hevs.androidproject644.js.workingtime.model.Activity;
  */
 
 public class ActivityAdapter extends ArrayAdapter<Activity> {
+    private Context _context;
+    private android.app.Activity _act;
+    public Resources _res;
+    LayoutInflater _inflater;
+
+    private ArrayList<Activity> _activities;
 
 
     public ActivityAdapter(Context context, List<Activity> activities) {
         super(context, 0, activities);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public ActivityAdapter(MainActivity act, int resId, ArrayList<Activity> activities, Resources resLocal){
+        super(act, resId, activities);
+
+        this._act = act;
+        this._activities = activities;
+        this._res  =resLocal;
+
+        _inflater = (LayoutInflater)act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+    }
+
+    public View getCustomView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_row,parent, false);
         }
@@ -48,6 +68,14 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
             viewHolder.active.setText("Unavailable");
 
         return convertView;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent){
+        return getCustomView(position, convertView, parent);
+    }
+
+    public View getDropDownView(int position, View convertView,ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
     }
 
     private class ActivitiyViewHolder{

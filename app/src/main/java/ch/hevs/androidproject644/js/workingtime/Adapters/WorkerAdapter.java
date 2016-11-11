@@ -1,6 +1,8 @@
 package ch.hevs.androidproject644.js.workingtime.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.ActivityCompat;
@@ -11,9 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
+import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
@@ -24,13 +28,31 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 public class WorkerAdapter extends ArrayAdapter<Worker> {
     private Context _context;
+    private Activity _act;
+    public Resources _res;
+    LayoutInflater _inflater;
+
+    private ArrayList<Worker> _workers;
+
     public WorkerAdapter(Context context, List<Worker> workers) {
 
         super(context, 0, workers);
         this._context=context;
+
+
+    }
+    public WorkerAdapter(MainActivity act, int resId, ArrayList<Worker> workers, Resources resLocal){
+        super(act, resId, workers);
+
+        this._act = act;
+        this._workers = workers;
+        this._res  =resLocal;
+
+        _inflater = (LayoutInflater)act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getCustomView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.worker_row,parent, false);
         }
@@ -63,9 +85,17 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
 
         return convertView;
     }
+    @Override
+    public View getDropDownView(int position, View convertView,ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent){
+        return getCustomView(position, convertView, parent);
+    }
 
     private class WorkerViewHolder{
-        private  TextView name;
+        private TextView name;
         private TextView birthdate;
         private ImageView sex;
         private TextView active;
