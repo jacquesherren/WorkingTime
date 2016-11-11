@@ -33,21 +33,21 @@ public class Worker implements Parcelable {
     }
 
     // SETTERS ***
-    public void set_id(int _id) {
-        this._id = _id;
+    public void set_id(int id) {
+        this._id = id;
     }
-    public void set_lastname(String _lastname) {
-        this._lastname = _lastname;
+    public void set_lastname(String lastname) {
+        this._lastname = lastname;
     }
-    public void set_firstname(String _firstname) {
-        this._firstname = _firstname;
+    public void set_firstname(String firstname) {
+        this._firstname = firstname;
     }
-    public void set_birthdate(Calendar _birthdate) { this._birthdate = _birthdate;  }
-    public void set_sex(char _sex) {
-        this._sex = _sex;
+    public void set_birthdate(Calendar birthdate) { this._birthdate = birthdate;  }
+    public void set_sex(char sex) {
+        this._sex = sex;
     }
-    public void set_active(boolean _active) {
-        this._active = _active;
+    public void set_active(boolean active) {
+        this._active = active;
     }
 
     // GETTERS ***

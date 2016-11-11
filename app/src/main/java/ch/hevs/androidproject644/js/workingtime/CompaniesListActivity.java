@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Adapters.CompanyAdapter;
-import ch.hevs.androidproject644.js.workingtime.model.CompaniesManager;
+import ch.hevs.androidproject644.js.workingtime.DB.CompanyDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Company;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
@@ -32,7 +32,8 @@ public class CompaniesListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         _lvCompanies = (ListView) findViewById(R.id.lv_companies);
-        _companies = CompaniesManager.getAllCompanies();
+        CompanyDataSource getAll = new CompanyDataSource(this);
+        _companies = getAll.getAllCompanies();
 
         CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies);
         _lvCompanies.setAdapter(adapter);

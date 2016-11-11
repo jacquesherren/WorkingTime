@@ -13,11 +13,13 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Activity;
+import ch.hevs.androidproject644.js.workingtime.DB.ActivityDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Activity;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
 public class ActivityEditActivity extends AppCompatActivity {
-
+    ActivityDataSource req = new ActivityDataSource(this);
     private EditText _et_activity_name_value;
     private Switch _sw_activity_activated;
 
@@ -32,8 +34,7 @@ public class ActivityEditActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _et_activity_name_value = (EditText) findViewById(R.id.et_activity_name_value);
-        _sw_activity_activated = (Switch) findViewById(R.id.sw_activity_activated);
+        findViewById();
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -41,14 +42,16 @@ public class ActivityEditActivity extends AppCompatActivity {
             _activity = intent.getParcelableExtra(Datas.EDIT);
 
             _et_activity_name_value.setText(_activity.get_name());
-            if (_activity.is_active() == true)
-                _sw_activity_activated.setChecked(true);
-            else
-                _sw_activity_activated.setChecked(false);
+            _sw_activity_activated.setChecked(_activity.is_active());
         }
-
     }
-        @Override
+
+    private void findViewById() {
+        _et_activity_name_value = (EditText) findViewById(R.id.et_activity_name_value);
+        _sw_activity_activated = (Switch) findViewById(R.id.sw_activity_activated);
+    }
+
+    @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
             getMenuInflater().inflate(R.menu.save_cancel_delete_menu, menu);
@@ -81,25 +84,43 @@ public class ActivityEditActivity extends AppCompatActivity {
         if(_activity!=null){
             Toast.makeText(this, "Saving this activity...", Toast.LENGTH_SHORT)
                     .show();
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("result",_activity);
-            setResult(ActivityEditActivity.RESULT_OK,returnIntent);
-            finish();
+
+            setActivity();
+
+            req.updateActivity(_activity);
         }
         else {
             Toast.makeText(this, "Creating a new activity...", Toast.LENGTH_SHORT)
                     .show();
+
+            _activity = new Activity();
+            setActivity();
+
+            req.createActivity(_activity);
         }
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",_activity);
+        setResult(ActivityEditActivity.RESULT_OK,returnIntent);
+        finish();
     }
+
+
     private  void delete(){
         if(_activity!=null){
             Toast.makeText(this, "Deleting this activity...", Toast.LENGTH_SHORT)
                     .show();
+
+            req.deleteActivity(_activity);
         }
         else {
             Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
                     .show();
         }
     }
+    private void setActivity() {
+        _activity.set_name(_et_activity_name_value.getText().toString());
+        _activity.set_active(C_Activity.controlSwitch(_sw_activity_activated));
+    }
+
 
 }

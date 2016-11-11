@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Adapters.ActivityAdapter;
-import ch.hevs.androidproject644.js.workingtime.model.ActivitiesManager;
+import ch.hevs.androidproject644.js.workingtime.DB.ActivityDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Activity;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
@@ -33,7 +33,8 @@ public class ActivitiesListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         _lvActivities = (ListView) findViewById(R.id.lv_activities);
-        _activities = ActivitiesManager.getAllActivities();
+        ActivityDataSource getAll = new ActivityDataSource(this);
+        _activities = getAll.getAllWorkers();
 
         ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities);
         _lvActivities.setAdapter(adapter);

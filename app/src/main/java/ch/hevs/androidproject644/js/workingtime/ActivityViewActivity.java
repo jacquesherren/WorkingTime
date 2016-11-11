@@ -17,7 +17,6 @@ import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
 
 public class ActivityViewActivity extends AppCompatActivity {
-
     private TextView _tv_activity_name_value;
     private TextView _tv_activity_activated_value;
 
@@ -31,8 +30,7 @@ public class ActivityViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _tv_activity_name_value = (TextView) findViewById(R.id.tv_activity_name_value);
-        _tv_activity_activated_value = (TextView) findViewById(R.id.tv_activity_activated_value);
+        findViewsById();
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -47,7 +45,13 @@ public class ActivityViewActivity extends AppCompatActivity {
         }
 
     }
-        @Override
+
+    private void findViewsById() {
+        _tv_activity_name_value = (TextView) findViewById(R.id.tv_activity_name_value);
+        _tv_activity_activated_value = (TextView) findViewById(R.id.tv_activity_activated_value);
+    }
+
+    @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
             getMenuInflater().inflate(R.menu.edit_menu, menu);

@@ -15,5 +15,6 @@ public class Datas {
     public final static String VIEW = "VIEW";
 
     public final static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy",Locale.US);
+    public final static SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
 
 }

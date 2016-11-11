@@ -38,6 +38,10 @@ public class DB_Class extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DB_Contract.workers.CREATE_TABLE_WORKERS);
+        db.execSQL(DB_Contract.companies.CREATE_TABLE_COMPANIES);
+        db.execSQL(DB_Contract.activities.CREATE_TABLE_ACTIVITIES);
+        db.execSQL(DB_Contract.tasks.CREATE_TABLE_TASKS);
+        db.execSQL(DB_Contract.times.CREATE_TABLE_TIME);
         Log.e("DATABASE OPERATIONS", "Table created");
     }
 
@@ -45,6 +49,10 @@ public class DB_Class extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.workers.TABLE_WORKERS);
+        db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.companies.TABLE_COMPANIES);
+        db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.activities.TABLE_ACTIVITIES);
+        db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.tasks.TABLE_TASKS);
+        db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.times.TABLE_TIMES);
         onCreate(db);
     }
 

@@ -35,6 +35,17 @@ public class ActivityDataSource {
         return id;
     }
 
+    public int updateActivity(Activity activity) {
+        SQLiteDatabase db = _dbclass.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DB_Contract.activities.COLUMN_NAME_ACTIVITY_NAME, activity.get_name());
+        values.put(DB_Contract.activities.COLUMN_NAME_AVAILABLE, activity.is_active_int());
+        // updating row
+        return db.update(DB_Contract.activities.TABLE_ACTIVITIES, values, DB_Contract.activities.COLUMN_NAME_ACTIVITY_ID + " = ?",
+                new String[] { String.valueOf(activity.get_id()) });
+    }
+
     public Activity getActivityByID(long id)
     {
         SQLiteDatabase db = _dbclass.getReadableDatabase();
@@ -65,6 +76,13 @@ public class ActivityDataSource {
         }
         cursor.close();
         return activities;
+    }
+
+    public void deleteActivity(Activity activity) {
+        SQLiteDatabase db = _dbclass.getWritableDatabase();
+        db.delete(DB_Contract.activities.TABLE_ACTIVITIES, DB_Contract.activities.COLUMN_NAME_ACTIVITY_ID + " = ?",
+                new String[] { String.valueOf(activity.get_id()) });
+        db.close();
     }
 
     private Activity cursorToActivity(Cursor cursor) {

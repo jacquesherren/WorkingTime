@@ -44,7 +44,7 @@
             android:textStyle="bold"
             android:text="Duration"
             />
-        <TextView
+        <Chronometer
             android:id="@+id/tv_duration_value"
             android:layout_width="128dp"
             android:layout_height="wrap_content"

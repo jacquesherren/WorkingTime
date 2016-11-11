@@ -14,6 +14,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
+import ch.hevs.androidproject644.js.workingtime.DB.CompanyDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Company;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
@@ -31,8 +34,7 @@ public class CompanyEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _et_company_name_value = (EditText) findViewById(R.id.et_company_name_value);
-        _sw_company_activated = (Switch) findViewById(R.id.sw_company_activated);
+        findViewById();
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -40,11 +42,12 @@ public class CompanyEditActivity extends AppCompatActivity {
             _company = intent.getParcelableExtra(Datas.EDIT);
 
             _et_company_name_value.setText(_company.get_name());
-            if (_company.is_active() == true)
-                _sw_company_activated.setChecked(true);
-            else
-                _sw_company_activated.setChecked(false);
+            _sw_company_activated.setChecked(_company.is_active());
         }
+    }
+    private void findViewById() {
+        _et_company_name_value = (EditText) findViewById(R.id.et_company_name_value);
+        _sw_company_activated = (Switch) findViewById(R.id.sw_company_activated);
     }
 
     @Override
@@ -80,25 +83,46 @@ public class CompanyEditActivity extends AppCompatActivity {
         if(_company!=null){
             Toast.makeText(this, "Saving this company...", Toast.LENGTH_SHORT)
                     .show();
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("result",_company);
-            setResult(CompanyEditActivity.RESULT_OK,returnIntent);
-            finish();
+
+            setCompany();
+
+            CompanyDataSource updateCompany = new CompanyDataSource(this);
+            updateCompany.updateCompany(_company);
+
         }
         else {
             Toast.makeText(this, "Creating a new company...", Toast.LENGTH_SHORT)
                     .show();
+
+            _company = new Company();
+            setCompany();
+
+            CompanyDataSource addCompany = new CompanyDataSource(this);
+            addCompany.createCompany(_company);
         }
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",_company);
+        setResult(CompanyEditActivity.RESULT_OK,returnIntent);
+        finish();
     }
+
+
     private  void delete(){
         if(_company!=null){
             Toast.makeText(this, "Deleting this company...", Toast.LENGTH_SHORT)
                     .show();
+            CompanyDataSource deleteCompany = new CompanyDataSource(this);
+            deleteCompany.deleteCompany(_company);
         }
         else {
             Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
                     .show();
         }
+    }
+
+    private void setCompany() {
+        _company.set_name(_et_company_name_value.getText().toString());
+        _company.set_active(C_Company.controlSwitch(_sw_company_activated));
     }
 
 }

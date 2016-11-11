@@ -45,8 +45,6 @@ public class WorkerEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
         findViewsById();
         setDateTimeField();
 

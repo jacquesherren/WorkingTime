@@ -35,8 +35,6 @@ public class WorkersListActivity extends AppCompatActivity {
         WorkerDataSource getAll = new WorkerDataSource(this);
         _workers = getAll.getAllWorkers();
 
-
-
         WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers);
         _lvWorkers.setAdapter(adapter);
 

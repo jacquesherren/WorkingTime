@@ -17,13 +17,10 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
  */
 
 public class TaskDataSource {
-
-    private Context context;
     private DB_Class _dbclass;
 
     public TaskDataSource(Context context) {
         _dbclass = DB_Class.getInstance(context);
-        this.context = context;
     }
 
     //Insert a new Task

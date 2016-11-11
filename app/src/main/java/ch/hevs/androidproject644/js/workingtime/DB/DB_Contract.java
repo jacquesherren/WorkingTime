@@ -43,7 +43,7 @@ public class DB_Contract  {
         //création de la table + les type
         public  static final String CREATE_TABLE_COMPANIES = "CREATE TABLE "
                 + TABLE_COMPANIES + "("
-                + companies.COLUMN_NAME_COMPANY_ID + "INTEGER PRIMARY KEY, "
+                + companies.COLUMN_NAME_COMPANY_ID + " INTEGER PRIMARY KEY, "
                 + companies.COLUMN_NAME_COMPANY_NAME + " TEXT, "
                 + companies.COLUMN_NAME_AVAILABLE + " INTEGER" + ");";
     }
@@ -61,7 +61,7 @@ public class DB_Contract  {
         //création de la table + les type
         public  static final String CREATE_TABLE_ACTIVITIES = "CREATE TABLE "
                 + TABLE_ACTIVITIES + "("
-                + activities.COLUMN_NAME_ACTIVITY_ID + "INTEGER PRIMARY KEY, "
+                + activities.COLUMN_NAME_ACTIVITY_ID + " INTEGER PRIMARY KEY, "
                 + activities.COLUMN_NAME_ACTIVITY_NAME + " TEXT, "
                 + activities.COLUMN_NAME_AVAILABLE + " INTEGER" + ");";
     }
@@ -107,11 +107,11 @@ public class DB_Contract  {
 
         public static final String CREATE_TABLE_TIME = "CREATE TABLE "
                 + TABLE_TIMES + "("
-                + times.COLUMN_NAME_TIME_ID + "INTEGER PRIMARY KEY, "
-                + times.COLUMN_NAME_TIME_STARTTIME + "NUMERIC, "
-                + times.COLUMN_NAME_TIME_ENDTIME + "NUMERIC, "
-                + times.COLUMN_NAME_TIME_DURATION + "INTEGER, "
-                + times.FK_COLUMN_NAME_TIME_IDTASK + "INTEGER, "
+                + times.COLUMN_NAME_TIME_ID + " INTEGER PRIMARY KEY, "
+                + times.COLUMN_NAME_TIME_STARTTIME + " NUMERIC, "
+                + times.COLUMN_NAME_TIME_ENDTIME + " NUMERIC, "
+                + times.COLUMN_NAME_TIME_DURATION + " INTEGER, "
+                + times.FK_COLUMN_NAME_TIME_IDTASK + " INTEGER, "
                 + "FOREIGN KEY (" + times.FK_COLUMN_NAME_TIME_IDTASK +") REFERENCES " + tasks.TABLE_TASKS + " (" + tasks.COLUMN_NAME_TASK_ID + "));";
 
     }

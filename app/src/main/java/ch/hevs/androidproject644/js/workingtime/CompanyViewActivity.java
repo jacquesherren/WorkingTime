@@ -30,8 +30,7 @@ public class CompanyViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _tv_company_name_value = (TextView) findViewById(R.id.tv_company_name_value);
-        _tv_company_activated_value = (TextView) findViewById(R.id.tv_company_activated_value);
+        findViewsById();
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -44,8 +43,13 @@ public class CompanyViewActivity extends AppCompatActivity {
             else
                 _tv_company_activated_value.setText("Unavailable");
         }
-
     }
+
+    private void findViewsById() {
+        _tv_company_name_value = (TextView) findViewById(R.id.tv_company_name_value);
+        _tv_company_activated_value = (TextView) findViewById(R.id.tv_company_activated_value);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -57,7 +61,7 @@ public class CompanyViewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.action_edit:
-                Toast.makeText(this, "Editing activity...", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Editing company...", Toast.LENGTH_SHORT)
                         .show();
                 Intent intent = new Intent(CompanyViewActivity.this, CompanyEditActivity.class);
                 intent.putExtra(Datas.MODE, Datas.EDIT);

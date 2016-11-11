@@ -16,9 +16,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 
-import ch.hevs.androidproject644.js.workingtime.model.ActivitiesManager;
-import ch.hevs.androidproject644.js.workingtime.model.CompaniesManager;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
+import ch.hevs.androidproject644.js.workingtime.model.Task;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,8 +35,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
 
-        ActivitiesManager.set_AllActivities();
-        CompaniesManager.set_AllCompanies();
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 // TODO : Create Task and set id (When?)
+                Task task = new Task();
                 Intent intent = new Intent(MainActivity.this, TimeRecordingActivity.class);
                 intent.putExtra(Datas.MODE, Datas.NEW);
                 MainActivity.this.startActivityForResult(intent,1);

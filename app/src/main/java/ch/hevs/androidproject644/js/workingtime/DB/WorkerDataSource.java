@@ -71,18 +71,16 @@ public class WorkerDataSource {
 
     public List<Worker> getAllWorkers() {
         List<Worker> workers = new ArrayList<Worker>();
-        //getreadable ici
         SQLiteDatabase db = _dbclass.getReadableDatabase();
         String sql = "SELECT * FROM " + DB_Contract.workers.TABLE_WORKERS;
         Cursor cursor = db.rawQuery(sql, null);
 
-        //if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                Worker worker = cursorToWorker(cursor);
-                workers.add(worker);
-                cursor.moveToNext();
-            }
+         cursor.moveToFirst();
+         while (!cursor.isAfterLast()) {
+              Worker worker = cursorToWorker(cursor);
+              workers.add(worker);
+              cursor.moveToNext();
+         }
         //}
 
         Log.e("WORKERS LIST ",workers.toString());
