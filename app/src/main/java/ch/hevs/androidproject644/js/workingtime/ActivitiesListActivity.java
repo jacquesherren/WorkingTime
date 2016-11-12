@@ -24,7 +24,6 @@ public class ActivitiesListActivity extends AppCompatActivity {
 
     private ListView _lvActivities;
     List<Activity> _activities = new ArrayList<Activity>();
-    Resources _res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +37,14 @@ public class ActivitiesListActivity extends AppCompatActivity {
         ActivityDataSource getAll = new ActivityDataSource(this);
         _activities = getAll.getAllActivities();
 
-        ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities,_res);
+        ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this,R.layout.activity_row, _activities);
         _lvActivities.setAdapter(adapter);
 
         _lvActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this, _activities,_res);
+                ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this,R.layout.activity_row, _activities);
                 Activity a = adapter.getItem(position);
 
                 Intent intent = new Intent(ActivitiesListActivity.this, ActivityViewActivity.class);

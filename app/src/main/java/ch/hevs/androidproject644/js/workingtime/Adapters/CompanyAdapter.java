@@ -2,15 +2,18 @@ package ch.hevs.androidproject644.js.workingtime.Adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
 import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Company;
@@ -21,20 +24,12 @@ import ch.hevs.androidproject644.js.workingtime.model.Company;
 
 public class CompanyAdapter extends ArrayAdapter<Company> {
     private Context _context;
-    private android.app.Activity _act;
-    public Resources _res;
-    LayoutInflater _inflater;
-
     private List<Company> _companies;
 
-    public CompanyAdapter(Context context, List<Company> companies, Resources resLocal) {
-        super(context, 0, companies);
-
+    public CompanyAdapter(Context context,int ressource, List<Company> companies) {
+        super(context, ressource, companies);
         this._context = context;
         this._companies = companies;
-        this._res  = resLocal;
-
-        _inflater = (LayoutInflater.from(context));
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
@@ -59,7 +54,7 @@ public class CompanyAdapter extends ArrayAdapter<Company> {
         if(viewHolder == null){
             viewHolder = new CompanyViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.tv_name);
-            viewHolder.active = (TextView) convertView.findViewById(R.id.tv_active);
+            viewHolder.img_Logo = (ImageView) convertView.findViewById(R.id.img_logo);
             convertView.setTag(viewHolder);
         }
 
@@ -68,17 +63,14 @@ public class CompanyAdapter extends ArrayAdapter<Company> {
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(company.get_name());
+        viewHolder.img_Logo.setImageDrawable(C_Company.get_Logo(_context));
 
-        if(company.is_active()==true)
-            viewHolder.active.setText("Available");
-        else
-            viewHolder.active.setText("Unavailable");
 
         return convertView;
     }
 
     private class CompanyViewHolder{
         private  TextView name;
-        private TextView active;
+        private ImageView img_Logo;
     }
 }

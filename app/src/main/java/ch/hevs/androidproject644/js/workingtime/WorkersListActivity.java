@@ -23,8 +23,6 @@ public class WorkersListActivity extends AppCompatActivity {
 
     private ListView _lvWorkers;
     List<Worker> _workers = new ArrayList<Worker>();
-    Resources _res;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +36,14 @@ public class WorkersListActivity extends AppCompatActivity {
         WorkerDataSource getAll = new WorkerDataSource(this);
         _workers = getAll.getAllWorkers();
 
-        WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers,_res);
+        WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this,R.layout.worker_row, _workers);
         _lvWorkers.setAdapter(adapter);
 
         _lvWorkers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this, _workers,_res);
+                WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this,R.layout.worker_row, _workers);
                 Worker w = adapter.getItem(position);
 
                 Intent intent = new Intent(WorkersListActivity.this, WorkerViewActivity.class);

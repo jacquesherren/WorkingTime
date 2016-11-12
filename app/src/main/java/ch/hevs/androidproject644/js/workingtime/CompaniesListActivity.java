@@ -37,14 +37,14 @@ public class CompaniesListActivity extends AppCompatActivity {
         CompanyDataSource getAll = new CompanyDataSource(this);
         _companies = getAll.getAllCompanies();
 
-        CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies,_res);
+        CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, R.layout.company_row,_companies);
         _lvCompanies.setAdapter(adapter);
 
         _lvCompanies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, _companies,_res);
+                CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this,R.layout.company_row, _companies);
                 Company c = adapter.getItem(position);
 
                 Intent intent = new Intent(CompaniesListActivity.this, CompanyViewActivity.class);

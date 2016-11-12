@@ -21,21 +21,13 @@ import ch.hevs.androidproject644.js.workingtime.model.Activity;
 
 public class ActivityAdapter extends ArrayAdapter<Activity> {
     private Context _context;
-    private android.app.Activity _act;
-    public Resources _res;
-    LayoutInflater _inflater;
-
     private List<Activity> _activities;
 
 
-    public ActivityAdapter(Context context, List<Activity> activities,Resources resLocal) {
-        super(context, 0, activities);
-
+    public ActivityAdapter(Context context,int ressource, List<Activity> activities) {
+        super(context, ressource, activities);
         this._context = context;
         this._activities = activities;
-        this._res  = resLocal;
-
-        _inflater = (LayoutInflater.from(context));
     }
 
 
@@ -48,7 +40,6 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
         if(viewHolder == null){
             viewHolder = new ActivitiyViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.tv_name);
-            viewHolder.active = (TextView) convertView.findViewById(R.id.tv_active);
             convertView.setTag(viewHolder);
         }
 
@@ -57,11 +48,6 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(activity.get_name());
-
-        if(activity.is_active()==true)
-            viewHolder.active.setText("Available");
-        else
-            viewHolder.active.setText("Unavailable");
 
         return convertView;
     }
@@ -79,6 +65,5 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
     }
     private class ActivitiyViewHolder{
         private  TextView name;
-        private TextView active;
     }
 }

@@ -53,13 +53,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<Activity> _activities = new ArrayList<Activity>();
     private List<Company> _companies = new ArrayList<Company>();
 
-    private Resources _res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        _res= getResources();
 
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -79,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         // Create custom adapter object ( see below CustomAdapter.java )
-        WorkerAdapter wAdapter = new WorkerAdapter(this,_workers,_res);
-        ActivityAdapter aAdapter = new ActivityAdapter(this,_activities,_res);
-        CompanyAdapter cAdapter = new CompanyAdapter(this, _companies,_res);
+        WorkerAdapter wAdapter = new WorkerAdapter(this,R.layout.worker_row, _workers);
+        ActivityAdapter aAdapter = new ActivityAdapter(this,R.layout.activity_row,_activities);
+        CompanyAdapter cAdapter = new CompanyAdapter(this,R.layout.company_row, _companies);
 
         wAdapter.setDropDownViewResource(R.layout.worker_row);
         cAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -127,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         _sp_chooseCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
-                CompanyAdapter adapter = new CompanyAdapter(MainActivity.this, _companies,_res);
+                CompanyAdapter adapter = new CompanyAdapter(MainActivity.this,R.layout.company_row, _companies);
                 Company c = adapter.getItem(position);
 
 
