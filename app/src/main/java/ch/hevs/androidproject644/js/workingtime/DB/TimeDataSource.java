@@ -33,8 +33,8 @@ public class TimeDataSource {
         long id;
         SQLiteDatabase db = _dbclass.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME, time.get_start().toString());
-        values.put(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME, time.get_stop().toString());
+        values.put(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME, time.get_start().getTimeInMillis());
+        values.put(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME, time.get_stop().getTimeInMillis());
         values.put(DB_Contract.times.COLUMN_NAME_TIME_DURATION, time.get_duration());
         values.put(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK, time.get_task().get_id());
 

@@ -86,6 +86,7 @@ public class CompanyEditActivity extends AppCompatActivity {
 
             setCompany();
 
+
             CompanyDataSource updateCompany = new CompanyDataSource(this);
             updateCompany.updateCompany(_company);
 
@@ -100,10 +101,6 @@ public class CompanyEditActivity extends AppCompatActivity {
             CompanyDataSource addCompany = new CompanyDataSource(this);
             addCompany.createCompany(_company);
         }
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",_company);
-        setResult(CompanyEditActivity.RESULT_OK,returnIntent);
-        finish();
     }
 
 
