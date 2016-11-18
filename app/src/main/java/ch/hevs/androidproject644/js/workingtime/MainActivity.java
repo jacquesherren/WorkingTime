@@ -33,10 +33,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<Task> _tasks = new ArrayList<Task>();
     Resources _res;
 
-    private ListView _lvCompanies;
-    List<Company> _companies = new ArrayList<Company>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +42,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        _lvCompanies = (ListView) findViewById(R.id.lv_companies);
-        CompanyDataSource getAll = new CompanyDataSource(this);
-        _companies = getAll.getAllCompanies();
+        _lvtasks = (ListView) findViewById(R.id.lv_tasks);
+        TaskDataSource getAll = new TaskDataSource(this);
+        _tasks = getAll.getAllTasks();
+        //_tasks = getAll.getAllTasks();
 
-        CompanyAdapter adapter = new CompanyAdapter(MainActivity.this, R.layout.company_row,_companies);
-        _lvCompanies.setAdapter(adapter);
+        TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks);
+        _lvtasks.setAdapter(adapter);
 
-        _lvCompanies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        _lvtasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CompanyAdapter adapter = new CompanyAdapter(MainActivity.this,R.layout.company_row, _companies);
-                Company c = adapter.getItem(position);
+                TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks);
+                Task t = adapter.getItem(position);
 
-                Intent intent = new Intent(MainActivity.this, CompanyViewActivity.class);
+                Intent intent = new Intent(MainActivity.this, TaskViewActivity.class);
                 intent.putExtra(Datas.MODE, Datas.VIEW);
-                intent.putExtra(Datas.VIEW, c);
+                intent.putExtra(Datas.VIEW, t);
                 MainActivity.this.startActivityForResult(intent,1);
             }
         });

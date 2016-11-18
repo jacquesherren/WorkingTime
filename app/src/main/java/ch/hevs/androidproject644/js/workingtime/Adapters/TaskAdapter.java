@@ -14,6 +14,7 @@ import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
+import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
 
 /**
@@ -56,7 +57,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         Task task = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
-        viewHolder.tv_date.setText(task.get_date().toString());
+        viewHolder.tv_date.setText(Datas.DATE_FORMATTER.format(task.get_date().getTime()));
         viewHolder.tv_duration.setText(task.get_duration_hhmm());
         viewHolder.image_company.setImageDrawable(_context.getResources().getDrawable(R.drawable.ic_business_black_24dp));
         viewHolder.image_activity.setImageDrawable(_context.getResources().getDrawable(R.drawable.ic_view_list_black_24dp));
@@ -67,6 +68,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         viewHolder.btn_start.setText(R.string.btn_start);
 
         return convertView;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent){
+        return getCustomView(position, convertView, parent);
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView,ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
     }
 
     private class TaskViewHolder{

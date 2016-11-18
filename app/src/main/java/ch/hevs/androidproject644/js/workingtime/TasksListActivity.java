@@ -13,10 +13,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
 import ch.hevs.androidproject644.js.workingtime.Adapters.TaskAdapter;
-import ch.hevs.androidproject644.js.workingtime.model.TasksManager;
 
 public class TasksListActivity extends AppCompatActivity {
 
@@ -32,8 +32,8 @@ public class TasksListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         _lvTasks = (ListView) findViewById(R.id.lv_tasks);
-        TasksManager.set_AllTask();
-        _tasks = TasksManager.getAllTasks();
+        TaskDataSource getAll = new TaskDataSource(this);
+        _tasks = getAll.getAllTasks();
 
         TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks);
         _lvTasks.setAdapter(adapter);
