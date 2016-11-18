@@ -164,6 +164,36 @@ public class TaskEditActivity extends AppCompatActivity {
 
     private void setListener() {
 
+        _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);
+        _btn_newWorker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TaskEditActivity.this, WorkerEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                TaskEditActivity.this.startActivityForResult(intent,1);
+            }
+        });
+
+        _btn_newActivity = (Button) findViewById(R.id.btn_newActivity);
+        _btn_newActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TaskEditActivity.this, ActivityEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                TaskEditActivity.this.startActivityForResult(intent,1);
+            }
+        });
+
+        _btn_newCompany = (Button) findViewById(R.id.btn_newCompany);
+        _btn_newCompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TaskEditActivity.this, CompanyEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                TaskEditActivity.this.startActivityForResult(intent,1);
+            }
+        });
+
         // Listener called when spinner item selected
         _sp_chooseCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
