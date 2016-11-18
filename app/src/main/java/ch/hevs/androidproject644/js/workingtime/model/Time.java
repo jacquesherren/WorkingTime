@@ -16,13 +16,17 @@ public class Time implements Parcelable {
     private int _duration;
     private Task _task;
 
-
     protected Time(Parcel in) {
         this._id = in.readInt();
         this._duration = in.readInt();
         this._start = (Calendar) in.readValue(getClass().getClassLoader());
         this._stop = (Calendar) in.readValue(getClass().getClassLoader());
         this._task = in.readParcelable(Task.class.getClassLoader());
+    }
+
+    public Time()
+    {
+
     }
 
     public static final Creator<Time> CREATOR = new Creator<Time>() {
@@ -54,4 +58,47 @@ public class Time implements Parcelable {
         calendar.setTimeInMillis(start);
         this._start=calendar;
     }
+
+    public void set_start(Calendar _start) {
+        this._start = _start;
+    }
+
+    public void set_stop(Calendar _stop) {
+        this._stop = _stop;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public void set_task(Task _task) {
+        this._task = _task;
+    }
+
+    public void set_duration(int _duration) {
+        this._duration = _duration;
+    }
+
+    public int get_id() {
+
+        return _id;
+    }
+
+    public Task get_task() {
+        return _task;
+    }
+
+    public int get_duration() {
+        return _duration;
+    }
+
+    public Calendar get_stop() {
+        return _stop;
+    }
+
+    public Calendar get_start() {
+        return _start;
+    }
 }
+
+
