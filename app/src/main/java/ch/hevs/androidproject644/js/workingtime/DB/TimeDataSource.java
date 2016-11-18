@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Task;
@@ -40,6 +43,19 @@ public class TimeDataSource {
 
         id = db.insert(DB_Contract.times.TABLE_TIMES, null, values);
         Log.e("Time Table Created", "test created");
+        return id;
+    }
+
+    public long addTime(Time time)
+    {
+        Calendar calendar;
+        long id;
+        SQLiteDatabase db = _dbclass.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME, time.get_start().getTimeInMillis());
+
+        id = db.insert(DB_Contract.times.TABLE_TIMES, null, values);
+        Log.e("Time add", "Time add");
         return id;
     }
 

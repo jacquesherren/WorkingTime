@@ -13,12 +13,15 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.DB.TimeDataSource;
 import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
+import ch.hevs.androidproject644.js.workingtime.model.Time;
 
 /**
  * Created by Jacques on 26.10.2016.
@@ -98,11 +101,14 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
 
         viewHolder.btn_start.setOnClickListener(new View.OnClickListener() {
-            @Override
+
+            TimeDataSource addTime = new TimeDataSource(_context);
             public void onClick(View v) {
                 boolean listState = _mToggles.get(position);
                 _mToggles.set(position,new Boolean(!listState));
                 notifyDataSetChanged();
+                addTime.addTime(getTime());
+
             }});
 
         /*if(_mToggles.get(position) == false)
@@ -114,6 +120,17 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }*/
 
         return convertView;
+    }
+
+    public Time getTime()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int seconds = calendar.get(Calendar.SECOND);
+
+        Time time = new Time();
+        time.set_start(seconds);
+
+        return time;
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
