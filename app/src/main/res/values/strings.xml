@@ -76,4 +76,6 @@
     <string name="btn_StartToWork">Start to work</string>
     <string name="tgb_WorkBreak_OFF">Let\'s go working</string>
     <string name="tgb_WorkBreak_ON">Let\'s take a break</string>
+    <string name="title_activity_edit_task">EditTask</string>
+    <string name="btn_start">start</string>
 </resources>

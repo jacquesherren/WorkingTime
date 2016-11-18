@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/Layout_Row_Worker_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_horizontal_margin">
@@ -17,75 +17,83 @@
 
         <TextView
             android:id="@+id/tv_date"
-            android:layout_width="100dp"
+            android:layout_width="84dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
+            android:textStyle="normal"
             tools:text="31.10.2016" />
 
         <TextView
             android:id="@+id/tv_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_worker_name"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_alignBaseline="@+id/tv_worker_value"
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_big"
             android:text="24"/>
 
-        <TextView
-            android:id="@+id/tv_company_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/image_company"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_toRightOf="@+id/tv_date"
-            tools:text="Company : " />
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_business_black_24dp"/>
 
         <TextView
             android:id="@+id/tv_company_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/tv_company_name"
+            android:layout_alignBottom="@id/image_company"
+            android:layout_toRightOf="@+id/image_company"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textStyle="normal"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             tools:text="Company name" />
 
-        <TextView
-            android:id="@+id/tv_activity_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_company_name"
-            android:layout_below="@+id/tv_company_name"
-            tools:text="Activity : " />
+
+        <ImageView
+            android:id="@+id/image_activity"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignLeft="@+id/image_company"
+            android:layout_below="@+id/image_company"
+            android:src="@drawable/ic_view_list_black_24dp"/>
 
         <TextView
             android:id="@+id/tv_activity_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_company_value"
-            android:layout_toRightOf="@+id/tv_company_name"
+            android:layout_alignBottom="@+id/image_activity"
+            android:layout_toRightOf="@+id/image_activity"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textStyle="normal"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             tools:text="Activity name" />
 
-        <TextView
-            android:id="@+id/tv_worker_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_activity_name"
-            android:layout_below="@+id/tv_activity_name"
-            tools:text="Worker : " />
-
+        <ImageView
+            android:id="@+id/image_worker"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignLeft="@+id/image_company"
+            android:layout_below="@+id/image_activity"
+            android:src="@drawable/ic_person_black_24dp"/>
         <TextView
             android:id="@+id/tv_worker_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_activity_value"
-            android:layout_toRightOf="@+id/tv_company_name"
+            android:layout_alignBottom="@+id/image_worker"
+            android:layout_toRightOf="@+id/image_worker"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textStyle="normal"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             tools:text="Firstname Lastname" />
-
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/btn_start"/>
     </RelativeLayout>
 </LinearLayout>

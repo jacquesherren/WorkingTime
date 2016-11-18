@@ -125,6 +125,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
         </activity>
+        <activity
+            android:name=".TaskEditActivity"
+            android:label="@string/title_activity_edit_task"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

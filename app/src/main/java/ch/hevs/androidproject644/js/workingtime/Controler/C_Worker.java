@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
@@ -29,6 +30,13 @@ public class C_Worker {
             return 'F';
 
         return ' ';
+    }
+
+    public static Worker getWorkerById(long id, Context context){
+        Worker worker;
+        WorkerDataSource wreq = new WorkerDataSource(context);
+        worker = wreq.getWorkerByID(id);
+        return worker;
     }
 
     public static Drawable get_ImageSex(Context c,char sex){

@@ -3,6 +3,7 @@ package ch.hevs.androidproject644.js.workingtime;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,45 +14,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.hevs.androidproject644.js.workingtime.Adapters.ActivityAdapter;
 import ch.hevs.androidproject644.js.workingtime.Adapters.CompanyAdapter;
-import ch.hevs.androidproject644.js.workingtime.Adapters.WorkerAdapter;
-import ch.hevs.androidproject644.js.workingtime.DB.ActivityDataSource;
+import ch.hevs.androidproject644.js.workingtime.Adapters.TaskAdapter;
 import ch.hevs.androidproject644.js.workingtime.DB.CompanyDataSource;
-import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
-import ch.hevs.androidproject644.js.workingtime.model.Activity;
+import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Company;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
-import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private ListView _lvtasks;
+    private List<Task> _tasks = new ArrayList<Task>();
+    Resources _res;
 
-    private Spinner _sp_chooseWorker;
-    private Spinner _sp_chooseCompany;
-    private Spinner _sp_chooseActivity;
+    private ListView _lvCompanies;
+    List<Company> _companies = new ArrayList<Company>();
 
-    private Button _btn_newWorker;
-    private Button _btn_newCompany;
-    private Button _btn_newActivity;
-
-    private Button _btn_ReadyToStart;
-    private Button _btn_EndSave;
-
-    private List<Worker> _workers = new ArrayList<Worker>();
-    private List<Activity> _activities = new ArrayList<Activity>();
-    private List<Company> _companies = new ArrayList<Company>();
 
 
     @Override
@@ -62,31 +46,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        findViewById();
-        setListener();
+        _lvCompanies = (ListView) findViewById(R.id.lv_companies);
+        CompanyDataSource getAll = new CompanyDataSource(this);
+        _companies = getAll.getAllCompanies();
 
-        WorkerDataSource wreq = new WorkerDataSource(this);
-        _workers = wreq.getAllWorkers();
+        CompanyAdapter adapter = new CompanyAdapter(MainActivity.this, R.layout.company_row,_companies);
+        _lvCompanies.setAdapter(adapter);
 
-        ActivityDataSource areq = new ActivityDataSource(this);
-        _activities = areq.getAllActivities();
+        _lvCompanies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        CompanyDataSource creq = new CompanyDataSource(this);
-        _companies = creq.getAllCompanies();
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CompanyAdapter adapter = new CompanyAdapter(MainActivity.this,R.layout.company_row, _companies);
+                Company c = adapter.getItem(position);
 
-
-        // Create custom adapter object ( see below CustomAdapter.java )
-        WorkerAdapter wAdapter = new WorkerAdapter(this,R.layout.worker_row, _workers);
-        ActivityAdapter aAdapter = new ActivityAdapter(this,R.layout.activity_row,_activities);
-        CompanyAdapter cAdapter = new CompanyAdapter(this,R.layout.company_row, _companies);
-
-        wAdapter.setDropDownViewResource(R.layout.worker_row);
-        cAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-
-        // Set adapter to spinner
-        _sp_chooseWorker.setAdapter(wAdapter);
-        _sp_chooseActivity.setAdapter(aAdapter);
-        _sp_chooseCompany.setAdapter(cAdapter);
+                Intent intent = new Intent(MainActivity.this, CompanyViewActivity.class);
+                intent.putExtra(Datas.MODE, Datas.VIEW);
+                intent.putExtra(Datas.VIEW, c);
+                MainActivity.this.startActivityForResult(intent,1);
+            }
+        });
 
         setListener();
 
@@ -98,72 +77,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
-    private void setListener() {
-        _btn_ReadyToStart.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO : Create Task and set id (When?)
-                Task task = new Task();
-
-                Intent intent = new Intent(MainActivity.this, TimeRecordingActivity.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, TaskEditActivity.class);
                 intent.putExtra(Datas.MODE, Datas.NEW);
                 MainActivity.this.startActivityForResult(intent,1);
-
             }
         });
-        _btn_EndSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        // Listener called when spinner item selected
-        _sp_chooseCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
-                CompanyAdapter adapter = new CompanyAdapter(MainActivity.this,R.layout.company_row, _companies);
-                Company c = adapter.getItem(position);
-
-
-                Toast.makeText(
-                        getApplicationContext(),c.toString(), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
-    }
-
-    private void findViewById() {
-        _sp_chooseWorker = (Spinner) findViewById(R.id.sp_chooseWorker);
-        _sp_chooseCompany = (Spinner) findViewById(R.id.sp_chooseCompany);
-        _sp_chooseActivity = (Spinner) findViewById(R.id.sp_chooseActivity);
-        _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);
-        _btn_newCompany = (Button) findViewById(R.id.btn_newCompany);
-        _btn_newActivity = (Button) findViewById(R.id.btn_newActivity);
-
-        _btn_ReadyToStart = (Button) findViewById(R.id.btn_ReadyToStart);
-        _btn_EndSave = (Button) findViewById(R.id.btn_EndSave);
     }
 
 
 
-    public void spinner_filler(int spinner_name, int array_name)
-    {
-        Spinner spinner = (Spinner) findViewById(spinner_name);
-        //Remplissage du spinner avec le string-array du strings.xml
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, array_name, android.R.layout.simple_spinner_item);
-        //spécification du layout
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //application de l'adapter au spinner
-        spinner.setAdapter(adapter);
+
+    private void setListener(){
+
     }
+
+
 
     @Override
     public void onBackPressed() {

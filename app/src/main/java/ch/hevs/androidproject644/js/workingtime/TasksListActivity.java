@@ -2,6 +2,7 @@ package ch.hevs.androidproject644.js.workingtime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -34,18 +35,28 @@ public class TasksListActivity extends AppCompatActivity {
         TasksManager.set_AllTask();
         _tasks = TasksManager.getAllTasks();
 
-        TaskAdapter adapter = new TaskAdapter(TasksListActivity.this, _tasks);
+        TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks);
         _lvTasks.setAdapter(adapter);
 
         _lvTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TaskAdapter adapter = new TaskAdapter(TasksListActivity.this, _tasks);
+                TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks);
                 Task t = adapter.getItem(position);
 
                 Intent intent = new Intent(TasksListActivity.this, TaskViewActivity.class);
                 intent.putExtra(Datas.MODE, Datas.VIEW);
                 intent.putExtra(Datas.VIEW, t);
+                TasksListActivity.this.startActivityForResult(intent,1);
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TasksListActivity.this, TaskEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
                 TasksListActivity.this.startActivityForResult(intent,1);
             }
         });
