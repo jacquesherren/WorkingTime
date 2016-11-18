@@ -64,11 +64,11 @@ public class TaskEditActivity extends AppCompatActivity {
         setListener();
 
         WorkerDataSource wreq = new WorkerDataSource(this);
-        _workers = wreq.getAllWorkers();
+        _workers = wreq.getWorkerByAvaiable();
         ActivityDataSource areq = new ActivityDataSource(this);
-        _activities = areq.getAllActivities();
+        _activities = areq.getActivityByAvaiable();
         CompanyDataSource creq = new CompanyDataSource(this);
-        _companies = creq.getAllCompanies();
+        _companies = creq.getCompanyByAvaiable();
 
         // Create custom adapter object ( see below CustomAdapter.java )
         WorkerAdapter wAdapter = new WorkerAdapter(this,R.layout.worker_row, _workers);
@@ -122,7 +122,6 @@ public class TaskEditActivity extends AppCompatActivity {
 
             TaskDataSource updateTask = new TaskDataSource(this);
             // TODO : updateTask.updateTask(_task);
-
         }
         else {
             Toast.makeText(this, "Creating a new task...", Toast.LENGTH_SHORT)

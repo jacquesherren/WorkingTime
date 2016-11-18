@@ -34,6 +34,8 @@ public class TaskDataSource {
 
     public long createTask(Task task) {
         long id;
+
+        // TODO : Vérifier si la tâche (task) avec les FK choisies existent déjà.
         SQLiteDatabase db = _dbclass.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DB_Contract.tasks.COLUMN_NAME_TASK_DATE, task.get_date().toString()); //à controler selon date de jacques );
@@ -69,9 +71,6 @@ public class TaskDataSource {
 
         SQLiteDatabase db = _dbclass.getReadableDatabase();
         String sql = "SELECT * FROM " + DB_Contract.tasks.TABLE_TASKS;
-         //               + " " + DB_Contract.tasks.TABLE_TASKS + " INNER JOIN " + DB_Contract.workers.TABLE_WORKERS + " ON " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_WORKERID + "=" + DB_Contract.workers.COLUMN_NAME_WORKER_ID
-         //               + " " + DB_Contract.tasks.TABLE_TASKS + " INNER JOIN " + DB_Contract.activities.TABLE_ACTIVITIES + " ON " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_ACTIVITYID + "=" + DB_Contract.activities.COLUMN_NAME_ACTIVITY_ID
-         //               + " " + DB_Contract.tasks.TABLE_TASKS + " INNER JOIN " + DB_Contract.companies.TABLE_COMPANIES + " ON " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + "=" + DB_Contract.companies.COLUMN_NAME_COMPANY_ID ;
         Cursor cursor = db.rawQuery(sql, null);
 
         cursor.moveToFirst();
@@ -90,7 +89,6 @@ public class TaskDataSource {
         task.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.COLUMN_NAME_TASK_ID)));
         task.set_date(cursor.getLong(cursor.getColumnIndex(DB_Contract.tasks.COLUMN_NAME_TASK_DATE)));
         task.set_duration(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.COLUMN_NAME_TASK_DURATION)));
-    //    task.set_description(cursor.getString(cursor.getColumnIndex(DB_Contract.tasks.COLUMN_NAME_TASK_DESCRIPTION)));
 
         Worker worker = C_Worker.getWorkerById(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.FK_COLUMN_NAME_TASK_WORKERID)), _context);
         task.set_worker(worker);

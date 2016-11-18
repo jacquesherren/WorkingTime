@@ -52,6 +52,8 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
 
         return convertView;
     }
+
+
     @Override
     public View getDropDownView(int position, View convertView,ViewGroup parent) {
         return getCustomView(position, convertView, parent);

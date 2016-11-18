@@ -25,7 +25,7 @@
             android:textSize="@dimen/text_size_very_big"
             android:layout_centerHorizontal="true"
             android:text="8h25"/>
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,14 +34,13 @@
             android:textSize="@dimen/text_size_big"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_duration"
-            android:text="2016-10-27"/>
+            android:text="2016-10-27"/>-->
         <TextView
             android:id="@+id/tv_worker_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/worker_label"
-            android:layout_below="@+id/tv_date"/>
+            android:layout_below="@+id/tv_duration"/>
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"

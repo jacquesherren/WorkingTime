@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         _tasks = getAll.getAllTasks();
         //_tasks = getAll.getAllTasks();
 
-        TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks);
+        TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
         _lvtasks.setAdapter(adapter);
 
         _lvtasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks);
+                TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
                 Task t = adapter.getItem(position);
 
                 Intent intent = new Intent(MainActivity.this, TaskViewActivity.class);
@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 MainActivity.this.startActivityForResult(intent,1);
             }
         });
+
+      // _lvtasks.setlistener
 
         setListener();
 

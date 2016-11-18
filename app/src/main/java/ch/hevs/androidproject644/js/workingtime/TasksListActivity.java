@@ -35,13 +35,13 @@ public class TasksListActivity extends AppCompatActivity {
         TaskDataSource getAll = new TaskDataSource(this);
         _tasks = getAll.getAllTasks();
 
-        TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks);
+        TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks,true);
         _lvTasks.setAdapter(adapter);
 
         _lvTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks);
+                TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks,true);
                 Task t = adapter.getItem(position);
 
                 Intent intent = new Intent(TasksListActivity.this, TaskViewActivity.class);

@@ -20,7 +20,7 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 public class TaskViewActivity extends AppCompatActivity {
 
-    private  TextView _tv_date;
+    //private  TextView _tv_date;
     private TextView _tv_duration;
 
     private TextView _tv_firstname_lastname;
@@ -43,7 +43,7 @@ public class TaskViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _tv_date = (TextView) findViewById(R.id.tv_date);
+        //_tv_date = (TextView) findViewById(R.id.tv_date);
         _tv_duration = (TextView) findViewById(R.id.tv_duration);
 
         _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);
@@ -63,7 +63,7 @@ public class TaskViewActivity extends AppCompatActivity {
             _task = intent.getParcelableExtra(Datas.VIEW);
 
             _tv_firstname_lastname.setText(_task.get_worker().get_firstname() + " " +  _task.get_worker().get_lastname());
-            _tv_birthdate_value.setText(_task.get_worker().get_birthdate().toString());
+            _tv_birthdate_value.setText(_task.get_worker().get_birthdate().getTime().toString());
 
             if(_task.get_worker().get_sex()=='m')
                 _image_Sex.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.mipmap.ic_male));   //.setImageDrawable(new ColorDrawable(Color.CYAN));
@@ -77,7 +77,7 @@ public class TaskViewActivity extends AppCompatActivity {
             _tv_company_value.setText(_task.get_company().get_name());
 
             _tv_duration.setText(_task.get_duration_hhmm());
-            _tv_date.setText(_task.get_date().toString());
+            //_tv_date.setText(_task.get_date().toString());
 
         }
 

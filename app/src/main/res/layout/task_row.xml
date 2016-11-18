@@ -10,24 +10,26 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:elevation="1dp"
+        android:layout_height="64dp">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_date"
             android:layout_width="84dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textStyle="normal"
-            tools:text="31.10.2016" />
+            tools:text="31.10.2016" />-->
 
         <TextView
             android:id="@+id/tv_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_worker_value"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_big"
@@ -37,7 +39,7 @@
             android:id="@+id/image_company"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_toRightOf="@+id/tv_date"
+            android:layout_marginLeft="80dp"
             android:layout_alignParentTop="true"
             android:src="@drawable/ic_business_black_24dp"/>
 
@@ -89,11 +91,13 @@
             android:textStyle="normal"
             android:textColor="@android:color/black"
             tools:text="Firstname Lastname" />
-        <Button
+        <ToggleButton
             android:id="@+id/btn_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/btn_start"/>
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawableBottom="@color/colorAccent"
+            android:textOff="@string/btn_start"/>
     </RelativeLayout>
 </LinearLayout>
