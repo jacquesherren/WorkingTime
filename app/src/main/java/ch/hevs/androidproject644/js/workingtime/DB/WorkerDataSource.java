@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
+import ch.hevs.androidproject644.js.workingtime.model.Activity;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 /**
@@ -67,6 +68,24 @@ public class WorkerDataSource {
             return worker;
         }
         return null;
+    }
+
+    public List<Worker> getWorkerByAvaiable()
+    {
+        List<Worker> workers = new ArrayList<Worker>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT * FROM " + DB_Contract.workers.TABLE_WORKERS + " WHERE " + DB_Contract.workers.COLUMN_NAME_AVAILABLE + " = " + 1;
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Worker worker = cursorToWorker(cursor);
+            workers.add(worker);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return workers;
     }
 
     public List<Worker> getAllWorkers() {

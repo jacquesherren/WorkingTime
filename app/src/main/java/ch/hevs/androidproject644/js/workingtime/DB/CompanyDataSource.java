@@ -57,6 +57,24 @@ public class CompanyDataSource {
         return null;
     }
 
+    public List<Company> getCompanyByAvaiable()
+    {
+        List<Company> companies = new ArrayList<Company>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT * FROM " + DB_Contract.companies.TABLE_COMPANIES + " WHERE " + DB_Contract.companies.COLUMN_NAME_AVAILABLE + " = " + 1;
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Company company = cursorToCompany(cursor);
+            companies.add(company);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return companies;
+    }
+
     public List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<Company>();
         SQLiteDatabase db = _dbclass.getReadableDatabase();

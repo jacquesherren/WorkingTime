@@ -35,7 +35,7 @@ public class CompaniesListActivity extends AppCompatActivity {
 
         _lvCompanies = (ListView) findViewById(R.id.lv_companies);
         CompanyDataSource getAll = new CompanyDataSource(this);
-        _companies = getAll.getAllCompanies();
+        _companies = getAll.getCompanyByAvaiable();
 
         CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, R.layout.company_row,_companies);
         _lvCompanies.setAdapter(adapter);

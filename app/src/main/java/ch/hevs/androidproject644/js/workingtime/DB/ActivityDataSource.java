@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.model.Activity;
+import ch.hevs.androidproject644.js.workingtime.model.Company;
 
 /**
  * Created by Samuel on 08.11.2016.
@@ -57,6 +58,24 @@ public class ActivityDataSource {
             return activity;
         }
         return null;
+    }
+
+    public List<Activity> getActivityByAvaiable()
+    {
+        List<Activity> activities = new ArrayList<Activity>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT * FROM " + DB_Contract.activities.TABLE_ACTIVITIES + " WHERE " + DB_Contract.activities.COLUMN_NAME_AVAILABLE + " = " + 1;
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Activity activity = cursorToActivity(cursor);
+            activities.add(activity);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return activities;
     }
 
     public List<Activity> getAllActivities()
