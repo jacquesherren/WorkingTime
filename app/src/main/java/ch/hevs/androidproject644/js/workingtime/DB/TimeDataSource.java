@@ -94,7 +94,7 @@ public class TimeDataSource {
         Time time = new Time();
 
         time.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ID)));
-        time.set_start(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME)));
+        time.set_start();
         time.set_stop(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME)));
         time.set_duration(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_DURATION)));
 

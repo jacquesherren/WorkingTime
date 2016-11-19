@@ -9,18 +9,22 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.TimeDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
 import ch.hevs.androidproject644.js.workingtime.Adapters.TaskAdapter;
+import ch.hevs.androidproject644.js.workingtime.model.Time;
 
 public class TasksListActivity extends AppCompatActivity {
 
     private ListView _lvTasks;
+    private TextView tv_test_time;
     List<Task> _tasks = new ArrayList<Task>();
 
     @Override
@@ -34,7 +38,6 @@ public class TasksListActivity extends AppCompatActivity {
         _lvTasks = (ListView) findViewById(R.id.lv_tasks);
         TaskDataSource getAll = new TaskDataSource(this);
         _tasks = getAll.getAllTasks();
-
         TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks,true);
         _lvTasks.setAdapter(adapter);
 

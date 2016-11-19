@@ -3,7 +3,11 @@ package ch.hevs.androidproject644.js.workingtime.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * Created by Jacques on 10.11.2016.
@@ -15,6 +19,7 @@ public class Time implements Parcelable {
     private Calendar _stop;
     private int _duration;
     private Task _task;
+    final DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
 
     protected Time(Parcel in) {
         this._id = in.readInt();
@@ -53,9 +58,13 @@ public class Time implements Parcelable {
         calendar.setTimeInMillis(stop);
         this._stop=calendar;
     }
-    public void set_start(long start) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(start);
+    public void set_start() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        long time = System.currentTimeMillis();
+        dateFormat.format(time);
+
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
+        calendar.setTimeInMillis(time);
         this._start=calendar;
     }
 

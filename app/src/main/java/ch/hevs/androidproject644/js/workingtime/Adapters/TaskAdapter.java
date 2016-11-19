@@ -128,7 +128,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         int seconds = calendar.get(Calendar.SECOND);
 
         Time time = new Time();
-        time.set_start(seconds);
+        time.set_start();
 
         return time;
     }
