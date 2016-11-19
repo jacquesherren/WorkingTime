@@ -53,16 +53,14 @@ public class Time implements Parcelable {
         dest.writeValue(_task);
     }
 
-    public void set_stop(long stop) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(stop);
+    public void set_stop() {
+        long time = System.currentTimeMillis();
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
+        calendar.setTimeInMillis(time);
         this._stop=calendar;
     }
     public void set_start() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         long time = System.currentTimeMillis();
-        dateFormat.format(time);
-
         Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
         calendar.setTimeInMillis(time);
         this._start=calendar;

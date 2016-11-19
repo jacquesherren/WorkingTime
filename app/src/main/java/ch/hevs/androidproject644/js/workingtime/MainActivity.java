@@ -20,6 +20,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Adapters.CompanyAdapter;
@@ -57,9 +58,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         _tv_test_time = (TextView) findViewById(R.id.tv_test_time);
         TimeDataSource getTime = new TimeDataSource(this);
         _times = getTime.getAllTime();
-        Time time = _times.get(7);
-        Time time2 =  _times.get(5);
-        _tv_test_time.setText(String.valueOf(time.get_start().toString()));
+        Time time = _times.get(1);
+        Time time2 =  _times.get(10);
+        Calendar c1 = time.get_start();
+        Calendar c2 = time2.get_start();
+        int interval = c2.MINUTE - c1.MINUTE;
+        _tv_test_time.setText(String.valueOf(c2.MINUTE));
+
+
+
+        //_tv_test_time.setText(String.valueOf(time.get_start().toString()));
 
 
         TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);

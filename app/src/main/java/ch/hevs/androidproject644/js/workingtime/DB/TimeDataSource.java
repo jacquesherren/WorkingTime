@@ -95,7 +95,7 @@ public class TimeDataSource {
 
         time.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ID)));
         time.set_start();
-        time.set_stop(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME)));
+        time.set_stop();
         time.set_duration(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_DURATION)));
 
         Task task = C_Task.getTasksById(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK)), _context);
