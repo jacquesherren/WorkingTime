@@ -46,7 +46,7 @@ public class TimeDataSource {
         return id;
     }
 
-    public long addTime(Time time)
+    public long startingTime(Time time)
     {
         Calendar calendar;
         long id;
@@ -57,6 +57,22 @@ public class TimeDataSource {
         id = db.insert(DB_Contract.times.TABLE_TIMES, null, values);
         Log.e("Time add", "Time add");
         return id;
+    }
+
+    public int finishingTime(Time time)
+    {
+        Calendar calendar;
+        long id;
+        SQLiteDatabase db = _dbclass.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME, time.get_stop().getTimeInMillis());
+        values.put(DB_Contract.times.COLUMN_NAME_TIME_DURATION, time.get_duration());
+
+        Log.e("Time is updating", "Time finishingTime");
+        // updating row
+        return db.update(DB_Contract.times.TABLE_TIMES, values, DB_Contract.times.COLUMN_NAME_TIME_ID + " = ?",
+                new String[] { String.valueOf(time.get_id()) });
+
     }
 
     public Time getTimeById(long id)

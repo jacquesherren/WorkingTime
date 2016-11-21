@@ -2,6 +2,7 @@ package ch.hevs.androidproject644.js.workingtime.Adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.DB.TimeDataSource;
 import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
@@ -31,18 +34,37 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     private Context _context;
     private List<Task> _tasks;
     private boolean _hideButton;
+    int selected_position = -1;
 
-    private ArrayList<Boolean> _mToggles = new ArrayList<Boolean>();
+    //private ArrayList<Boolean> _mToggles = new ArrayList<Boolean>();
+   //private boolean[] _aToggles;
 
     public TaskAdapter(Context context,int ressource, List<Task> tasks, boolean hideButton) {
         super(context, ressource, tasks);
         this._context = context;
         this._tasks = tasks;
         this._hideButton=hideButton;
-        for(int i = 0;i<tasks.size();i++) {
-            _mToggles.add(false);
-        }
-        setToggleList(_mToggles);
+        //_aToggles = new boolean[tasks.size()];
+        //for(int i = 0;i<tasks.size();i++) {
+        //    _mToggles.add(false);
+        //}
+        //setToggleList(_mToggles);
+    }
+
+    @Override
+    public int getCount() {
+        return super.getCount();
+    }
+
+    @Nullable
+    @Override
+    public Task getItem(int position) {
+        return super.getItem(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
     }
 
     public void setButtonVisibility(boolean hideButton){
@@ -50,7 +72,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     }
 
     public View getCustomView(final int position, View convertView, ViewGroup parent){
-        final int which=position;
+        final int pos=position;
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.task_row,parent, false);
         }
@@ -73,8 +95,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
 
         //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
-        Task task = getItem(position);
-
+        final Task task = getItem(position);
+        //int selectedindexitem=0;
         //il ne reste plus qu'à remplir notre vue
         //viewHolder.tv_date.setText(Datas.DATE_FORMATTER.format(task.get_date().getTime()));
 
@@ -88,28 +110,79 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
 
         if(!_hideButton) {
+            viewHolder.btn_start.setChecked(position==selected_position);
+            viewHolder.btn_start.setTextOff("F"+position);
+            viewHolder.btn_start.setTextOn("N"+position);
+
             viewHolder.btn_start.setVisibility(View.VISIBLE);
             viewHolder.tv_duration.setVisibility(View.INVISIBLE);
-            viewHolder.btn_start.setChecked( _mToggles.get( position ) );
+            //viewHolder.btn_start.setChecked( _mToggles.get( position ) );
             viewHolder.tv_duration.setText(task.get_duration_hhmm());
-            viewHolder.btn_start.setText("GO");
+            //viewHolder.btn_start.setText("GO");
         }
         else {
             viewHolder.btn_start.setVisibility(View.INVISIBLE);
             viewHolder.tv_duration.setVisibility(View.VISIBLE);
-            viewHolder.tv_duration.setText(task.get_duration_hhmm());
+            //viewHolder.tv_duration.setText(task.get_duration_hhmm());
         }
-
         viewHolder.btn_start.setOnClickListener(new View.OnClickListener() {
-
-            TimeDataSource addTime = new TimeDataSource(_context);
+            @Override
             public void onClick(View v) {
-                boolean listState = _mToggles.get(position);
-                _mToggles.set(position,new Boolean(!listState));
-                notifyDataSetChanged();
-                addTime.addTime(getTime());
+                //Time currentTime = C_Time.get_Time();
+                //if(currentTime!=null)
 
-            }});
+                if(((ToggleButton) v).isChecked())
+                {
+                    TimeDataSource starting = new TimeDataSource(_context);
+                    Time time = new Time(task);
+                    time.set_id(starting.startingTime(new Time(task)));
+                    C_Time.set_Time(time);
+                    ((ToggleButton) v).setText("T " + String.valueOf(pos));
+                    selected_position=position;
+                }
+                else
+                {
+
+                    TimeDataSource finishing = new TimeDataSource(_context);
+                    Time time = C_Time.get_Time();
+                    time.set_stop(C_Time.getCurrentTimeInSecond());
+                    time.cal_duration();
+                    finishing.finishingTime(time);
+                    C_Time.set_Time(null);
+                    selected_position=-1;
+                }
+                notifyDataSetChanged();
+            }
+        });
+  /*      viewHolder.btn_start.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    //viewHolder.btn_start.setTextOff("T " + String.valueOf(pos));
+
+                    selected_position=pos;
+                    //_aToggles[pos]=true;
+                }
+                else {
+                    //viewHolder.btn_start.setTextOff("T " + String.valueOf(pos));
+                    selected_position =  -1;
+                    //_aToggles[pos]=false;
+                }
+                notifyDataSetChanged();
+            }
+        });*/
+        //viewHolder.btn_start.setChecked(_aToggles[pos]);
+     /*   viewHolder.btn_start.setOnClickListener(new View.OnClickListener() {
+
+
+            public void onClick(View v) {
+                //boolean listState = _mToggles.get(pos);
+                //_mToggles.set(pos,new Boolean(!listState));
+                //notifyDataSetChanged();
+
+
+            }});*/
 
         /*if(_mToggles.get(position) == false)
         {
@@ -124,11 +197,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
     public Time getTime()
     {
-        Calendar calendar = Calendar.getInstance();
-        int seconds = calendar.get(Calendar.SECOND);
-
         Time time = new Time();
-        time.set_start(seconds);
+        time.set_start(C_Time.getCurrentTimeInSecond());
 
         return time;
     }
@@ -143,10 +213,10 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     }
 
 
-    public void setToggleList( ArrayList<Boolean> list ){
+    /*public void setToggleList( ArrayList<Boolean> list ){
         this._mToggles = list;
         notifyDataSetChanged();
-    }
+    }*/
 
     private static class TaskViewHolder{
         //private  TextView tv_date;
