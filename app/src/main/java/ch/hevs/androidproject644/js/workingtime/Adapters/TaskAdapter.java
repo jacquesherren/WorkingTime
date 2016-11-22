@@ -38,8 +38,6 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     private boolean _hideButton;
     int selected_position = -1;
 
-    //private ArrayList<Boolean> _mToggles = new ArrayList<Boolean>();
-   //private boolean[] _aToggles;
 
     public TaskAdapter(Context context,int ressource, List<Task> tasks, boolean hideButton) {
         super(context, ressource, tasks);
@@ -48,9 +46,6 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         this._hideButton=hideButton;
     }
 
-    /*public void setButtonVisibility(boolean hideButton){
-        this._hideButton = hideButton;
-    }*/
 
     public View getCustomView(final int position, View convertView, ViewGroup parent) {
         final int pos = position;
@@ -70,7 +65,6 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             viewHolder.image_activity = (ImageView) convertView.findViewById(R.id.image_activity);
             viewHolder.image_worker = (ImageView) convertView.findViewById(R.id.image_worker);
             viewHolder.btn_start = (ToggleButton) convertView.findViewById(R.id.btn_start);
-
 
             convertView.setTag(viewHolder);
         }
@@ -96,14 +90,14 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         if (!_hideButton) {
             viewHolder.btn_start.setChecked(position == selected_position);
-            viewHolder.btn_start.animate();
+            //viewHolder.btn_start.animate();
             //viewHolder.btn_start.setTextOff("F" + position);
             //viewHolder.btn_start.setTextOn("N" + position);
 
             viewHolder.btn_start.setVisibility(View.VISIBLE);
             viewHolder.tv_duration.setVisibility(View.INVISIBLE);
             //viewHolder.btn_start.setChecked( _mToggles.get( position ) );
-            viewHolder.tv_duration.setText(task.get_duration_hhmm());
+            //viewHolder.tv_duration.setText(task.get_duration_hhmm());
             //viewHolder.btn_start.setText("GO");
         } else {
             viewHolder.btn_start.setVisibility(View.INVISIBLE);
@@ -144,21 +138,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         return convertView;
     }
-<<<<<<< HEAD
-=======
 
-    public Time getTime()
-    {
-        Calendar calendar = Calendar.getInstance();
-        int seconds = calendar.get(Calendar.SECOND);
-
-        Time time = new Time();
-        time.set_start();
-
-        return time;
-    }
-
->>>>>>> origin/Test---Listener-on-ListView
     public View getView(int position, View convertView, ViewGroup parent){
         return getCustomView(position, convertView, parent);
     }

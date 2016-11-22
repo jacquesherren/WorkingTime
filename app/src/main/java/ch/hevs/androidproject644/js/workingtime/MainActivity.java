@@ -36,11 +36,7 @@ import ch.hevs.androidproject644.js.workingtime.model.Time;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ListView _lvtasks;
-    private TextView _tv_test_time;
     private List<Task> _tasks = new ArrayList<Task>();
-    private List<Time> _times = new ArrayList<>();
-    Resources _res;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,22 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         _lvtasks = (ListView) findViewById(R.id.lv_tasks);
         TaskDataSource getAll = new TaskDataSource(this);
         _tasks = getAll.getAllTasks();
-        //_tasks = getAll.getAllTasks();
-
-        _tv_test_time = (TextView) findViewById(R.id.tv_test_time);
-        TimeDataSource getTime = new TimeDataSource(this);
-        _times = getTime.getAllTime();
-        Time time = _times.get(1);
-        Time time2 =  _times.get(10);
-        Calendar c1 = time.get_start();
-        Calendar c2 = time2.get_start();
-        int interval = c2.MINUTE - c1.MINUTE;
-        _tv_test_time.setText(String.valueOf(c2.MINUTE));
-
-
-
-        //_tv_test_time.setText(String.valueOf(time.get_start().toString()));
-
 
         TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
         _lvtasks.setAdapter(adapter);
@@ -86,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-      // _lvtasks.setlistener
 
         setListener();
 
@@ -98,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

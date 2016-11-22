@@ -132,13 +132,10 @@ public class TimeDataSource {
         Time time = new Time();
 
         time.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ID)));
-<<<<<<< HEAD
+
         time.set_start(C_Time.set_longToCalendar(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME))));
         time.set_stop(C_Time.set_longToCalendar(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME))));
-=======
-        time.set_start();
-        time.set_stop();
->>>>>>> origin/Test---Listener-on-ListView
+
         time.set_duration(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_DURATION)));
 
         //Task task = C_Task.getTasksById(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK)), _context);
