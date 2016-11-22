@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Task;
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.DB.TimeDataSource;
 import ch.hevs.androidproject644.js.workingtime.MainActivity;
@@ -33,6 +34,7 @@ import ch.hevs.androidproject644.js.workingtime.model.Time;
 public class TaskAdapter extends ArrayAdapter<Task> {
     private Context _context;
     private List<Task> _tasks;
+    private List<Time> _times;
     private boolean _hideButton;
     int selected_position = -1;
 
@@ -44,43 +46,22 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         this._context = context;
         this._tasks = tasks;
         this._hideButton=hideButton;
-        //_aToggles = new boolean[tasks.size()];
-        //for(int i = 0;i<tasks.size();i++) {
-        //    _mToggles.add(false);
-        //}
-        //setToggleList(_mToggles);
     }
 
-    @Override
-    public int getCount() {
-        return super.getCount();
-    }
-
-    @Nullable
-    @Override
-    public Task getItem(int position) {
-        return super.getItem(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
-    public void setButtonVisibility(boolean hideButton){
+    /*public void setButtonVisibility(boolean hideButton){
         this._hideButton = hideButton;
-    }
+    }*/
 
-    public View getCustomView(final int position, View convertView, ViewGroup parent){
-        final int pos=position;
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.task_row,parent, false);
+    public View getCustomView(final int position, View convertView, ViewGroup parent) {
+        final int pos = position;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.task_row, parent, false);
         }
 
         TaskViewHolder viewHolder = (TaskViewHolder) convertView.getTag();
-        if(viewHolder == null){
+        if (viewHolder == null) {
             viewHolder = new TaskViewHolder();
-            //viewHolder.tv_date = (TextView) convertView.findViewById(R.id.tv_date);
+
             viewHolder.tv_duration = (TextView) convertView.findViewById(R.id.tv_duration);
             viewHolder.tv_company_value = (TextView) convertView.findViewById(R.id.tv_company_value);
             viewHolder.tv_activity_value = (TextView) convertView.findViewById(R.id.tv_activity_value);
@@ -96,9 +77,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
         final Task task = getItem(position);
-        //int selectedindexitem=0;
         //il ne reste plus qu'à remplir notre vue
-        //viewHolder.tv_date.setText(Datas.DATE_FORMATTER.format(task.get_date().getTime()));
 
         viewHolder.image_company.setImageDrawable(_context.getResources().getDrawable(R.drawable.ic_business_black_24dp));
         viewHolder.image_activity.setImageDrawable(_context.getResources().getDrawable(R.drawable.ic_view_list_black_24dp));
@@ -107,20 +86,26 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         viewHolder.tv_activity_value.setText(task.get_activity().get_name());
         viewHolder.tv_worker_value.setText(task.get_worker().get_firstname() + " " + task.get_worker().get_lastname());
 
+       TimeDataSource getTimeByIdTask = new TimeDataSource(_context);
+        _times = getTimeByIdTask.getTimeByTaskId(task.get_id());
+        String s = C_Time.getFormatedDuration(C_Task.getTotalDurationByTask(_times));
+        viewHolder.tv_duration.setText(s);
+        viewHolder.btn_start.setTextOff(s);
+        viewHolder.btn_start.setTextOn("STOP");
 
 
-        if(!_hideButton) {
-            viewHolder.btn_start.setChecked(position==selected_position);
-            viewHolder.btn_start.setTextOff("F"+position);
-            viewHolder.btn_start.setTextOn("N"+position);
+        if (!_hideButton) {
+            viewHolder.btn_start.setChecked(position == selected_position);
+            viewHolder.btn_start.animate();
+            //viewHolder.btn_start.setTextOff("F" + position);
+            //viewHolder.btn_start.setTextOn("N" + position);
 
             viewHolder.btn_start.setVisibility(View.VISIBLE);
             viewHolder.tv_duration.setVisibility(View.INVISIBLE);
             //viewHolder.btn_start.setChecked( _mToggles.get( position ) );
             viewHolder.tv_duration.setText(task.get_duration_hhmm());
             //viewHolder.btn_start.setText("GO");
-        }
-        else {
+        } else {
             viewHolder.btn_start.setVisibility(View.INVISIBLE);
             viewHolder.tv_duration.setVisibility(View.VISIBLE);
             //viewHolder.tv_duration.setText(task.get_duration_hhmm());
@@ -128,81 +113,37 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         viewHolder.btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Time currentTime = C_Time.get_Time();
-                //if(currentTime!=null)
-
-                if(((ToggleButton) v).isChecked())
-                {
-                    TimeDataSource starting = new TimeDataSource(_context);
-                    Time time = new Time(task);
-                    time.set_id(starting.startingTime(new Time(task)));
-                    C_Time.set_Time(time);
-                    ((ToggleButton) v).setText("T " + String.valueOf(pos));
-                    selected_position=position;
-                }
-                else
-                {
-
+                Time currentTime = C_Time.get_Time();
+                if(currentTime!=null){
+                    currentTime.set_stop(C_Time.getCurrentTimeInSecond());
+                    currentTime.cal_duration();
                     TimeDataSource finishing = new TimeDataSource(_context);
-                    Time time = C_Time.get_Time();
+                    finishing.finishingTime(currentTime);
+                    C_Time.set_Time(null);
+                }
+
+                if (((ToggleButton) v).isChecked()) {
+                    TimeDataSource starting = new TimeDataSource(_context);
+                    Time time = new Time(task.get_id());
+                    time.set_id((int) starting.startingTime(time));
+                    C_Time.set_Time(time);
+                    selected_position = position;
+                } else {
+                    /*Time time = C_Time.get_Time();
                     time.set_stop(C_Time.getCurrentTimeInSecond());
                     time.cal_duration();
+
+                    TimeDataSource finishing = new TimeDataSource(_context);
                     finishing.finishingTime(time);
-                    C_Time.set_Time(null);
-                    selected_position=-1;
+                    C_Time.set_Time(null);*/
+                    selected_position = -1;
                 }
                 notifyDataSetChanged();
             }
         });
-  /*      viewHolder.btn_start.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
-                    //viewHolder.btn_start.setTextOff("T " + String.valueOf(pos));
-
-                    selected_position=pos;
-                    //_aToggles[pos]=true;
-                }
-                else {
-                    //viewHolder.btn_start.setTextOff("T " + String.valueOf(pos));
-                    selected_position =  -1;
-                    //_aToggles[pos]=false;
-                }
-                notifyDataSetChanged();
-            }
-        });*/
-        //viewHolder.btn_start.setChecked(_aToggles[pos]);
-     /*   viewHolder.btn_start.setOnClickListener(new View.OnClickListener() {
-
-
-            public void onClick(View v) {
-                //boolean listState = _mToggles.get(pos);
-                //_mToggles.set(pos,new Boolean(!listState));
-                //notifyDataSetChanged();
-
-
-            }});*/
-
-        /*if(_mToggles.get(position) == false)
-        {
-            //TODO
-        }else
-        {
-            //TODO
-        }*/
 
         return convertView;
     }
-
-    public Time getTime()
-    {
-        Time time = new Time();
-        time.set_start(C_Time.getCurrentTimeInSecond());
-
-        return time;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent){
         return getCustomView(position, convertView, parent);
     }
@@ -213,10 +154,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     }
 
 
-    /*public void setToggleList( ArrayList<Boolean> list ){
-        this._mToggles = list;
-        notifyDataSetChanged();
-    }*/
+
 
     private static class TaskViewHolder{
         //private  TextView tv_date;

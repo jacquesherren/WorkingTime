@@ -11,10 +11,13 @@ import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Activity;
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Task;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
 import ch.hevs.androidproject644.js.workingtime.model.Activity;
 import ch.hevs.androidproject644.js.workingtime.model.Company;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
+import ch.hevs.androidproject644.js.workingtime.model.Time;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 /**
@@ -60,8 +63,8 @@ public class TaskDataSource {
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null) {
             cursor.moveToFirst();
-            //Task tasks = cur(cursor);
-            //return tasks;
+            Task task = cursorToTask(cursor);
+            return task;
         }
         return null;
     }
@@ -98,6 +101,9 @@ public class TaskDataSource {
 
         Company company = C_Company.getCompanyById(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID)),_context);
         task.set_company(company);
+
+        //List<Time> times = C_Time.getTimesByTaskId(task.get_id(),_context);
+        //task.set_timeId();
 
         return task;
     }

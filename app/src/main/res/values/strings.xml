@@ -78,4 +78,10 @@
     <string name="tgb_WorkBreak_ON">Let\'s take a break</string>
     <string name="title_activity_edit_task">EditTask</string>
     <string name="btn_start">GO</string>
+    <string name="title_activity_company">Company</string>
+
+    <string name="start_label">Start</string>
+    <string name="duration_label">Duration</string>
+    <string name="stop_label">Stop</string>
+    <string name="timelist_label">Times list</string>
 </resources>

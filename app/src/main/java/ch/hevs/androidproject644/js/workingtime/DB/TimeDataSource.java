@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Task;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
 import ch.hevs.androidproject644.js.workingtime.model.Time;
 
@@ -39,7 +40,8 @@ public class TimeDataSource {
         values.put(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME, time.get_start().getTimeInMillis());
         values.put(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME, time.get_stop().getTimeInMillis());
         values.put(DB_Contract.times.COLUMN_NAME_TIME_DURATION, time.get_duration());
-        values.put(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK, time.get_task().get_id());
+        //values.put(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK, time.get_task().get_id());
+        values.put(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK, time.get_task());
 
         id = db.insert(DB_Contract.times.TABLE_TIMES, null, values);
         Log.e("Time Table Created", "test created");
@@ -53,7 +55,8 @@ public class TimeDataSource {
         SQLiteDatabase db = _dbclass.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME, time.get_start().getTimeInMillis());
-
+        //values.put(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK, time.get_task().get_id());
+        values.put(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK, time.get_task());
         id = db.insert(DB_Contract.times.TABLE_TIMES, null, values);
         Log.e("Time add", "Time add");
         return id;
@@ -105,16 +108,36 @@ public class TimeDataSource {
         return times;
     }
 
+    public List<Time> getTimeByTaskId(long taskId) {
+        List<Time> times = new ArrayList<>();
+
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT * FROM " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK + " = " + taskId;
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast())
+        {
+            Time time = cursorToTime(cursor);
+            times.add(time);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return times;
+    }
+
     private Time cursorToTime(Cursor cursor)
     {
         Time time = new Time();
 
         time.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ID)));
-        time.set_start(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME)));
-        time.set_stop(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME)));
+        time.set_start(C_Time.set_longToCalendar(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_STARTTIME))));
+        time.set_stop(C_Time.set_longToCalendar(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_ENDTIME))));
         time.set_duration(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.COLUMN_NAME_TIME_DURATION)));
 
-        Task task = C_Task.getTasksById(cursor.getLong(cursor.getColumnIndex(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK)), _context);
+        //Task task = C_Task.getTasksById(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK)), _context);
+        time.set_task(cursor.getInt(cursor.getColumnIndex(DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK)));
 
         return time;
     }
