@@ -4,7 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 
 
@@ -18,8 +22,14 @@ public class Time implements Parcelable {
     private int _id;
     private Calendar _start;
     private Calendar _stop;
+<<<<<<< HEAD
     private long _duration;
     private int taskId;
+=======
+    private int _duration;
+    private Task _task;
+    final DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
+>>>>>>> origin/Test---Listener-on-ListView
 
     protected Time(Parcel in) {
         this._id = in.readInt();
@@ -67,9 +77,23 @@ public class Time implements Parcelable {
         dest.writeInt(taskId);
     }
 
+<<<<<<< HEAD
 
     public void cal_duration(){
         this._duration=_stop.getTimeInMillis()-_start.getTimeInMillis();
+=======
+    public void set_stop() {
+        long time = System.currentTimeMillis();
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
+        calendar.setTimeInMillis(time);
+        this._stop=calendar;
+    }
+    public void set_start() {
+        long time = System.currentTimeMillis();
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
+        calendar.setTimeInMillis(time);
+        this._start=calendar;
+>>>>>>> origin/Test---Listener-on-ListView
     }
 
     public void set_start(Calendar _start) {

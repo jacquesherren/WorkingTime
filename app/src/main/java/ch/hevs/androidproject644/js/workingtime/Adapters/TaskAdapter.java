@@ -144,6 +144,21 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         return convertView;
     }
+<<<<<<< HEAD
+=======
+
+    public Time getTime()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int seconds = calendar.get(Calendar.SECOND);
+
+        Time time = new Time();
+        time.set_start();
+
+        return time;
+    }
+
+>>>>>>> origin/Test---Listener-on-ListView
     public View getView(int position, View convertView, ViewGroup parent){
         return getCustomView(position, convertView, parent);
     }
