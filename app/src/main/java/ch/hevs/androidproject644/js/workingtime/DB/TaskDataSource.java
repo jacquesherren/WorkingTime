@@ -43,6 +43,7 @@ public class TaskDataSource {
         ContentValues values = new ContentValues();
         values.put(DB_Contract.tasks.COLUMN_NAME_TASK_DATE, task.get_date().toString()); //à controler selon date de jacques );
         values.put(DB_Contract.tasks.COLUMN_NAME_TASK_DURATION, task.get_duration());
+        values.put(DB_Contract.tasks.COLUMN_NAME_ARCHIVE, task.is_archive_int());
 //        values.put(DB_Contract.tasks.COLUMN_NAME_TASK_DESCRIPTION, task.get_description().toString());
 
         //A voir comment récupérer la FK
@@ -55,6 +56,15 @@ public class TaskDataSource {
         return id;
     }
 
+    public int updateTaskArchive(Task task) {
+        SQLiteDatabase db = _dbclass.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DB_Contract.tasks.COLUMN_NAME_ARCHIVE, task.is_archive_int());
+        // updating row
+        return db.update(DB_Contract.tasks.TABLE_TASKS, values, DB_Contract.tasks.COLUMN_NAME_ARCHIVE + " = ?",
+                new String[]{String.valueOf(task.get_id())});
+    }
     public Task getTaskByID(long id)
     {
         //getreadable ici

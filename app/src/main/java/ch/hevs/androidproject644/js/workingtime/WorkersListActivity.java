@@ -65,6 +65,12 @@ public class WorkersListActivity extends AppCompatActivity {
 
     }
 
+    protected void onResume(){
+        super.onResume();
+        setContentView(R.layout.workers_list_activity);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -94,7 +94,6 @@
             android:layout_gravity="center_vertical"
             android:text="Create a new activity" />
 
-
     </LinearLayout>
 
 </ScrollView>

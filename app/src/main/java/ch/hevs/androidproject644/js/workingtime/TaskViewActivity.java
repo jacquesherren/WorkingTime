@@ -11,8 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Adapters.TimeAdapter;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Task;
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
+import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
 import ch.hevs.androidproject644.js.workingtime.DB.TimeDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
@@ -43,6 +47,8 @@ public class TaskViewActivity extends AppCompatActivity {
     private TextView _tv_company_value;
     //private ImageView _image_company;
 
+    private Switch _sw_task_archive;
+
     private ListView _lv_time;
 
     private Task _task;
@@ -61,7 +67,7 @@ public class TaskViewActivity extends AppCompatActivity {
         _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);
         _tv_birthdate_value = (TextView) findViewById(R.id.tv_birthdate_value);
         _image_Sex = (ImageView) findViewById(R.id.image_Sex);
-
+        _sw_task_archive = (Switch) findViewById(R.id.sw_task_archive);
         _tv_activity_value = (TextView) findViewById(R.id.tv_activity_value);
         //_image_activity = (ImageView) findViewById(R.id.image_activity);
 
@@ -103,6 +109,18 @@ public class TaskViewActivity extends AppCompatActivity {
 
         }
 
+        _sw_task_archive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(_sw_task_archive.isChecked())
+                    _task.set_archive(true);
+                _task.set_archive(false);
+
+                TaskDataSource updateTask = new TaskDataSource(TaskViewActivity.this);
+                updateTask.updateTaskArchive(_task);
+
+            }
+        });
+
     }
 
     @Override
@@ -138,5 +156,9 @@ public class TaskViewActivity extends AppCompatActivity {
                 //Write your code if there's no result
             }
         }*/
+    }
+
+    private void setArchiveTask() {
+        _task.set_archive(true);
     }
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -158,7 +159,6 @@ public class TaskEditActivity extends AppCompatActivity {
         _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);
         _btn_newCompany = (Button) findViewById(R.id.btn_newCompany);
         _btn_newActivity = (Button) findViewById(R.id.btn_newActivity);
-
     }
 
     private void setListener() {

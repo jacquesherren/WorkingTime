@@ -69,6 +69,7 @@
     <string name="company_name">Name</string>
     <string name="company_activated_hint">Activate this company to make it available.</string>
     <string name="company_activated">Company available</string>
+    <string name="task_archive">Archived task</string>
     <string name="title_activity_company_view">CompanyViewActivity</string>
     <string name="title_activity_task_view">TaskViewActivity</string>
     <string name="title_activity_time_recording">TimeRecordingActivity</string>

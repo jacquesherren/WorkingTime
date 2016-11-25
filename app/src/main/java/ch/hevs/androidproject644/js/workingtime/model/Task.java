@@ -18,6 +18,7 @@ public class Task implements Parcelable{
     private Worker _worker;
     private Company _company ;
     private Activity _activity ;
+    private boolean _archive;
 
 
 
@@ -86,6 +87,7 @@ public class Task implements Parcelable{
     public int get_id() { return _id; }
     public Calendar get_date() {  return _date;  }
     public int get_duration() {  return _duration;  }
+    public boolean is_archive() { return _archive; }
 
     public String get_duration_hhmm() {
         int hours = _duration / 60; //since both are ints, you get an int
@@ -115,6 +117,13 @@ public class Task implements Parcelable{
     public void set_activity(Activity _activity) {
         this._activity = _activity;
     }
-    public void set_id(int _id) {this._id = _id;    }
+    public void set_id(int _id) {this._id = _id; }
+    public void set_archive(boolean _archive) { this._archive = _archive; }
 
+    public int is_archive_int() {
+        if (this._archive==true)
+            return 1;
+        return 0;
+
+    }
 }

@@ -15,44 +15,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_duration"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_very_big"
-            android:layout_centerHorizontal="true"
-            android:text="8h25"/>
+
         <TextView
             android:id="@+id/tv_worker_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/worker_label"
-            android:layout_below="@+id/tv_duration"/>
+            android:layout_below="@+id/ll_head"/>
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_below="@+id/tv_worker_name"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:id="@+id/view" />
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:id="@+id/image_Sex"
             android:layout_below="@+id/tv_worker_name"/>
-
-        <TextView
-            android:id="@+id/tv_firstname_lastname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/image_Sex"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_toRightOf="@+id/image_Sex"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            tools:text="Firstname Lastname" />
 
         <TextView
             android:id="@+id/tv_birthdate_name"
@@ -135,5 +116,42 @@
             tools:text="Company name"
             android:layout_below="@+id/tv_company_name"
             android:layout_alignParentStart="true" />
+
+        <LinearLayout
+            android:id="@+id/ll_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_duration"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_very_big"
+            android:text="8h25"
+            android:layout_alignParentTop="true"
+                android:layout_weight="1"/>
+
+            <Switch
+                android:layout_toRightOf="@+id/tv_duration"
+                android:text="@string/task_archive"
+                android:id="@+id/sw_task_archive"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_firstname_lastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:text="Firstname Lastname"
+            android:layout_alignTop="@+id/view"
+            android:layout_toEndOf="@+id/tv_company_name" />
     </RelativeLayout>
 </LinearLayout>
