@@ -58,4 +58,6 @@
     <string name="worker_activated">Employé disponible</string>
     <string name="worker_activated_hint">Activer cet employé pour le rendre disponible</string>
     <string name="worker_label">Employé :</string>
+    <string name="action_english">Anglais</string>
+    <string name="action_french">Français</string>
 </resources>
