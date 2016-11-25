@@ -85,4 +85,6 @@
     <string name="duration_label">Duration</string>
     <string name="stop_label">Stop</string>
     <string name="timelist_label">Times list</string>
+    <string name="title_activity_task">TaskActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
