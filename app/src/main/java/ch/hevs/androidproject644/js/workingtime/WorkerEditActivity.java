@@ -126,7 +126,8 @@ public class WorkerEditActivity extends AppCompatActivity {
 
             case R.id.action_delete:
                 delete();
-                finish();
+                Intent intent = new Intent(WorkerEditActivity.this,WorkersListActivity.class);
+                navigateUpTo(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

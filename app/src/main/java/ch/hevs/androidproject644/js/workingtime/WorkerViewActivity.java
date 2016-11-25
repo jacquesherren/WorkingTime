@@ -34,6 +34,7 @@ public class WorkerViewActivity extends AppCompatActivity {
 
     @Override
     protected void onResume(){
+        super.onResume();
         findViewsById();
 
         Intent intent = getIntent();

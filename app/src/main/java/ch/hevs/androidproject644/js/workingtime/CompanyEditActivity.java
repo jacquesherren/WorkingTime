@@ -73,7 +73,8 @@ public class CompanyEditActivity extends AppCompatActivity {
 
             case R.id.action_delete:
                 delete();
-                finish();
+                Intent intent = new Intent(CompanyEditActivity.this,CompaniesListActivity.class);
+                navigateUpTo(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
