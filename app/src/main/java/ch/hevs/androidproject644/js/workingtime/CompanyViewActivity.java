@@ -31,14 +31,13 @@ public class CompanyViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        findViewsById();
-
-
     }
 
     @Override
     protected void onResume(){
         super.onResume();
+
+        findViewsById();
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);

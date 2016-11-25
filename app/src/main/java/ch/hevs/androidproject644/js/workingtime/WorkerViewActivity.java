@@ -30,6 +30,10 @@ public class WorkerViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    @Override
+    protected void onResume(){
         findViewsById();
 
         Intent intent = getIntent();
@@ -48,7 +52,6 @@ public class WorkerViewActivity extends AppCompatActivity {
                 _tv_Active.setText("Unavailable");
         }
     }
-
     private void findViewsById(){
         _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);
         _tv_birthdate_value = (TextView) findViewById(R.id.tv_birthdate_value);

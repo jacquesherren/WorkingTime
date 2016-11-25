@@ -37,13 +37,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     private List<Time> _times;
     private boolean _hideButton;
     int selected_position = -1;
+    int _runningTask = 0;
 
 
-    public TaskAdapter(Context context,int ressource, List<Task> tasks, boolean hideButton) {
+    public TaskAdapter(Context context,int ressource, List<Task> tasks, boolean hideButton,int runningTask) {
         super(context, ressource, tasks);
         this._context = context;
         this._tasks = tasks;
         this._hideButton=hideButton;
+        this._runningTask=runningTask;
     }
 
 
@@ -89,16 +91,18 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
 
         if (!_hideButton) {
+
+
             viewHolder.btn_start.setChecked(position == selected_position);
+            if(task.get_id()==_runningTask)
+                viewHolder.btn_start.setChecked(true);
             //viewHolder.btn_start.animate();
             //viewHolder.btn_start.setTextOff("F" + position);
             //viewHolder.btn_start.setTextOn("N" + position);
 
             viewHolder.btn_start.setVisibility(View.VISIBLE);
             viewHolder.tv_duration.setVisibility(View.INVISIBLE);
-            //viewHolder.btn_start.setChecked( _mToggles.get( position ) );
-            //viewHolder.tv_duration.setText(task.get_duration_hhmm());
-            //viewHolder.btn_start.setText("GO");
+
         } else {
             viewHolder.btn_start.setVisibility(View.INVISIBLE);
             viewHolder.tv_duration.setVisibility(View.VISIBLE);
@@ -147,9 +151,6 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     public View getDropDownView(int position, View convertView,ViewGroup parent) {
         return getCustomView(position, convertView, parent);
     }
-
-
-
 
     private static class TaskViewHolder{
         //private  TextView tv_date;

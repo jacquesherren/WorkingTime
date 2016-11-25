@@ -48,9 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -78,23 +75,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume(){
         super.onResume();
 
-        Time currentTime = C_Time.get_Time();
-        if(currentTime!=null) {
-            Toast.makeText(this, "Start : " + Datas.TIME_FORMATTER.format(currentTime.get_start().getTimeInMillis()), Toast.LENGTH_SHORT).show();
 
-        }
 
         _lvtasks = (ListView) findViewById(R.id.lv_tasks);
         TaskDataSource getAll = new TaskDataSource(this);
         _tasks = getAll.getAllTasks();
 
-        TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
+        Time currentTime = C_Time.get_Time();
+        TaskAdapter adapter;
+        if(currentTime!=null)
+            {
+            Toast.makeText(this, "Start : " + Datas.TIME_FORMATTER.format(currentTime.get_start().getTimeInMillis()), Toast.LENGTH_SHORT).show();
+                adapter= new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false,currentTime.get_task());
+                setListener(currentTime.get_task());
+            }
+            else
+            {
+                adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false,0);
+                setListener(0);
+            }
+
         _lvtasks.setAdapter(adapter);
 
+
+
+    }
+
+    private void setListener(final int taskId) {
         _lvtasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
+                TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false,taskId);
                 Task t = adapter.getItem(position);
 
                 Intent intent = new Intent(MainActivity.this, TaskViewActivity.class);
@@ -103,9 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 MainActivity.this.startActivityForResult(intent,1);
             }
         });
-
     }
-
 
 
     @Override

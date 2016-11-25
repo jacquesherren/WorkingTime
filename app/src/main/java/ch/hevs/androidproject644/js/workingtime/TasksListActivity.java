@@ -25,9 +25,8 @@ import ch.hevs.androidproject644.js.workingtime.model.Time;
 public class TasksListActivity extends AppCompatActivity {
 
     private ListView _lvTasks;
-    private TextView tv_test_time;
     List<Task> _tasks = new ArrayList<Task>();
-    boolean longpress = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +36,31 @@ public class TasksListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TasksListActivity.this, TaskEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                TasksListActivity.this.startActivityForResult(intent,1);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume(){
         _lvTasks = (ListView) findViewById(R.id.lv_tasks);
         TaskDataSource getAll = new TaskDataSource(this);
         _tasks = getAll.getAllTasks();
-        TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks,true);
+        TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks,true,0);
         _lvTasks.setAdapter(adapter);
 
         _lvTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks,true);
+                TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks,true,0);
                 Task t = adapter.getItem(position);
 
                 Intent intent = new Intent(TasksListActivity.this, TaskViewActivity.class);
@@ -61,20 +75,7 @@ public class TasksListActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("Long Click detected", "Long click");
 
-
                 return true;
-            }
-        });
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TasksListActivity.this, TaskEditActivity.class);
-                intent.putExtra(Datas.MODE, Datas.NEW);
-                TasksListActivity.this.startActivityForResult(intent,1);
             }
         });
     }
