@@ -1,12 +1,14 @@
 package ch.hevs.androidproject644.js.workingtime;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,7 +98,7 @@ public class TaskViewActivity extends AppCompatActivity {
             //_image_activity.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.drawable.ic_view_list_black_24dp));
             _tv_company_value.setText(_task.get_company().get_name());
 
-
+            _sw_task_archive.setChecked(_task.is_archive());
 
             TimeDataSource getTimeByIdTask = new TimeDataSource(this);
             _times = getTimeByIdTask.getTimeByTaskId(_task.get_id());
@@ -113,10 +115,12 @@ public class TaskViewActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(_sw_task_archive.isChecked())
                     _task.set_archive(true);
-                _task.set_archive(false);
+                else
+                    _task.set_archive(false);
 
                 TaskDataSource updateTask = new TaskDataSource(TaskViewActivity.this);
                 updateTask.updateTaskArchive(_task);
+                Log.e("state saved", "state saved");
 
             }
         });

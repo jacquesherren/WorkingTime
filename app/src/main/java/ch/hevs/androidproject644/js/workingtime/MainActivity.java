@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         _lvtasks = (ListView) findViewById(R.id.lv_tasks);
         TaskDataSource getAll = new TaskDataSource(this);
-        _tasks = getAll.getAllTasks();
+        _tasks = getAll.getTasksByAvailable();
 
         Time currentTime = C_Time.get_Time();
         TaskAdapter adapter;

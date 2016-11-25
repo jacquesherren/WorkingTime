@@ -62,8 +62,11 @@ public class TaskDataSource {
         ContentValues values = new ContentValues();
         values.put(DB_Contract.tasks.COLUMN_NAME_ARCHIVE, task.is_archive_int());
         // updating row
-        return db.update(DB_Contract.tasks.TABLE_TASKS, values, DB_Contract.tasks.COLUMN_NAME_ARCHIVE + " = ?",
+        Log.e("update archive", "Update archive");
+        return db.update(DB_Contract.tasks.TABLE_TASKS, values, DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = ?",
                 new String[]{String.valueOf(task.get_id())});
+
+
     }
     public Task getTaskByID(long id)
     {
@@ -78,6 +81,24 @@ public class TaskDataSource {
         }
         return null;
     }
+    public List<Task> getTasksByAvailable() {
+
+        List<Task> tasks = new ArrayList<>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT * FROM " + DB_Contract.tasks.TABLE_TASKS + " WHERE "  + DB_Contract.tasks.COLUMN_NAME_ARCHIVE + " = " + 0;
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            Task task = cursorToTask(cursor);
+            tasks.add(task);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return tasks;
+    }
+
 
     public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
