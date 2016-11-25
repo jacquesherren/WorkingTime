@@ -69,6 +69,9 @@ public class Task implements Parcelable{
         dest.writeParcelable(_worker,flags);
         dest.writeParcelable(_company,flags);
         dest.writeParcelable(_activity,flags);
+
+        boolean[] myBooleanArr = {_archive};
+        dest.writeBooleanArray(myBooleanArr);
     }
     protected Task(Parcel in) {
         this._id = in.readInt();
@@ -78,6 +81,12 @@ public class Task implements Parcelable{
         _worker  = in.readParcelable(Company.class.getClassLoader());
         _company  = in.readParcelable(Company.class.getClassLoader());
         _activity = in.readParcelable(Activity.class.getClassLoader());
+
+        boolean[] myBooleanArr = new boolean[1];
+        in.readBooleanArray(myBooleanArr);
+        _archive = myBooleanArr[0];
+
+
         //List<Time> times = new ArrayList<Time>();
     }
 
@@ -126,4 +135,11 @@ public class Task implements Parcelable{
         return 0;
 
     }
+    public void set_active_int(int active) {
+        if(active==1)
+            this._archive=true;
+        else if(active==0)
+            this._archive=false;
+    }
+
 }

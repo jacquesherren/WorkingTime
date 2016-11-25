@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_duration"
@@ -132,7 +132,7 @@
             android:textSize="@dimen/text_size_very_big"
             android:text="8h25"
             android:layout_alignParentTop="true"
-                android:layout_weight="1"/>
+                android:layout_weight="1"/>-->
 
             <Switch
                 android:layout_toRightOf="@+id/tv_duration"

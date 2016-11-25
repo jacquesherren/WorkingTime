@@ -92,14 +92,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         if (!_hideButton) {
 
+            if(task.get_id()==_runningTask) {
+                selected_position=position;
+                //viewHolder.btn_start.setChecked(true);
+            }
+            else {
+                //viewHolder.btn_start.setChecked(false);
 
+            }
             viewHolder.btn_start.setChecked(position == selected_position);
-            if(task.get_id()==_runningTask)
-                viewHolder.btn_start.setChecked(true);
-            //viewHolder.btn_start.animate();
-            //viewHolder.btn_start.setTextOff("F" + position);
-            //viewHolder.btn_start.setTextOn("N" + position);
-
             viewHolder.btn_start.setVisibility(View.VISIBLE);
             viewHolder.tv_duration.setVisibility(View.INVISIBLE);
 
@@ -118,6 +119,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
                     TimeDataSource finishing = new TimeDataSource(_context);
                     finishing.finishingTime(currentTime);
                     C_Time.set_Time(null);
+                    _runningTask=0;
                 }
 
                 if (((ToggleButton) v).isChecked()) {

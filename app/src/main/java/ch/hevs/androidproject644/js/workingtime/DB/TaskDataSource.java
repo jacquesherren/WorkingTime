@@ -123,6 +123,7 @@ public class TaskDataSource {
         task.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.COLUMN_NAME_TASK_ID)));
         task.set_date(cursor.getLong(cursor.getColumnIndex(DB_Contract.tasks.COLUMN_NAME_TASK_DATE)));
         task.set_duration(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.COLUMN_NAME_TASK_DURATION)));
+        task.set_active_int(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.COLUMN_NAME_ARCHIVE)));
 
         Worker worker = C_Worker.getWorkerById(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.FK_COLUMN_NAME_TASK_WORKERID)), _context);
         task.set_worker(worker);
@@ -132,6 +133,8 @@ public class TaskDataSource {
 
         Company company = C_Company.getCompanyById(cursor.getInt(cursor.getColumnIndex(DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID)),_context);
         task.set_company(company);
+
+
 
         //List<Time> times = C_Time.getTimesByTaskId(task.get_id(),_context);
         //task.set_timeId();

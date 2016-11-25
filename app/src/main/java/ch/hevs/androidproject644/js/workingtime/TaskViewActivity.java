@@ -37,7 +37,7 @@ import ch.hevs.androidproject644.js.workingtime.model.Worker;
 public class TaskViewActivity extends AppCompatActivity {
 
     //private  TextView _tv_date;
-    private TextView _tv_duration;
+    //private TextView _tv_duration;
 
     private TextView _tv_firstname_lastname;
     private ImageView _image_Sex;
@@ -64,19 +64,13 @@ public class TaskViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _tv_duration = (TextView) findViewById(R.id.tv_duration);
+    }
 
-        _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);
-        _tv_birthdate_value = (TextView) findViewById(R.id.tv_birthdate_value);
-        _image_Sex = (ImageView) findViewById(R.id.image_Sex);
-        _sw_task_archive = (Switch) findViewById(R.id.sw_task_archive);
-        _tv_activity_value = (TextView) findViewById(R.id.tv_activity_value);
-        //_image_activity = (ImageView) findViewById(R.id.image_activity);
+    @Override
+    protected void onResume(){
+        super.onResume();
 
-        _tv_company_value = (TextView) findViewById(R.id.tv_company_value);
-        //_image_company = (ImageView) findViewById(R.id.image_company);
-
-        _lv_time = (ListView) findViewById(R.id.lv_time);
+        findViewById();
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -85,7 +79,7 @@ public class TaskViewActivity extends AppCompatActivity {
             _task = intent.getParcelableExtra(Datas.VIEW);
 
             _tv_firstname_lastname.setText(_task.get_worker().get_firstname() + " " +  _task.get_worker().get_lastname());
-            _tv_birthdate_value.setText(_task.get_worker().get_birthdate().getTime().toString());
+            _tv_birthdate_value.setText(Datas.DATE_FORMATTER.format(_task.get_worker().get_birthdate().getTime()));
 
             if(_task.get_worker().get_sex()=='m')
                 _image_Sex.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.mipmap.ic_male));   //.setImageDrawable(new ColorDrawable(Color.CYAN));
@@ -107,7 +101,8 @@ public class TaskViewActivity extends AppCompatActivity {
             _lv_time.setAdapter(adapter);
 
             long l = C_Task.getTotalDurationByTask(_times);
-            _tv_duration.setText(C_Time.getFormatedDuration(l));
+
+            getSupportActionBar().setTitle(C_Time.getFormatedDuration(l));
 
         }
 
@@ -124,7 +119,22 @@ public class TaskViewActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void findViewById() {
+        //_tv_duration = (TextView) findViewById(R.id.tv_duration);
+
+        _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);
+        _tv_birthdate_value = (TextView) findViewById(R.id.tv_birthdate_value);
+        _image_Sex = (ImageView) findViewById(R.id.image_Sex);
+        _sw_task_archive = (Switch) findViewById(R.id.sw_task_archive);
+        _tv_activity_value = (TextView) findViewById(R.id.tv_activity_value);
+        //_image_activity = (ImageView) findViewById(R.id.image_activity);
+
+        _tv_company_value = (TextView) findViewById(R.id.tv_company_value);
+        //_image_company = (ImageView) findViewById(R.id.image_company);
+
+        _lv_time = (ListView) findViewById(R.id.lv_time);
     }
 
     @Override
@@ -149,20 +159,5 @@ public class TaskViewActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-       /* if (requestCode == 1) {
-            if(resultCode == TaskEditActivity.RESULT_OK){
-                Task result=data.getParcelableExtra("result");
-            }
-            if (resultCode == TaskEditActivity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }*/
-    }
-
-    private void setArchiveTask() {
-        _task.set_archive(true);
-    }
 }

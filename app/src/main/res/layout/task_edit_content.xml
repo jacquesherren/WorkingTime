@@ -28,13 +28,15 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <Spinner
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
             android:id="@+id/sp_chooseWorker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawSelectorOnTop="true"
-            android:prompt="@string/choose_worker"></Spinner>
+            android:prompt="@string/choose_worker">
+
+        </com.toptoche.searchablespinnerlibrary.SearchableSpinner>
 
         <Button
             android:id="@+id/btn_newWorker"

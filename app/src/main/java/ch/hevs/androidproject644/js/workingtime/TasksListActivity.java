@@ -51,6 +51,8 @@ public class TasksListActivity extends AppCompatActivity {
 
     @Override
     protected void onResume(){
+        super.onResume();
+
         _lvTasks = (ListView) findViewById(R.id.lv_tasks);
         TaskDataSource getAll = new TaskDataSource(this);
         _tasks = getAll.getAllTasks();
@@ -66,7 +68,7 @@ public class TasksListActivity extends AppCompatActivity {
                 Intent intent = new Intent(TasksListActivity.this, TaskViewActivity.class);
                 intent.putExtra(Datas.MODE, Datas.VIEW);
                 intent.putExtra(Datas.VIEW, t);
-                TasksListActivity.this.startActivityForResult(intent,1);
+                TasksListActivity.this.startActivity(intent);
             }
         });
 

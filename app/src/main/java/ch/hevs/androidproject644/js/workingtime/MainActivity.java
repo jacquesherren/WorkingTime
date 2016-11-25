@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume(){
         super.onResume();
 
-
-
         _lvtasks = (ListView) findViewById(R.id.lv_tasks);
         TaskDataSource getAll = new TaskDataSource(this);
         _tasks = getAll.getTasksByAvailable();
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TaskAdapter adapter;
         if(currentTime!=null)
             {
-            Toast.makeText(this, "Start : " + Datas.TIME_FORMATTER.format(currentTime.get_start().getTimeInMillis()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Task id : " + currentTime.get_task() + " is running...", Toast.LENGTH_SHORT).show();
                 adapter= new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false,currentTime.get_task());
                 setListener(currentTime.get_task());
             }
