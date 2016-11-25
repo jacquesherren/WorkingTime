@@ -63,17 +63,17 @@ public class CompanyEditActivity extends AppCompatActivity {
             // action with ID action_refresh was selected
             case R.id.action_save:
                 save();
+                finish();
                 break;
 
             // action with ID action_settings was selected
             case R.id.action_cancel:
-                Intent returnIntent = new Intent();
-                setResult(CompanyEditActivity.RESULT_CANCELED, returnIntent);
                 finish();
                 break;
 
             case R.id.action_delete:
                 delete();
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -81,39 +81,40 @@ public class CompanyEditActivity extends AppCompatActivity {
 
     private void save(){
         if(_company!=null){
-            Toast.makeText(this, "Saving this company...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Saving this company...", Toast.LENGTH_SHORT).show();
 
             setCompany();
-
 
             CompanyDataSource updateCompany = new CompanyDataSource(this);
             updateCompany.updateCompany(_company);
 
+            Intent intent = new Intent(CompanyEditActivity.this, CompanyViewActivity.class);
+            intent.putExtra(Datas.MODE, Datas.VIEW);
+            intent.putExtra(Datas.VIEW, _company);
+            CompanyEditActivity.this.startActivity(intent);
         }
-        else {
-            Toast.makeText(this, "Creating a new company...", Toast.LENGTH_SHORT)
-                    .show();
+        else
+        {
+            Toast.makeText(this, "Creating a new company...", Toast.LENGTH_SHORT).show();
 
             _company = new Company();
             setCompany();
 
             CompanyDataSource addCompany = new CompanyDataSource(this);
             addCompany.createCompany(_company);
+
+
+
         }
     }
 
 
     private  void delete(){
         if(_company!=null){
-            Toast.makeText(this, "Deleting this company...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Deleting this company...", Toast.LENGTH_SHORT).show();
+
             CompanyDataSource deleteCompany = new CompanyDataSource(this);
             deleteCompany.deleteCompany(_company);
-        }
-        else {
-            Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
-                    .show();
         }
     }
 

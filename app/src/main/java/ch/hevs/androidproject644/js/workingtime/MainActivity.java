@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -25,6 +26,7 @@ import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Adapters.CompanyAdapter;
 import ch.hevs.androidproject644.js.workingtime.Adapters.TaskAdapter;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.DB.CompanyDataSource;
 import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
 import ch.hevs.androidproject644.js.workingtime.DB.TimeDataSource;
@@ -46,28 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        _lvtasks = (ListView) findViewById(R.id.lv_tasks);
-        TaskDataSource getAll = new TaskDataSource(this);
-        _tasks = getAll.getAllTasks();
-
-        TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
-        _lvtasks.setAdapter(adapter);
-
-        _lvtasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
-                Task t = adapter.getItem(position);
-
-                Intent intent = new Intent(MainActivity.this, TaskViewActivity.class);
-                intent.putExtra(Datas.MODE, Datas.VIEW);
-                intent.putExtra(Datas.VIEW, t);
-                MainActivity.this.startActivityForResult(intent,1);
-            }
-        });
 
 
-        setListener();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -93,7 +75,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    private void setListener(){
+    protected void onResume(){
+        super.onResume();
+
+        Time currentTime = C_Time.get_Time();
+        if(currentTime!=null) {
+            Toast.makeText(this, "Start : " + Datas.TIME_FORMATTER.format(currentTime.get_start().getTimeInMillis()), Toast.LENGTH_SHORT).show();
+
+        }
+
+        _lvtasks = (ListView) findViewById(R.id.lv_tasks);
+        TaskDataSource getAll = new TaskDataSource(this);
+        _tasks = getAll.getAllTasks();
+
+        TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
+        _lvtasks.setAdapter(adapter);
+
+        _lvtasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TaskAdapter adapter = new TaskAdapter(MainActivity.this,R.layout.task_row, _tasks,false);
+                Task t = adapter.getItem(position);
+
+                Intent intent = new Intent(MainActivity.this, TaskViewActivity.class);
+                intent.putExtra(Datas.MODE, Datas.VIEW);
+                intent.putExtra(Datas.VIEW, t);
+                MainActivity.this.startActivityForResult(intent,1);
+            }
+        });
 
     }
 
