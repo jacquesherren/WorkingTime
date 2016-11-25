@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ public class TasksListActivity extends AppCompatActivity {
     private ListView _lvTasks;
     private TextView tv_test_time;
     List<Task> _tasks = new ArrayList<Task>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,4 +74,9 @@ public class TasksListActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+    }
 }

@@ -32,26 +32,7 @@ public class WorkersListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _lvWorkers = (ListView) findViewById(R.id.lv_workers);
-        WorkerDataSource getAll = new WorkerDataSource(this);
-        _workers = getAll.getAllWorkers();
 
-        WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this,R.layout.worker_row, _workers);
-        _lvWorkers.setAdapter(adapter);
-
-        _lvWorkers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this,R.layout.worker_row, _workers);
-                Worker w = adapter.getItem(position);
-
-                Intent intent = new Intent(WorkersListActivity.this, WorkerViewActivity.class);
-                intent.putExtra(Datas.MODE, Datas.VIEW);
-                intent.putExtra(Datas.VIEW, w);
-                WorkersListActivity.this.startActivityForResult(intent,1);
-            }
-        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_newWorker);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,8 +43,39 @@ public class WorkersListActivity extends AppCompatActivity {
                 WorkersListActivity.this.startActivityForResult(intent,1);
             }
         });
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        _lvWorkers = (ListView) findViewById(R.id.lv_workers);
+        WorkerDataSource getAll = new WorkerDataSource(this);
+        _workers = getAll.getAllWorkers();
+
+        WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this,R.layout.worker_row, _workers);
+        _lvWorkers.setAdapter(adapter);
+
+        setListener();
 
     }
+
+    private void setListener() {
+        _lvWorkers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this,R.layout.worker_row, _workers);
+                Worker w = adapter.getItem(position);
+
+                Intent intent = new Intent(WorkersListActivity.this, WorkerViewActivity.class);
+                intent.putExtra(Datas.MODE, Datas.VIEW);
+                intent.putExtra(Datas.VIEW, w);
+                WorkersListActivity.this.startActivity(intent);
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,18 +83,4 @@ public class WorkersListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.list_menu, menu);
         return true;
     }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == WorkerEditActivity.RESULT_OK){
-                Worker result=data.getParcelableExtra("result");
-            }
-            if (resultCode == WorkerEditActivity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }//onActivityResult
 }

@@ -52,39 +52,25 @@ public class ActivityViewActivity extends AppCompatActivity {
     }
 
     @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.edit_menu, menu);
-            return true;
-        }
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            switch (item.getItemId()) {
-                // action with ID action_refresh was selected
-                case R.id.action_edit:
-                    Toast.makeText(this, "Editing activity...", Toast.LENGTH_SHORT)
-                            .show();
-                    Intent intent = new Intent(ActivityViewActivity.this, ActivityEditActivity.class);
-                    intent.putExtra(Datas.MODE, Datas.EDIT);
-                    intent.putExtra(Datas.EDIT, _activity);
-                    ActivityViewActivity.this.startActivityForResult(intent,1);
-                    break;
-            }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.edit_menu, menu);
+        return true;
+    }
 
-            return super.onOptionsItemSelected(item);
-        }
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-            if (requestCode == 1) {
-                if(resultCode == ActivityEditActivity.RESULT_OK){
-                    Activity result=data.getParcelableExtra("result");
-                }
-                if (resultCode == ActivityEditActivity.RESULT_CANCELED) {
-                    //Write your code if there's no result
-                }
-            }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.action_edit:
+                Toast.makeText(this, "Editing activity...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ActivityViewActivity.this, ActivityEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.EDIT);
+                intent.putExtra(Datas.EDIT, _activity);
+                ActivityViewActivity.this.startActivity(intent);
+                break;
         }
 
-
+        return super.onOptionsItemSelected(item);
+    }
 }

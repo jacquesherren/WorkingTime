@@ -116,17 +116,17 @@ public class WorkerEditActivity extends AppCompatActivity {
             // action with ID action_refresh was selected
             case R.id.action_save:
                 save();
+                finish();
                 break;
 
             // action with ID action_settings was selected
             case R.id.action_cancel:
-                Intent returnIntent = new Intent();
-                setResult(WorkerEditActivity.RESULT_CANCELED, returnIntent);
                 finish();
                 break;
 
             case R.id.action_delete:
                 delete();
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -134,18 +134,21 @@ public class WorkerEditActivity extends AppCompatActivity {
 
     private void save(){
         if(_worker!=null){
-            Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT).show();
 
             setWorker();
 
             WorkerDataSource updateWorker = new WorkerDataSource(this);
             updateWorker.updateWorker(_worker);
 
+            Intent intent = new Intent(WorkerEditActivity.this, WorkerViewActivity.class);
+            intent.putExtra(Datas.MODE, Datas.VIEW);
+            intent.putExtra(Datas.VIEW, _worker);
+            WorkerEditActivity.this.startActivity(intent);
+
         }
         else {
-            Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT).show();
 
             _worker = new Worker();
             setWorker();
@@ -153,26 +156,14 @@ public class WorkerEditActivity extends AppCompatActivity {
             WorkerDataSource addWorker = new WorkerDataSource(this);
             addWorker.createWorker(_worker);
         }
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",_worker);
-        setResult(WorkerEditActivity.RESULT_OK,returnIntent);
-        finish();
     }
     private  void delete(){
         if(_worker!=null){
-            Toast.makeText(this, "Deleting this worker...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Deleting this worker...", Toast.LENGTH_SHORT).show();
+
             WorkerDataSource deleteWorker = new WorkerDataSource(this);
             deleteWorker.deleteWorker(_worker);
         }
-        else {
-            Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
-                    .show();
-        }
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",_worker);
-        setResult(WorkerEditActivity.RESULT_OK,returnIntent);
-        finish();
     }
 
     private void setWorker(){

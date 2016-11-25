@@ -17,6 +17,7 @@ import ch.hevs.androidproject644.js.workingtime.model.Company;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
 public class CompanyViewActivity extends AppCompatActivity {
+
     private TextView _tv_company_name_value;
     private TextView _tv_company_activated_value;
 
@@ -31,6 +32,13 @@ public class CompanyViewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findViewsById();
+
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
 
         Intent intent = getIntent();
         String sTypeOf = intent.getStringExtra(Datas.MODE);
@@ -61,29 +69,15 @@ public class CompanyViewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.action_edit:
-                Toast.makeText(this, "Editing company...", Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(this, "Editing company...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(CompanyViewActivity.this, CompanyEditActivity.class);
                 intent.putExtra(Datas.MODE, Datas.EDIT);
                 intent.putExtra(Datas.EDIT, _company);
-                CompanyViewActivity.this.startActivityForResult(intent,1);
+                CompanyViewActivity.this.startActivity(intent);
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == CompanyEditActivity.RESULT_OK){
-                Company result=data.getParcelableExtra("result");
-            }
-            if (resultCode == CompanyEditActivity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }
-
 
 }

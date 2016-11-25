@@ -64,17 +64,17 @@ public class ActivityEditActivity extends AppCompatActivity {
                 // action with ID action_refresh was selected
                 case R.id.action_save:
                     save();
+                    finish();
                     break;
 
                 // action with ID action_settings was selected
                 case R.id.action_cancel:
-                    Intent returnIntent = new Intent();
-                    setResult(ActivityEditActivity.RESULT_CANCELED, returnIntent);
                     finish();
                     break;
 
                 case R.id.action_delete:
                     delete();
+                    finish();
                     break;
             }
             return super.onOptionsItemSelected(item);
@@ -82,17 +82,21 @@ public class ActivityEditActivity extends AppCompatActivity {
 
     private void save(){
         if(_activity!=null){
-            Toast.makeText(this, "Saving this activity...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Saving this activity...", Toast.LENGTH_SHORT).show();
 
             setActivity();
 
             ActivityDataSource updateActivity = new ActivityDataSource(this);
             updateActivity.updateActivity(_activity);
+
+            Intent intent = new Intent(ActivityEditActivity.this, ActivityViewActivity.class);
+            intent.putExtra(Datas.MODE, Datas.VIEW);
+            intent.putExtra(Datas.VIEW, _activity);
+            ActivityEditActivity.this.startActivity(intent);
         }
-        else {
-            Toast.makeText(this, "Creating a new activity...", Toast.LENGTH_SHORT)
-                    .show();
+        else
+        {
+            Toast.makeText(this, "Creating a new activity...", Toast.LENGTH_SHORT).show();
 
             _activity = new Activity();
             setActivity();
@@ -100,24 +104,15 @@ public class ActivityEditActivity extends AppCompatActivity {
             ActivityDataSource addActivity = new ActivityDataSource(this);
             addActivity.createActivity(_activity);
         }
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",_activity);
-        setResult(ActivityEditActivity.RESULT_OK,returnIntent);
-        finish();
     }
 
 
     private  void delete(){
         if(_activity!=null){
-            Toast.makeText(this, "Deleting this activity...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Deleting this activity...", Toast.LENGTH_SHORT).show();
 
             ActivityDataSource deleteActivity = new ActivityDataSource(this);
             deleteActivity.deleteActivity(_activity);
-        }
-        else {
-            Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
-                    .show();
         }
     }
     private void setActivity() {
