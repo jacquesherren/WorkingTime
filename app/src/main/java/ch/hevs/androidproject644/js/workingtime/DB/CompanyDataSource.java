@@ -57,6 +57,19 @@ public class CompanyDataSource {
         return null;
     }
 
+    public Company getSumTimeByCompany()
+    {
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT " + DB_Contract.companies.COLUMN_NAME_COMPANY_NAME + " , SUM(" + DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.companies.TABLE_COMPANIES + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + " = " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID+ " AND " + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK + " GROUP BY " + DB_Contract.companies.COLUMN_NAME_COMPANY_NAME;
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            Company company = cursorToCompany(cursor);
+            return company;
+        }
+        return null;
+    }
+
     public List<Company> getCompanyByAvaiable()
     {
         List<Company> companies = new ArrayList<Company>();

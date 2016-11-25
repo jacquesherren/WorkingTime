@@ -70,6 +70,19 @@ public class WorkerDataSource {
         return null;
     }
 
+    public Worker getTimeByWorker()
+    {
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT " + DB_Contract.workers.COLUMN_NAME_LASTNAME + "SUM (" + DB_Contract.times.COLUMN_NAME_TIME_DURATION + ")" + " FROM " + DB_Contract.workers.TABLE_WORKERS + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.workers.COLUMN_NAME_WORKER_ID + " = " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_WORKERID + " AND " + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK + " GROUP BY " + DB_Contract.workers.COLUMN_NAME_LASTNAME;
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            Worker worker = cursorToWorker(cursor);
+            return worker;
+        }
+        return null;
+    }
+
     public List<Worker> getWorkerByAvaiable()
     {
         List<Worker> workers = new ArrayList<Worker>();
