@@ -65,7 +65,7 @@ public class TasksListActivity extends AppCompatActivity {
                 TaskAdapter adapter = new TaskAdapter(TasksListActivity.this,R.layout.task_row, _tasks,true,0);
                 Task t = adapter.getItem(position);
 
-                Intent intent = new Intent(TasksListActivity.this, TaskViewActivity.class);
+                Intent intent = new Intent(TasksListActivity.this, TaskActivity.class);
                 intent.putExtra(Datas.MODE, Datas.VIEW);
                 intent.putExtra(Datas.VIEW, t);
                 TasksListActivity.this.startActivity(intent);

@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -33,7 +35,7 @@ import ch.hevs.androidproject644.js.workingtime.model.Task;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 public class TaskEditActivity extends AppCompatActivity {
-    private Spinner _sp_chooseWorker;
+    private SearchableSpinner _sp_chooseWorker;
     private Spinner _sp_chooseCompany;
     private Spinner _sp_chooseActivity;
 
@@ -78,6 +80,9 @@ public class TaskEditActivity extends AppCompatActivity {
 
         // Set adapter to spinner
         _sp_chooseWorker.setAdapter(wAdapter);
+        _sp_chooseWorker.setTitle("Choose a worker");
+        _sp_chooseWorker.setPositiveButton("Create a new Worker");
+
         _sp_chooseActivity.setAdapter(aAdapter);
         _sp_chooseCompany.setAdapter(cAdapter);
 
@@ -153,7 +158,7 @@ public class TaskEditActivity extends AppCompatActivity {
 
     }
     private void findViewById() {
-        _sp_chooseWorker = (Spinner) findViewById(R.id.sp_chooseWorker);
+        _sp_chooseWorker = (SearchableSpinner) findViewById(R.id.sp_chooseWorker);
         _sp_chooseCompany = (Spinner) findViewById(R.id.sp_chooseCompany);
         _sp_chooseActivity = (Spinner) findViewById(R.id.sp_chooseActivity);
         _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);

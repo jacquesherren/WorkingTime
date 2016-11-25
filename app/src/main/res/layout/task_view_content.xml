@@ -110,7 +110,6 @@
             android:id="@+id/tv_company_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:textColor="@android:color/black"
             android:textStyle="bold"
             tools:text="Company name"
