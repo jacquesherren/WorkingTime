@@ -143,6 +143,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Settings_activity_SAM"
+            android:label="@string/title_activity_settings__sam"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

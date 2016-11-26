@@ -49,7 +49,7 @@
     <string name="title_activity_company">Compagnie</string>
     <string name="title_activity_company_edit">Edition de compagnie</string>
     <string name="title_activity_company_view">Edition de vue</string>
-    <string name="title_activity_edit"></string>
+    <string name="title_activity_edit">Modifier une activité</string>
     <string name="title_activity_edit_task">Edition de tâches</string>
     <string name="title_activity_task_view">Tâche en cours</string>
     <string name="title_activity_tasks_list">Tâches</string>
@@ -60,4 +60,12 @@
     <string name="worker_label">Employé :</string>
     <string name="action_english">Anglais</string>
     <string name="action_french">Français</string>
+    <string name="_et_settings_date_format">Changer le format de date</string>
+    <string name="_et_settings_language">Choisir une langue</string>
+    <string name="title_activity_settings__sam">Paramêtres</string>
+    <string name="title_activity_worker_view">Vue des employés</string>
+    <string name="title_activity_worker_edit">Modifier employé</string>
+    <string name="title_activity_view">Vue des activités</string>
+    <string name="title_activity_task">Tâches</string>
+    <string name="title_activity_settings">Paramêtre</string>
 </resources>
