@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Company;
@@ -54,6 +55,7 @@ public class CompanyAdapter extends ArrayAdapter<Company> {
         if(viewHolder == null){
             viewHolder = new CompanyViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.tv_name);
+            viewHolder.duration = (TextView) convertView.findViewById(R.id.tv_duration);
             viewHolder.img_Logo = (ImageView) convertView.findViewById(R.id.img_logo);
             convertView.setTag(viewHolder);
         }
@@ -63,6 +65,8 @@ public class CompanyAdapter extends ArrayAdapter<Company> {
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(company.get_name());
+        if(company.get_duration()!=0)
+            viewHolder.duration.setText(C_Time.getFormatedDuration(company.get_duration()));
         viewHolder.img_Logo.setImageDrawable(C_Company.get_Logo(_context));
 
 
@@ -71,6 +75,7 @@ public class CompanyAdapter extends ArrayAdapter<Company> {
 
     private class CompanyViewHolder{
         private  TextView name;
+        private  TextView duration;
         private ImageView img_Logo;
     }
 }

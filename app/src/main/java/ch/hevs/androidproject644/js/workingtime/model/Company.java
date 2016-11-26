@@ -11,6 +11,7 @@ public class Company implements Parcelable {
     private int _id;
     private String _name;
     private boolean _active;
+    private long _duration = 0;
 
     public Company(int id, String name, boolean active) {
         this._id = id;
@@ -30,7 +31,9 @@ public class Company implements Parcelable {
     public void set_active(boolean active) {
         this._active = active;
     }
-
+    public long get_duration() {
+        return _duration;
+    }
 
     // GETTERS
     public int get_id() {
@@ -41,6 +44,8 @@ public class Company implements Parcelable {
     }
     public boolean is_active() {
         return _active;
+    }
+    public void set_duration(long _duration) {        this._duration = _duration;
     }
 
     @Override
@@ -67,6 +72,8 @@ public class Company implements Parcelable {
         boolean[] myBooleanArr = new boolean[1];
         in.readBooleanArray(myBooleanArr);
         _active = myBooleanArr[0];
+
+        this._duration=in.readLong();
     }
 
     @Override
@@ -76,6 +83,8 @@ public class Company implements Parcelable {
 
         boolean[] myBooleanArr = {_active}; //= new boolean[1];
         dest.writeBooleanArray(myBooleanArr);
+
+        dest.writeLong(_duration);
     }
 
     public int is_active_int() {

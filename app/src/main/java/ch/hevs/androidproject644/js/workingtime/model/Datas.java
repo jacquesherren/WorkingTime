@@ -19,4 +19,7 @@ public class Datas {
     public final static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(formatDate[1],Locale.US);
     public final static SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
 
+
+
+
 }
