@@ -1,5 +1,7 @@
 package ch.hevs.androidproject644.js.workingtime;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
@@ -45,10 +49,19 @@ public class Settings_activity_SAM extends AppCompatActivity {
 
         final Button flag_en = (Button) findViewById(R.id.flag_en);
         flag_en.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                LanguageLocalHelper.setLocale(Settings_activity_SAM.this, "en");
-                updateText();
+                String languageToLoad = "en";
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+
+                Intent intent = new Intent(Settings_activity_SAM.this, MainActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -56,8 +69,15 @@ public class Settings_activity_SAM extends AppCompatActivity {
         flag_fr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LanguageLocalHelper.setLocale(Settings_activity_SAM.this, "fr");
-                updateText();
+                String languageToLoad = "fr";
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+
+                Intent intent = new Intent(Settings_activity_SAM.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
