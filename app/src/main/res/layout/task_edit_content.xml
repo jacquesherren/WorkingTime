@@ -28,24 +28,15 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        <Spinner
             android:id="@+id/sp_chooseWorker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawSelectorOnTop="true"
+            android:spinnerMode="dialog"
             android:prompt="@string/choose_worker">
-
-        </com.toptoche.searchablespinnerlibrary.SearchableSpinner>
-
-        <Button
-            android:id="@+id/btn_newWorker"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:text="Create a new worker"/>
-
+        </Spinner>
 
         <TextView
             android:layout_width="match_parent"
@@ -62,14 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawSelectorOnTop="true"
+            android:spinnerMode="dialog"
             android:prompt="@string/choose_company"></Spinner>
 
-        <Button
-            android:id="@+id/btn_newCompany"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Create a new company" />
 
         <TextView
             android:layout_width="match_parent"
@@ -85,16 +71,11 @@
             android:id="@+id/sp_chooseActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:drawSelectorOnTop="true"
+            android:spinnerMode="dialog"
             android:prompt="@string/choose_activity"></Spinner>
 
-        <Button
-            android:id="@+id/btn_newActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Create a new activity" />
+
 
     </LinearLayout>
 

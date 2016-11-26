@@ -2,7 +2,6 @@ package ch.hevs.androidproject644.js.workingtime;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,9 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,14 +35,19 @@ import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
+
+
 public class TaskEditActivity extends AppCompatActivity {
-    private SearchableSpinner _sp_chooseWorker;
+    private Spinner _sp_chooseWorker;
     private Spinner _sp_chooseCompany;
     private Spinner _sp_chooseActivity;
 
-    private Button _btn_newWorker;
-    private Button _btn_newCompany;
-    private Button _btn_newActivity;
+
+    private FloatingActionMenu menuLabels;
+
+    private FloatingActionButton fab1;
+    private FloatingActionButton fab2;
+    private FloatingActionButton fab3;
 
     private Button btn_Create;
 
@@ -63,6 +69,16 @@ public class TaskEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
+
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
         findViewById();
         setListener();
 
@@ -80,12 +96,10 @@ public class TaskEditActivity extends AppCompatActivity {
 
         // Set adapter to spinner
         _sp_chooseWorker.setAdapter(wAdapter);
-        _sp_chooseWorker.setTitle("Choose a worker");
-        _sp_chooseWorker.setPositiveButton("Create a new Worker");
+        _sp_chooseWorker.setPrompt("Choose a worker");
 
         _sp_chooseActivity.setAdapter(aAdapter);
         _sp_chooseCompany.setAdapter(cAdapter);
-
 
     }
     @Override
@@ -158,45 +172,48 @@ public class TaskEditActivity extends AppCompatActivity {
 
     }
     private void findViewById() {
-        _sp_chooseWorker = (SearchableSpinner) findViewById(R.id.sp_chooseWorker);
+        _sp_chooseWorker = (Spinner) findViewById(R.id.sp_chooseWorker);
         _sp_chooseCompany = (Spinner) findViewById(R.id.sp_chooseCompany);
         _sp_chooseActivity = (Spinner) findViewById(R.id.sp_chooseActivity);
-        _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);
-        _btn_newCompany = (Button) findViewById(R.id.btn_newCompany);
-        _btn_newActivity = (Button) findViewById(R.id.btn_newActivity);
+
+        menuLabels = (FloatingActionMenu) findViewById(R.id.menu);
+        fab1 = (FloatingActionButton) findViewById(R.id.menu_item1);
+        fab2 = (FloatingActionButton) findViewById(R.id.menu_item2);
+        fab3 = (FloatingActionButton) findViewById(R.id.menu_item3);
+
     }
 
     private void setListener() {
-
-        _btn_newWorker = (Button) findViewById(R.id.btn_newWorker);
-        _btn_newWorker.setOnClickListener(new View.OnClickListener() {
+        fab1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(TaskEditActivity.this, WorkerEditActivity.class);
                 intent.putExtra(Datas.MODE, Datas.NEW);
-                TaskEditActivity.this.startActivityForResult(intent,1);
+                TaskEditActivity.this.startActivity(intent);
+                onPause();
             }
         });
 
-        _btn_newActivity = (Button) findViewById(R.id.btn_newActivity);
-        _btn_newActivity.setOnClickListener(new View.OnClickListener() {
+        fab2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TaskEditActivity.this, ActivityEditActivity.class);
-                intent.putExtra(Datas.MODE, Datas.NEW);
-                TaskEditActivity.this.startActivityForResult(intent,1);
-            }
-        });
-
-        _btn_newCompany = (Button) findViewById(R.id.btn_newCompany);
-        _btn_newCompany.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(TaskEditActivity.this, CompanyEditActivity.class);
                 intent.putExtra(Datas.MODE, Datas.NEW);
-                TaskEditActivity.this.startActivityForResult(intent,1);
+                TaskEditActivity.this.startActivity(intent);
+                onPause();
             }
         });
+
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TaskEditActivity.this, ActivityEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                TaskEditActivity.this.startActivity(intent);
+                onPause();
+            }
+        });
+
 
         // Listener called when spinner item selected
         _sp_chooseCompany.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

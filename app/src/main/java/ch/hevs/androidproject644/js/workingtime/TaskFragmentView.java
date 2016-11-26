@@ -60,14 +60,13 @@ public class TaskFragmentView extends Fragment {
                              Bundle savedInstanceState) {
         this._view =  inflater.inflate(R.layout.task_fragment_taskview, container, false);
 
-        findViewById(_view);
-
         return _view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        findViewById(_view);
 
         final TaskActivity taskActivity = (TaskActivity) getActivity();
 

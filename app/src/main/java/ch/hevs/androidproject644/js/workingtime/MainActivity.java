@@ -170,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent = new Intent(MainActivity.this, ActivitiesListActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_reporting) {
+            intent = new Intent(MainActivity.this, ReportingActivity.class);
+            startActivity(intent);
 
         }
 
