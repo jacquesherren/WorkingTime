@@ -99,4 +99,11 @@
     <string name="_et_settings_language">Choose language</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_settings__sam">Setting</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="To">To</string>
+    <string name="From">From</string>
+    <string name="Choose_period">Choose period</string>
+    <string name="submit">Submit</string>
 </resources>
