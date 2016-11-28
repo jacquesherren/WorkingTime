@@ -138,7 +138,7 @@ public class WorkerDataSource {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Worker worker = cursorToWorker(cursor);
-            worker.set_duration(cursor.getInt(3));
+            worker.set_duration(cursor.getInt(6));
             workers.add(worker);
             cursor.moveToNext();
         }
