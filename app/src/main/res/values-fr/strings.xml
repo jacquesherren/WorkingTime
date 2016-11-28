@@ -69,4 +69,9 @@
     <string name="title_activity_task">Tâches</string>
     <string name="title_activity_settings">Paramêtre</string>
     <string name="title_activity_reporting">Reporting</string>
+    <string name="Choose_period">Choisir une période</string>
+    <string name="From">De</string>
+    <string name="To">à</string>
+    <string name="section_format"></string>
+    <string name="submit">Valider</string>
 </resources>
