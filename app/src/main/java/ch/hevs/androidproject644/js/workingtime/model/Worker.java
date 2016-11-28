@@ -16,6 +16,7 @@ public class Worker implements Parcelable {
     private Calendar _birthdate;
     private char _sex;
     private boolean _active;
+    private long _duration = 0;
 
 
     public Worker(int id,String lastname, String firstname, Calendar birthdate, char sex, boolean active){
@@ -49,6 +50,10 @@ public class Worker implements Parcelable {
     public void set_active(boolean active) {
         this._active = active;
     }
+    public void set_duration(long _duration) {     this._duration = _duration;  }
+
+
+
 
     // GETTERS ***
     public int get_id() { return _id; }
@@ -65,6 +70,8 @@ public class Worker implements Parcelable {
         return _sex;
     }
     public boolean is_active() { return _active;  }
+    public long get_duration() {       return _duration;   }
+
 
 
     // Methods ***
@@ -97,6 +104,8 @@ public class Worker implements Parcelable {
         boolean[] myBooleanArr = new boolean[1];
         in.readBooleanArray(myBooleanArr);
         _active = myBooleanArr[0];
+
+        this._duration=in.readLong();
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -110,6 +119,8 @@ public class Worker implements Parcelable {
 
         boolean[] myBooleanArr = {_active}; //= new boolean[1];
         dest.writeBooleanArray(myBooleanArr);
+
+        dest.writeLong(_duration);
     }
 
     public void set_birthdate(long birthdate) {

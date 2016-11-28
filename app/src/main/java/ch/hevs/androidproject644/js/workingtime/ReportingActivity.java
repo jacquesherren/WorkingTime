@@ -1,25 +1,23 @@
 package ch.hevs.androidproject644.js.workingtime;
 
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.TextView;
+import android.view.WindowManager;
 
 public class ReportingActivity extends AppCompatActivity {
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -41,12 +39,17 @@ public class ReportingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reporting_activity);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Create the adapter that will return a fragment for each of the three
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        /// Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),3);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), 3);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -84,6 +87,8 @@ public class ReportingActivity extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -108,12 +113,24 @@ public class ReportingActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.reporting_list, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            View rootView = inflater.inflate(R.layout.reporting_byworker, container, false);
+            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+
             return rootView;
         }
     }
+
+
+    /*public static void onClick(View view) {
+        if(view == _etFromDate) {
+            _DatePickerDialog_From.show();
+        }
+        if(view == _etTodate) {
+            _DatePickerDialog_To.show();
+        }
+    }*/
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -121,20 +138,22 @@ public class ReportingActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         int _numPages;
+
         public SectionsPagerAdapter(FragmentManager fm, int numPages) {
             super(fm);
-            this._numPages=numPages;
+
+            this._numPages = numPages;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return ReportingList.newInstance(0, "Worker");
+                    return ReportingByWorker.newInstance(0, "Worker");
                 case 1:
-                    return ReportingList.newInstance(1, "Company");
+                    return ReportingByCompny.newInstance(1, "Company");
                 case 2:
-                    return ReportingList.newInstance(2, "Activity");
+                    return ReportingByActivity.newInstance(2, "Activity");
                 default:
                     return null;
             }

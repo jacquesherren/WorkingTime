@@ -74,6 +74,23 @@ public class CompanyDataSource {
         return companies;
     }
 
+    public List<Company> getSumTimeByCompanybetweenDate(long dateFrom, long dateTo)
+    {
+        List<Company> companies = new ArrayList<Company>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_NAME + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_AVAILABLE + ", SUM(" + DB_Contract.times.TABLE_TIMES + "." +  DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.companies.TABLE_COMPANIES + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + " = " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + " AND " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK + " AND " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.COLUMN_NAME_TIME_STARTTIME + " BETWEEN " + dateFrom   + " AND " + dateTo  + " GROUP BY " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_NAME + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_AVAILABLE;
+        //String sql = "SELECT SUM(" + DB_Contract.times.TABLE_TIMES + "." +  DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.companies.TABLE_COMPANIES + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + " = " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + " AND " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK ;
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Company company = cursorToCompany(cursor);
+            company.set_duration(cursor.getInt(3));
+            companies.add(company);
+            cursor.moveToNext();
+        }
+        return companies;
+    }
+
     public List<Company> getCompanyByAvaiable()
     {
         List<Company> companies = new ArrayList<Company>();

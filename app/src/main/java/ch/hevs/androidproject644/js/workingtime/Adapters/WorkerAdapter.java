@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
+
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
@@ -37,6 +39,7 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
             viewHolder = new WorkerViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.tv_name);
             viewHolder.birthdate = (TextView) convertView.findViewById(R.id.tv_birthdate_value);
+            viewHolder.duration = (TextView) convertView.findViewById(R.id.tv_duration);
             viewHolder.sex = (ImageView) convertView.findViewById(R.id.tv_sex);
             convertView.setTag(viewHolder);
         }
@@ -48,6 +51,8 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
         viewHolder.name.setText(worker.get_lastname() + " " + worker.get_firstname());
         viewHolder.birthdate.setText(Datas.formatDate().format(worker.get_birthdate().getTime()));
         viewHolder.sex.setImageDrawable(C_Worker.get_ImageSex(_context,worker.get_sex()));
+        if(worker.get_duration()!=0)
+            viewHolder.duration.setText(C_Time.getFormatedDuration(worker.get_duration()));
 
 
         return convertView;
@@ -71,6 +76,7 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
     private class WorkerViewHolder{
         private TextView name;
         private TextView birthdate;
+        private  TextView duration;
         private ImageView sex;
     }
 }

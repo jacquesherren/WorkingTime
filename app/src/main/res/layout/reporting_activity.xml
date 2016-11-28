@@ -25,6 +25,8 @@
 
         </android.support.v7.widget.Toolbar>
 
+        <!--<include layout="@layout/reporting_choose_period"></include>-->
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
@@ -32,20 +34,20 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:id="@+id/fragment_date"
-        android:name="ch.hevs.androidproject644.js.workingtime.ReportingChoosePeriod"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/reporting_choose_period" />
+
+
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+
+
+
 
 
 </android.support.design.widget.CoordinatorLayout>
