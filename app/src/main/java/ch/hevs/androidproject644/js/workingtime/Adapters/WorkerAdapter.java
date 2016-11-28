@@ -46,7 +46,7 @@ public class WorkerAdapter extends ArrayAdapter<Worker> {
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(worker.get_lastname() + " " + worker.get_firstname());
-        viewHolder.birthdate.setText(Datas.DATE_FORMATTER.format(worker.get_birthdate().getTime()));
+        viewHolder.birthdate.setText(Datas.formatDate().format(worker.get_birthdate().getTime()));
         viewHolder.sex.setImageDrawable(C_Worker.get_ImageSex(_context,worker.get_sex()));
 
 

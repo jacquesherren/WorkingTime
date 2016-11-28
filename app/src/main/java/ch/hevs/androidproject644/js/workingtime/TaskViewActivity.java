@@ -79,7 +79,7 @@ public class TaskViewActivity extends AppCompatActivity {
             _task = intent.getParcelableExtra(Datas.VIEW);
 
             _tv_firstname_lastname.setText(_task.get_worker().get_firstname() + " " +  _task.get_worker().get_lastname());
-            _tv_birthdate_value.setText(Datas.DATE_FORMATTER.format(_task.get_worker().get_birthdate().getTime()));
+            _tv_birthdate_value.setText(Datas.formatDate().format(_task.get_worker().get_birthdate().getTime()));
 
             if(_task.get_worker().get_sex()=='m')
                 _image_Sex.setImageDrawable(ActivityCompat.getDrawable(getBaseContext(), R.mipmap.ic_male));   //.setImageDrawable(new ColorDrawable(Color.CYAN));

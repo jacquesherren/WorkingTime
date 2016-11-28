@@ -9,17 +9,25 @@ import java.util.Locale;
 
 public class Datas {
 
-    private static String[] formatDate = {"MM.dd.yyyy","dd/MM/yyyy"};
+    public final static String[] formatDate = {"MM.dd.yyyy","dd/MM/yyyy"};
+    private final static Locale[] formatDateLocal = {Locale.US, Locale.FRANCE};
+    public static int dateFormatIndex = 0 ;
 
     public final static String MODE = "ch.hevs.androidprojerct644.js.workingtime.MODE";
     public final static String EDIT = "EDIT";
     public final static String NEW = "NEW";
     public final static String VIEW = "VIEW";
 
-    public final static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(formatDate[1],Locale.US);
+    //public final static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(formatDate[1],Locale.US);
+
     public final static SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
 
 
+    public static SimpleDateFormat formatDate(){
+        return new SimpleDateFormat(formatDate[dateFormatIndex],formatDateLocal[dateFormatIndex]);
+    }
 
-
+   /* public static void setDateFormatIndex(int dateFormatIndex) {
+        Datas.dateFormatIndex = dateFormatIndex;
+    }*/
 }

@@ -55,7 +55,7 @@ public class WorkerEditActivity extends AppCompatActivity {
 
             _etFirstname.setText(_worker.get_firstname());
             _etLastname.setText(_worker.get_lastname());
-            _etBirthdate.setText(Datas.DATE_FORMATTER.format(_worker.get_birthdate().getTime()));
+            _etBirthdate.setText(Datas.formatDate().format(_worker.get_birthdate().getTime()));
             if (_worker.get_sex() == 'M') {
                 _rbSexM.setChecked(true);
                 _rbSexF.setChecked(false);
@@ -92,7 +92,7 @@ public class WorkerEditActivity extends AppCompatActivity {
                 //Calendar newDate = Calendar.getInstance();
                 _birthdate = Calendar.getInstance();
                 _birthdate.set(year, monthOfYear, dayOfMonth);
-                _etBirthdate.setText(Datas.DATE_FORMATTER.format(_birthdate.getTime()));
+                _etBirthdate.setText(Datas.formatDate().format(_birthdate.getTime()));
             }
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }

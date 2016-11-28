@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,9 +21,8 @@ import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
 public class Settings_activity_SAM extends AppCompatActivity {
 
-    private Spinner _sp_settings_dateformat;
-    private Button _bt_settings_save_format;
-    private TextView et_company_name_value;
+    private Spinner _sp_settings_dateFormat;
+    private TextView _tv_settings_dateFormat;
     private TextView tv_choose_language;
     private String dateFormat;
 
@@ -34,19 +34,29 @@ public class Settings_activity_SAM extends AppCompatActivity {
         setContentView(R.layout.activity_settings__sam);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Spinner spinner = (Spinner) findViewById(R.id.sp_setting_date);
-        Button button = (Button) findViewById(R.id.btn_save_format);
-        et_company_name_value = (TextView) findViewById(R.id.et_company_name_value);
-        tv_choose_language = (TextView) findViewById(R.id.tv_choose_language);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dateFormat, android.R.layout.simple_spinner_item);
+        _sp_settings_dateFormat = (Spinner) findViewById(R.id.sp_setting_date);
+        _tv_settings_dateFormat = (TextView) findViewById(R.id.tv_settings_dateFormat);
+        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Datas.formatDate);
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dateFormat, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        int index = spinner.getSelectedItemPosition()-1;
+        _sp_settings_dateFormat.setAdapter(adapter);
+        _sp_settings_dateFormat.setSelection(Datas.dateFormatIndex);
+        _sp_settings_dateFormat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Datas.dateFormatIndex=position;
+            }
 
-        //Datas.dateFormat(index);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
+        tv_choose_language = (TextView) findViewById(R.id.tv_choose_language);
         final Button flag_en = (Button) findViewById(R.id.flag_en);
         flag_en.setOnClickListener(new View.OnClickListener() {
 
@@ -81,18 +91,6 @@ public class Settings_activity_SAM extends AppCompatActivity {
             }
         });
     }
-
-
-    public String getDateFormat() {
-        return dateFormat;
-    }
-
-    public void updateText()
-    {
-        tv_choose_language.setText(R.string._et_settings_language);
-        et_company_name_value.setText(R.string._et_settings_date_format);
-    }
-
 
 }
 

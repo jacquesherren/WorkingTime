@@ -44,7 +44,7 @@ public class WorkerViewActivity extends AppCompatActivity {
             _worker = intent.getParcelableExtra(Datas.VIEW);
 
             _tv_firstname_lastname.setText(_worker.get_firstname() + " " +  _worker.get_lastname());
-            _tv_birthdate_value.setText(Datas.DATE_FORMATTER.format(_worker.get_birthdate().getTime()));
+            _tv_birthdate_value.setText(Datas.formatDate().format(_worker.get_birthdate().getTime()));
             _image_Sex.setImageDrawable(C_Worker.get_ImageSex(this,_worker.get_sex()));
 
             if(_worker.is_active()==true)
