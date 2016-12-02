@@ -36,7 +36,9 @@
         <item>MM.dd.yyyy</item>
         <item>dd/MM/yyyy</item>
     </string-array>
-
+    <string name="checkDeleteWorker">This worker cannot be deleted</string>
+    <string name="checkDeleteActivity">This activity cannot be deleted</string>
+    <string name="checkDeleteCompany">This company cannot be deleted</string>
 
     <string name="btn_readyToStart">Ready to start...</string>
 

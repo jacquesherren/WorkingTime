@@ -1,5 +1,7 @@
 package ch.hevs.androidproject644.js.workingtime;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Activity;
 import ch.hevs.androidproject644.js.workingtime.DB.ActivityDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Activity;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
@@ -74,8 +77,6 @@ public class ActivityEditActivity extends AppCompatActivity {
 
                 case R.id.action_delete:
                     delete();
-                    Intent intent = new Intent(ActivityEditActivity.this,ActivitiesListActivity.class);
-                    navigateUpTo(intent);;
                     break;
             }
             return super.onOptionsItemSelected(item);
@@ -110,10 +111,32 @@ public class ActivityEditActivity extends AppCompatActivity {
 
     private  void delete(){
         if(_activity!=null){
-            Toast.makeText(this, "Deleting this activity...", Toast.LENGTH_SHORT).show();
 
-            ActivityDataSource deleteActivity = new ActivityDataSource(this);
-            deleteActivity.deleteActivity(_activity);
+            TaskDataSource checkDelete = new TaskDataSource(this);
+            if(checkDelete.getTaskByActivityID(_activity.get_id())==true)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.checkDeleteActivity)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //do things
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+            else {
+
+                Toast.makeText(this, "Deleting this activity...", Toast.LENGTH_SHORT).show();
+
+                ActivityDataSource deleteActivity = new ActivityDataSource(this);
+                deleteActivity.deleteActivity(_activity);
+
+                Intent intent = new Intent(ActivityEditActivity.this, ActivitiesListActivity.class);
+                navigateUpTo(intent);
+                ;
+            }
         }
     }
     private void setActivity() {

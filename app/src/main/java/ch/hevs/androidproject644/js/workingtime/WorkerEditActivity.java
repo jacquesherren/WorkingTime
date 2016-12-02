@@ -1,8 +1,10 @@
 package ch.hevs.androidproject644.js.workingtime;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -20,6 +22,7 @@ import java.util.Calendar;
 
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
+import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
 import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
@@ -126,8 +129,8 @@ public class WorkerEditActivity extends AppCompatActivity {
 
             case R.id.action_delete:
                 delete();
-                Intent intent = new Intent(WorkerEditActivity.this,WorkersListActivity.class);
-                navigateUpTo(intent);
+                //Intent intent = new Intent(WorkerEditActivity.this,WorkersListActivity.class);
+                //navigateUpTo(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -160,10 +163,30 @@ public class WorkerEditActivity extends AppCompatActivity {
     }
     private  void delete(){
         if(_worker!=null){
-            Toast.makeText(this, "Deleting this worker...", Toast.LENGTH_SHORT).show();
 
-            WorkerDataSource deleteWorker = new WorkerDataSource(this);
-            deleteWorker.deleteWorker(_worker);
+            TaskDataSource checkDelete = new TaskDataSource(this);
+            if(checkDelete.getTaskByWorkerID(_worker.get_id())==true)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.checkDeleteWorker)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //do things
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+            else {
+                Toast.makeText(this, "Deleting this worker...", Toast.LENGTH_SHORT).show();
+
+                WorkerDataSource deleteWorker = new WorkerDataSource(this);
+                deleteWorker.deleteWorker(_worker);
+
+                Intent intent = new Intent(WorkerEditActivity.this,WorkersListActivity.class);
+                navigateUpTo(intent);
+            }
         }
     }
 

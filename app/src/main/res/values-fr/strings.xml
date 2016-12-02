@@ -74,4 +74,7 @@
     <string name="To">à</string>
     <string name="section_format"></string>
     <string name="submit">Valider</string>
+    <string name="checkDeleteWorker">Cet employé ne peut pas être supprimé</string>
+    <string name="checkDeleteActivity">Cette activité ne peut pas être supprimée</string>
+    <string name="checkDeleteCompany">Cette compagnie ne peut pas être supprimée</string>
 </resources>

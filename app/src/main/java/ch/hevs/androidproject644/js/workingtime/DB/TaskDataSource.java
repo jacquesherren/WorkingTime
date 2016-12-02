@@ -81,6 +81,43 @@ public class TaskDataSource {
         }
         return null;
     }
+
+    public boolean getTaskByWorkerID(long id)
+    {
+        //getreadable ici
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        final String sql = "SELECT * FROM " + DB_Contract.tasks.TABLE_TASKS + " WHERE " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_WORKERID + " = " + id;
+        Cursor cursor = db.rawQuery(sql, null);
+        if ( cursor.getCount() >0)
+            return true;
+
+        return false;
+    }
+
+    public boolean getTaskByActivityID(long id)
+    {
+        //getreadable ici
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        final String sql = "SELECT * FROM " + DB_Contract.tasks.TABLE_TASKS + " WHERE " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_ACTIVITYID + " = " + id;
+        Cursor cursor = db.rawQuery(sql, null);
+        if ( cursor.getCount() >0)
+            return true;
+
+        return false;
+    }
+
+
+    public boolean getTaskByCompanyID(long id)
+    {
+        //getreadable ici
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        final String sql = "SELECT * FROM " + DB_Contract.tasks.TABLE_TASKS + " WHERE " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + " = " + id;
+        Cursor cursor = db.rawQuery(sql, null);
+        if ( cursor.getCount() >0)
+            return true;
+
+        return false;
+    }
     public List<Task> getTasksByAvailable() {
 
         List<Task> tasks = new ArrayList<>();
