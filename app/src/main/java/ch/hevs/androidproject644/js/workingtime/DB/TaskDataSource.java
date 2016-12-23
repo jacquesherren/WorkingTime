@@ -1,4 +1,5 @@
 package ch.hevs.androidproject644.js.workingtime.DB;
+/**V 1.5**/
 
 import android.content.ContentValues;
 import android.content.Context;
