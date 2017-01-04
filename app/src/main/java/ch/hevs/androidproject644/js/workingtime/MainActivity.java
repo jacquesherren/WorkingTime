@@ -26,6 +26,7 @@ import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Adapters.CompanyAdapter;
 import ch.hevs.androidproject644.js.workingtime.Adapters.TaskAdapter;
+import ch.hevs.androidproject644.js.workingtime.AsyncTask.*;
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.DB.CompanyDataSource;
 import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;

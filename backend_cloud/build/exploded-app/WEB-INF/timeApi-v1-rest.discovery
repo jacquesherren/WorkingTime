@@ -1,0 +1,380 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/aBMM5EPlXcHvvzzt2Anxt5s7Rm8\"",
+ "discoveryVersion": "v1",
+ "id": "timeApi:v1",
+ "name": "timeApi",
+ "version": "v1",
+ "description": "This is an API",
+ "ownerDomain": "backend.myapplication.Samuel.example.com",
+ "ownerName": "backend.myapplication.Samuel.example.com",
+ "icons": {
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://workingtime-154613.appspot.com/_ah/api/timeApi/v1/",
+ "basePath": "/_ah/api/timeApi/v1/",
+ "rootUrl": "https://workingtime-154613.appspot.com/_ah/api/",
+ "servicePath": "timeApi/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "Calendar": {
+   "id": "Calendar",
+   "type": "object",
+   "properties": {
+    "calendarType": {
+     "type": "string"
+    },
+    "fieldsComputed": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fieldsNormalized": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "firstDayOfWeek": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "lenient": {
+     "type": "boolean"
+    },
+    "minimalDaysInFirstWeek": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "time": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "timeInMillis": {
+     "type": "string",
+     "format": "int64"
+    },
+    "timeZone": {
+     "$ref": "TimeZone"
+    },
+    "weekCountData": {
+     "$ref": "Locale"
+    },
+    "weekDateSupported": {
+     "type": "boolean"
+    },
+    "weekYear": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "weeksInWeekYear": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "zoneShared": {
+     "type": "boolean"
+    }
+   }
+  },
+  "CollectionResponse_Time": {
+   "id": "CollectionResponse_Time",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Time"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "Locale": {
+   "id": "Locale",
+   "type": "object",
+   "properties": {
+    "country": {
+     "type": "string"
+    },
+    "displayCountry": {
+     "type": "string"
+    },
+    "displayLanguage": {
+     "type": "string"
+    },
+    "displayName": {
+     "type": "string"
+    },
+    "displayScript": {
+     "type": "string"
+    },
+    "displayVariant": {
+     "type": "string"
+    },
+    "extensionKeys": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "iso3Country": {
+     "type": "string"
+    },
+    "iso3Language": {
+     "type": "string"
+    },
+    "language": {
+     "type": "string"
+    },
+    "script": {
+     "type": "string"
+    },
+    "unicodeLocaleAttributes": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "unicodeLocaleKeys": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "variant": {
+     "type": "string"
+    }
+   }
+  },
+  "Time": {
+   "id": "Time",
+   "type": "object",
+   "properties": {
+    "_duration": {
+     "type": "string",
+     "format": "int64"
+    },
+    "_id": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "_start": {
+     "$ref": "Calendar"
+    },
+    "_stop": {
+     "$ref": "Calendar"
+    },
+    "_task": {
+     "type": "integer",
+     "format": "int32"
+    }
+   }
+  },
+  "TimeZone": {
+   "id": "TimeZone",
+   "type": "object",
+   "properties": {
+    "displayName": {
+     "type": "string"
+    },
+    "dstsavings": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "id": {
+     "type": "string"
+    },
+    "rawOffset": {
+     "type": "integer",
+     "format": "int32"
+    }
+   }
+  }
+ },
+ "methods": {
+  "get": {
+   "id": "timeApi.get",
+   "path": "time/{_id}",
+   "httpMethod": "GET",
+   "parameters": {
+    "_id": {
+     "type": "integer",
+     "required": true,
+     "format": "int32",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "_id"
+   ],
+   "response": {
+    "$ref": "Time"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "insert": {
+   "id": "timeApi.insert",
+   "path": "time",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "Time",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Time"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "list": {
+   "id": "timeApi.list",
+   "path": "time",
+   "httpMethod": "GET",
+   "parameters": {
+    "cursor": {
+     "type": "string",
+     "location": "query"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32",
+     "location": "query"
+    }
+   },
+   "response": {
+    "$ref": "CollectionResponse_Time"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "patch": {
+   "id": "timeApi.patch",
+   "path": "time/{_id}",
+   "httpMethod": "PATCH",
+   "parameters": {
+    "_id": {
+     "type": "integer",
+     "required": true,
+     "format": "int32",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "_id"
+   ],
+   "request": {
+    "$ref": "Time"
+   },
+   "response": {
+    "$ref": "Time"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "remove": {
+   "id": "timeApi.remove",
+   "path": "time/{_id}",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "_id": {
+     "type": "integer",
+     "required": true,
+     "format": "int32",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "_id"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "update": {
+   "id": "timeApi.update",
+   "path": "time/{_id}",
+   "httpMethod": "PUT",
+   "parameters": {
+    "_id": {
+     "type": "integer",
+     "required": true,
+     "format": "int32",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "_id"
+   ],
+   "request": {
+    "$ref": "Time",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Time"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ }
+}

@@ -1,5 +1,6 @@
 package ch.hevs.androidproject644.js.workingtime;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import ch.hevs.androidproject644.js.workingtime.AsyncTask.CompanyAsyncTask;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
 public class Settings_activity_SAM extends AppCompatActivity {
@@ -25,12 +28,16 @@ public class Settings_activity_SAM extends AppCompatActivity {
     private TextView _tv_settings_dateFormat;
     private TextView tv_choose_language;
     private String dateFormat;
+    private Button _btn_sync;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        new CompanyAsyncTask().execute(new Pair<Context, String>(this, "Sam"));
+
         setContentView(R.layout.activity_settings__sam);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,6 +45,7 @@ public class Settings_activity_SAM extends AppCompatActivity {
 
         _sp_settings_dateFormat = (Spinner) findViewById(R.id.sp_setting_date);
         _tv_settings_dateFormat = (TextView) findViewById(R.id.tv_settings_dateFormat);
+        _btn_sync = (Button) findViewById(R.id.flag_sync);
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Datas.formatDate);
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dateFormat, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -53,6 +61,8 @@ public class Settings_activity_SAM extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
+
         });
 
 
@@ -72,6 +82,14 @@ public class Settings_activity_SAM extends AppCompatActivity {
                 Intent intent = new Intent(Settings_activity_SAM.this, MainActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        _btn_sync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CompanyAsyncTask sync = new CompanyAsyncTask();
+                sync.execute();
             }
         });
 
