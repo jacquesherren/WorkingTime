@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
@@ -13,13 +11,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Locale;
 
-import ch.hevs.androidproject644.js.workingtime.AsyncTask.CompanyAsyncTask;
+import ch.hevs.androidproject644.js.workingtime.AsyncTask.MyAsyncTask;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 
 public class Settings_activity_SAM extends AppCompatActivity {
@@ -36,7 +33,7 @@ public class Settings_activity_SAM extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        new CompanyAsyncTask().execute(new Pair<Context, String>(this, "Sam"));
+        new MyAsyncTask().execute(new Pair<Context, String>(this, "Sam"));
 
         setContentView(R.layout.activity_settings__sam);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,7 +85,7 @@ public class Settings_activity_SAM extends AppCompatActivity {
         _btn_sync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CompanyAsyncTask sync = new CompanyAsyncTask();
+                MyAsyncTask sync = new MyAsyncTask();
                 sync.execute();
             }
         });
