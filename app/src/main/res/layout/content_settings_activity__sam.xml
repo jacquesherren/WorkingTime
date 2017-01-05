@@ -15,7 +15,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
@@ -38,12 +38,7 @@
                 android:drawSelectorOnTop="true"></Spinner>
 
 
-        <!--<Button
-            android:id="@+id/btn_save_format"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Save format" />-->
+
 
 
 
@@ -57,7 +52,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/flag_fr"
@@ -74,7 +69,12 @@
                 android:layout_weight="1"/>
 
         </LinearLayout>
-
+        <Button
+            android:id="@+id/btn_AsyncTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Backup to google cloud..." />
 
     </LinearLayout>
 
