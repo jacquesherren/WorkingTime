@@ -14,7 +14,11 @@
         <init-param>
             <param-name>services</param-name>
             <param-value>ch.hevs.androidproject644.js.workingtime.backend.MyEndpoint,
-                ch.hevs.androidproject644.js.workingtime.backend.ActivityEndpoint</param-value>
+                ch.hevs.androidproject644.js.workingtime.backend.ActivityEndpoint,
+                ch.hevs.androidproject644.js.workingtime.backend.CompanyEndpoint,
+                ch.hevs.androidproject644.js.workingtime.backend.WorkerEndpoint,
+                ch.hevs.androidproject644.js.workingtime.backend.TaskEndpoint,
+                ch.hevs.androidproject644.js.workingtime.backend.TimeEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

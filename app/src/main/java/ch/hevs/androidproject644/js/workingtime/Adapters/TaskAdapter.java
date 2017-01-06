@@ -37,10 +37,10 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     private List<Time> _times;
     private boolean _hideButton;
     int selected_position = -1;
-    int _runningTask = 0;
+    long _runningTask = 0;
 
 
-    public TaskAdapter(Context context,int ressource, List<Task> tasks, boolean hideButton,int runningTask) {
+    public TaskAdapter(Context context,int ressource, List<Task> tasks, boolean hideButton,long runningTask) {
         super(context, ressource, tasks);
         this._context = context;
         this._tasks = tasks;

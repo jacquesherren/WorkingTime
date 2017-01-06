@@ -12,19 +12,15 @@ import java.util.List;
  */
 
 public class Task implements Parcelable{
-    private int _id;
+    private long _id;
     private Calendar _date;
-    private int _duration;
+    private long _duration;
     private Worker _worker;
     private Company _company ;
     private Activity _activity ;
     private boolean _archive;
 
-
-
-
-
-    public Task(int id, Calendar date, int duration, Worker worker, Company company, Activity activity){
+    public Task(long id, Calendar date, long duration, Worker worker, Company company, Activity activity){
         this._id=id;
         this._date=date;
         this._duration=duration;
@@ -63,9 +59,9 @@ public class Task implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(_id);
+        dest.writeLong(_id);
         dest.writeValue(_date);
-        dest.writeInt(_duration);
+        dest.writeLong(_duration);
         dest.writeParcelable(_worker,flags);
         dest.writeParcelable(_company,flags);
         dest.writeParcelable(_activity,flags);
@@ -74,9 +70,9 @@ public class Task implements Parcelable{
         dest.writeBooleanArray(myBooleanArr);
     }
     protected Task(Parcel in) {
-        this._id = in.readInt();
+        this._id = in.readLong();
         this._date= (Calendar) in.readValue(getClass().getClassLoader());
-        this._duration= in.readInt();
+        this._duration= in.readLong();
 
         _worker  = in.readParcelable(Company.class.getClassLoader());
         _company  = in.readParcelable(Company.class.getClassLoader());
@@ -93,14 +89,14 @@ public class Task implements Parcelable{
     public static Creator<Task> getCREATOR() { return CREATOR;  }
 
     //*** GETTERS
-    public int get_id() { return _id; }
+    public long get_id() { return _id; }
     public Calendar get_date() {  return _date;  }
-    public int get_duration() {  return _duration;  }
+    public long get_duration() {  return _duration;  }
     public boolean is_archive() { return _archive; }
 
     public String get_duration_hhmm() {
-        int hours = _duration / 60; //since both are ints, you get an int
-        int minutes = _duration % 60;
+        long hours = _duration / 60; //since both are ints, you get an int
+        long minutes = _duration % 60;
         String hhmm = hours + "h" + minutes;
         return hhmm;
 
@@ -114,7 +110,7 @@ public class Task implements Parcelable{
     public void set_date(Calendar _date) {
         this._date = _date;
     }
-    public void set_duration(int _duration) {
+    public void set_duration(long _duration) {
         this._duration = _duration;
     }
     public void set_worker(Worker _worker) {
@@ -126,7 +122,7 @@ public class Task implements Parcelable{
     public void set_activity(Activity _activity) {
         this._activity = _activity;
     }
-    public void set_id(int _id) {this._id = _id; }
+    public void set_id(long _id) {this._id = _id; }
     public void set_archive(boolean _archive) { this._archive = _archive; }
 
     public int is_archive_int() {

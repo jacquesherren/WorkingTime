@@ -10,7 +10,7 @@ import java.util.Calendar;
  */
 
 public class Worker implements Parcelable {
-    private int _id;
+    private long _id;
     private String _lastname;
     private String _firstname;
     private Calendar _birthdate;
@@ -19,7 +19,7 @@ public class Worker implements Parcelable {
     private long _duration = 0;
 
 
-    public Worker(int id,String lastname, String firstname, Calendar birthdate, char sex, boolean active){
+    public Worker(long id,String lastname, String firstname, Calendar birthdate, char sex, boolean active){
         this._id = id;
         this._lastname=lastname;
         this._firstname=firstname;
@@ -34,7 +34,7 @@ public class Worker implements Parcelable {
     }
 
     // SETTERS ***
-    public void set_id(int id) {
+    public void set_id(long id) {
         this._id = id;
     }
     public void set_lastname(String lastname) {
@@ -56,7 +56,7 @@ public class Worker implements Parcelable {
 
 
     // GETTERS ***
-    public int get_id() { return _id; }
+    public long get_id() { return _id; }
     public String get_lastname() {
         return _lastname;
     }
@@ -93,7 +93,7 @@ public class Worker implements Parcelable {
     };
 
     protected Worker(Parcel in){
-        this._id = in.readInt();
+        this._id = in.readLong();
         this._lastname= in.readString();
         this._firstname= in.readString();
         this._birthdate = (Calendar) in.readValue(getClass().getClassLoader());
@@ -109,7 +109,7 @@ public class Worker implements Parcelable {
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(_id);
+        dest.writeLong(_id);
         dest.writeString(_firstname);
         dest.writeString(_lastname);
         dest.writeValue(_birthdate);

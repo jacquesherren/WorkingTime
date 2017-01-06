@@ -58,7 +58,7 @@ public class ActivityEndpoint {
             name = "get",
             path = "activity/{_id}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public Activity get(@Named("_id") int _id) throws NotFoundException {
+    public Activity get(@Named("_id") long _id) throws NotFoundException {
         logger.info("Getting Activity with ID: " + _id);
         Activity activity = ofy().load().type(Activity.class).id(_id).now();
         if (activity == null) {
@@ -73,7 +73,7 @@ public class ActivityEndpoint {
     @ApiMethod(
             name = "insert",
             path = "activity",
-            httpMethod = ApiMethod.HttpMethod.PUT)
+            httpMethod = ApiMethod.HttpMethod.POST)
     public Activity insert(Activity activity) {
         // Typically in a RESTful API a POST does not have a known ID (assuming the ID is used in the resource path).
         // You should validate that activity._id has not been set. If the ID type is not supported by the
@@ -99,7 +99,7 @@ public class ActivityEndpoint {
             name = "update",
             path = "activity/{_id}",
             httpMethod = ApiMethod.HttpMethod.PUT)
-    public Activity update(@Named("_id") int _id, Activity activity) throws NotFoundException {
+    public Activity update(@Named("_id") long _id, Activity activity) throws NotFoundException {
         // TODO: You should validate your ID parameter against your resource's ID here.
         checkExists(_id);
         ofy().save().entity(activity).now();
@@ -118,7 +118,7 @@ public class ActivityEndpoint {
             name = "remove",
             path = "activity/{_id}",
             httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("_id") int _id) throws NotFoundException {
+    public void remove(@Named("_id") long _id) throws NotFoundException {
         checkExists(_id);
         ofy().delete().type(Activity.class).id(_id).now();
         logger.info("Deleted Activity with ID: " + _id);
@@ -149,7 +149,7 @@ public class ActivityEndpoint {
         return CollectionResponse.<Activity>builder().setItems(activityList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
-    private void checkExists(int _id) throws NotFoundException {
+    private void checkExists(long _id) throws NotFoundException {
         try {
             ofy().load().type(Activity.class).id(_id).safe();
         } catch (com.googlecode.objectify.NotFoundException e) {

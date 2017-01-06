@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/-qAiqn1JWq2cfZoltVT8-Ivv6No\"",
+ "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/e2KSHRoiEqLVHJHO2jxTsK8hNFU\"",
  "discoveryVersion": "v1",
  "id": "activityApi:v1",
  "name": "activityApi",
@@ -13,9 +13,9 @@
   "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "protocol": "rest",
- "baseUrl": "https://MyApp.appspot.com/_ah/api/activityApi/v1/",
+ "baseUrl": "https://workingtime-154701.appspot.com/_ah/api/activityApi/v1/",
  "basePath": "/_ah/api/activityApi/v1/",
- "rootUrl": "https://MyApp.appspot.com/_ah/api/",
+ "rootUrl": "https://workingtime-154701.appspot.com/_ah/api/",
  "servicePath": "activityApi/v1/",
  "batchPath": "batch",
  "parameters": {
@@ -116,9 +116,9 @@
    "httpMethod": "GET",
    "parameters": {
     "_id": {
-     "type": "integer",
+     "type": "string",
      "required": true,
-     "format": "int32",
+     "format": "int64",
      "location": "path"
     }
    },
@@ -135,7 +135,7 @@
   "insert": {
    "id": "activityApi.insert",
    "path": "activity",
-   "httpMethod": "PUT",
+   "httpMethod": "POST",
    "request": {
     "$ref": "Activity",
     "parameterName": "resource"
@@ -175,9 +175,9 @@
    "httpMethod": "PATCH",
    "parameters": {
     "_id": {
-     "type": "integer",
+     "type": "string",
      "required": true,
-     "format": "int32",
+     "format": "int64",
      "location": "path"
     }
    },
@@ -200,9 +200,9 @@
    "httpMethod": "DELETE",
    "parameters": {
     "_id": {
-     "type": "integer",
+     "type": "string",
      "required": true,
-     "format": "int32",
+     "format": "int64",
      "location": "path"
     }
    },
@@ -219,9 +219,9 @@
    "httpMethod": "PUT",
    "parameters": {
     "_id": {
-     "type": "integer",
+     "type": "string",
      "required": true,
-     "format": "int32",
+     "format": "int64",
      "location": "path"
     }
    },

@@ -1,0 +1,243 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/FkruYI6-b9v-Mp60-Q80yPrcJio\"",
+ "discoveryVersion": "v1",
+ "id": "companyApi:v1",
+ "name": "companyApi",
+ "version": "v1",
+ "description": "This is an API",
+ "ownerDomain": "backend.workingtime.js.androidproject644.hevs.ch",
+ "ownerName": "backend.workingtime.js.androidproject644.hevs.ch",
+ "icons": {
+  "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+  "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://workingtime-154701.appspot.com/_ah/api/companyApi/v1/",
+ "basePath": "/_ah/api/companyApi/v1/",
+ "rootUrl": "https://workingtime-154701.appspot.com/_ah/api/",
+ "servicePath": "companyApi/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "CollectionResponse_Company": {
+   "id": "CollectionResponse_Company",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Company"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "Company": {
+   "id": "Company",
+   "type": "object",
+   "properties": {
+    "_active": {
+     "type": "boolean"
+    },
+    "_duration": {
+     "type": "string",
+     "format": "int64"
+    },
+    "_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "_name": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "methods": {
+  "get": {
+   "id": "companyApi.get",
+   "path": "company/{_id}",
+   "httpMethod": "GET",
+   "parameters": {
+    "_id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "_id"
+   ],
+   "response": {
+    "$ref": "Company"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "insert": {
+   "id": "companyApi.insert",
+   "path": "company",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "Company",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Company"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "list": {
+   "id": "companyApi.list",
+   "path": "company",
+   "httpMethod": "GET",
+   "parameters": {
+    "cursor": {
+     "type": "string",
+     "location": "query"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32",
+     "location": "query"
+    }
+   },
+   "response": {
+    "$ref": "CollectionResponse_Company"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "patch": {
+   "id": "companyApi.patch",
+   "path": "company/{_id}",
+   "httpMethod": "PATCH",
+   "parameters": {
+    "_id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "_id"
+   ],
+   "request": {
+    "$ref": "Company"
+   },
+   "response": {
+    "$ref": "Company"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "remove": {
+   "id": "companyApi.remove",
+   "path": "company/{_id}",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "_id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "_id"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "update": {
+   "id": "companyApi.update",
+   "path": "company/{_id}",
+   "httpMethod": "PUT",
+   "parameters": {
+    "_id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "_id"
+   ],
+   "request": {
+    "$ref": "Company",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Company"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ }
+}

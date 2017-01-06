@@ -37,7 +37,8 @@ public class ActivityAsyncTask extends AsyncTask<Void, Void, List<Activity>> {
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local devappserver
-                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                    //.setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                    .setRootUrl("https://workingtime-154701.appspot.com/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -60,6 +61,8 @@ public class ActivityAsyncTask extends AsyncTask<Void, Void, List<Activity>> {
             if(activity != null){
                 myApiService.insert(activity).execute();
                 Log.i(TAG, "insert activity");
+                myApiService.update(activity.getId(),activity).execute();
+                Log.i(TAG, "update activity" );
             }
             // and for instance return the list of all employees
             return myApiService.list().execute().getItems();

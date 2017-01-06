@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -24,8 +26,16 @@ import java.util.Locale;
 import ch.hevs.androidproject644.js.workingtime.DB.ActivityDataSource;
 import ch.hevs.androidproject644.js.workingtime.AsycnTasks.*;
 
+import ch.hevs.androidproject644.js.workingtime.DB.CompanyDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.TimeDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Activity;
+import ch.hevs.androidproject644.js.workingtime.model.Company;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
+import ch.hevs.androidproject644.js.workingtime.model.Task;
+import ch.hevs.androidproject644.js.workingtime.model.Time;
+import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 public class Settings_activity_SAM extends AppCompatActivity {
 
@@ -34,6 +44,8 @@ public class Settings_activity_SAM extends AppCompatActivity {
     private TextView tv_choose_language;
     private String dateFormat;
     private Button _btn_AsyncTask;
+
+    private static final String TAG = Settings_activity_SAM.class.getName();
 
 
 
@@ -67,16 +79,9 @@ public class Settings_activity_SAM extends AppCompatActivity {
         _btn_AsyncTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Activity> activities = new ArrayList<Activity>();
-                ActivityDataSource getAll = new ActivityDataSource(v.getContext());
-                activities = getAll.getAllActivities();
-                for (Activity a : activities){
-                    ch.hevs.androidproject644.js.workingtime.backend.activityApi.model.Activity ab = new ch.hevs.androidproject644.js.workingtime.backend.activityApi.model.Activity();
-                    ab.setId(a.get_id());
-                    ab.setName(a.get_name());
-                    ab.setActive(a.is_active());
-                    new ActivityAsyncTask(ab).execute();
-                }
+
+                syncDatasToGoogleCloud(v);
+
             }
         });
 
@@ -114,6 +119,81 @@ public class Settings_activity_SAM extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void syncDatasToGoogleCloud(View v) {
+
+        // PUSH All activities
+        List<Activity> activities ;//= new ArrayList<Activity>();
+        ActivityDataSource getAllActivities = new ActivityDataSource(v.getContext());
+        activities = new ArrayList<Activity>(getAllActivities.getAllActivities());
+        for (Activity a : activities){
+            Log.i(TAG,"current activity is " + a.get_id() );
+            ch.hevs.androidproject644.js.workingtime.backend.activityApi.model.Activity ab = new ch.hevs.androidproject644.js.workingtime.backend.activityApi.model.Activity();
+            ab.setId(a.get_id());
+            ab.setName(a.get_name());
+            ab.setActive(a.is_active());
+            new ActivityAsyncTask(ab).execute();
+        }
+
+        // PUSH All activities
+        List<Company> companies ;//= new ArrayList<Activity>();
+        CompanyDataSource getAllCompanies = new CompanyDataSource(v.getContext());
+        companies = new ArrayList<Company>(getAllCompanies.getAllCompanies());
+        for (Company c : companies){
+            ch.hevs.androidproject644.js.workingtime.backend.companyApi.model.Company cb = new ch.hevs.androidproject644.js.workingtime.backend.companyApi.model.Company();
+            cb.setId(c.get_id());
+            cb.setName(c.get_name());
+            cb.setActive(c.is_active());
+            new CompanyAsyncTask(cb).execute();
+        }
+
+        // PUSH All workers
+        List<Worker> workers ;//= new ArrayList<Activity>();
+        WorkerDataSource getAllWorkers = new WorkerDataSource(v.getContext());
+        workers = new ArrayList<Worker>(getAllWorkers.getAllWorkers());
+        for (Worker w : workers){
+            ch.hevs.androidproject644.js.workingtime.backend.workerApi.model.Worker wb = new ch.hevs.androidproject644.js.workingtime.backend.workerApi.model.Worker();
+            wb.setId(w.get_id());
+            wb.setFirstname(w.get_firstname());
+            wb.setLastname(w.get_lastname());
+            wb.setSex(String.valueOf(w.get_sex()));
+            wb.setBirthdate(w.get_birthdate().getTimeInMillis());
+            wb.setActive(w.is_active());
+
+            new WorkerAsyncTask(wb).execute();
+        }
+
+        // PUSH All task
+        List<Task> tasks ;//= new ArrayList<Activity>();
+        TaskDataSource getAllTasks = new TaskDataSource(v.getContext());
+        tasks = new ArrayList<Task>(getAllTasks.getAllTasks());
+        for (Task t : tasks){
+            ch.hevs.androidproject644.js.workingtime.backend.taskApi.model.Task tb = new ch.hevs.androidproject644.js.workingtime.backend.taskApi.model.Task();
+            tb.setId(t.get_id());
+            tb.setArchive(t.is_archive());
+            tb.setCompanyid(t.get_company().get_id());
+            tb.setActivityid(t.get_activity().get_id());
+            tb.setWorkerid(t.get_worker().get_id());
+            tb.setDate(t.get_date().getTimeInMillis());
+
+            new TaskAsyncTask(tb).execute();
+        }
+
+        // PUSH All task
+        List<Time> times ;//= new ArrayList<Activity>();
+        TimeDataSource getAllTimes = new TimeDataSource(v.getContext());
+        times = new ArrayList<Time>(getAllTimes.getAllTime());
+        for (Time t : times){
+            ch.hevs.androidproject644.js.workingtime.backend.timeApi.model.Time tb = new ch.hevs.androidproject644.js.workingtime.backend.timeApi.model.Time();
+            tb.setId(t.get_id());
+            tb.setStart(t.get_start().getTimeInMillis());
+            tb.setStop(t.get_stop().getTimeInMillis());
+            tb.setDuration(t.get_duration());
+            tb.setTask(t.get_task());
+
+            new TimeAsyncTask(tb).execute();
+        }
     }
 
 }

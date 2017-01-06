@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/-qAiqn1JWq2cfZoltVT8-Ivv6No\"",
+ "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/e2KSHRoiEqLVHJHO2jxTsK8hNFU\"",
  "discoveryVersion": "v1",
  "id": "activityApi:v1",
  "name": "activityApi",
@@ -13,8 +13,8 @@
   "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "protocol": "rpc",
- "rootUrl": "https://MyApp.appspot.com/_ah/api/",
- "rpcUrl": "https://MyApp.appspot.com/_ah/api/rpc",
+ "rootUrl": "https://workingtime-154701.appspot.com/_ah/api/",
+ "rpcUrl": "https://workingtime-154701.appspot.com/_ah/api/rpc",
  "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {
@@ -113,9 +113,9 @@
    "allowGet": true,
    "parameters": {
     "_id": {
-     "type": "integer",
+     "type": "string",
      "required": true,
-     "format": "int32"
+     "format": "int64"
     }
    },
    "parameterOrder": [
@@ -176,7 +176,8 @@
      "format": "int64"
     },
     "_id": {
-     "type": "any"
+     "type": "string",
+     "format": "int64"
     },
     "_name": {
      "type": "string"
@@ -196,9 +197,9 @@
    "id": "activityApi.remove",
    "parameters": {
     "_id": {
-     "type": "integer",
+     "type": "string",
      "required": true,
-     "format": "int32"
+     "format": "int64"
     }
    },
    "parameterOrder": [
@@ -212,9 +213,9 @@
    "id": "activityApi.update",
    "parameters": {
     "_id": {
-     "type": "integer",
+     "type": "string",
      "required": true,
-     "format": "int32"
+     "format": "int64"
     },
     "resource": {
      "$ref": "Activity"
