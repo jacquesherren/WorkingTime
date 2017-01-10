@@ -57,12 +57,13 @@ public class TimeAsyncTaskRemove extends AsyncTask<Void, Void, List<Time>> {
 
             if(myApiTimeService.list().execute().getItems() != null)
             {
-                long listSize = myApiTimeService.list().execute().getItems().size();
+                List<Time> times = new ArrayList<Time>();
+                times = myApiTimeService.list().execute().getItems();
+                long listSize = times.size();
                 Log.i(TAG, "size : " + listSize );
-                //if(activity != null){
-                for(long i = 1; i<= listSize;i++)
+                for (Time t : times)
                 {
-                    myApiTimeService.remove(i).execute();
+                    myApiTimeService.remove(t.getId()).execute();
                     Log.i(TAG, "remove Time" );
                 }
             }

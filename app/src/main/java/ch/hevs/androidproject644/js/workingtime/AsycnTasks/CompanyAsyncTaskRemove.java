@@ -55,12 +55,13 @@ public class CompanyAsyncTaskRemove extends AsyncTask<Void, Void, List<Company>>
             // For instance insert
             if(myApiCompanyService.list().execute().getItems() != null)
             {
-                long listSize = myApiCompanyService.list().execute().getItems().size();
+                List<Company> companies = new ArrayList<Company>();
+                companies = myApiCompanyService.list().execute().getItems();
+                long listSize = companies.size();
                 Log.i(TAG, "size : " + listSize );
-                //if(activity != null){
-                for(long i = 1; i<= listSize;i++)
+                for (Company c : companies)
                 {
-                    myApiCompanyService.remove(i).execute();
+                    myApiCompanyService.remove(c.getId()).execute();
                     Log.i(TAG, "remove companies" );
                 }
             }

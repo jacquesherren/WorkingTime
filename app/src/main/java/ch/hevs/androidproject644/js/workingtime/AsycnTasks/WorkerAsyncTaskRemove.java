@@ -55,13 +55,14 @@ public class WorkerAsyncTaskRemove extends AsyncTask<Void, Void, List<Worker>> {
             // For instance insert
             if(myApiWorkerService.list().execute().getItems() != null)
             {
+                List<Worker> workers = new ArrayList<Worker>();
+                workers = myApiWorkerService.list().execute().getItems();
                 long listSize = myApiWorkerService.list().execute().getItems().size();
                 Log.i(TAG, "size : " + listSize );
-                //if(activity != null){
-                for(long i = 1; i<= listSize;i++)
+                for (Worker w : workers)
                 {
-                    myApiWorkerService.remove(i).execute();
-                    Log.i(TAG, "remove task" );
+                    myApiWorkerService.remove(w.getId()).execute();
+                    Log.i(TAG, "remove worker" );
                 }
             }
 

@@ -65,12 +65,13 @@ public class ActivityAsyncTaskRemove extends AsyncTask<Void, Void, List<Activity
             // For instance insert
             if(myApiService.list().execute().getItems() != null)
             {
-                long listSize = myApiService.list().execute().getItems().size();
+                List<Activity> activities = new ArrayList<Activity>();
+                activities = myApiService.list().execute().getItems();
+                long listSize = activities.size();
                 Log.i(TAG, "size : " + listSize );
-                //if(activity != null){
-                for(long i = 1; i<= listSize;i++)
+                for (Activity a : activities)
                 {
-                    myApiService.remove(i).execute();
+                    myApiService.remove(a.getId()).execute();
                     Log.i(TAG, "remove activity" );
                 }
             }
