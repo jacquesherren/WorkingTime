@@ -60,8 +60,6 @@ public class TimeAsyncTask extends AsyncTask<Void, Void, List<Time>> {
             if(time != null) {
                 myApiTimeService.insert(time).execute();
                 Log.i(TAG, "insert time");
-                myApiTimeService.update(time.getId(), time).execute();
-                Log.i(TAG, "update time");
             }
             // and for instance return the list of all employees
             return myApiTimeService.list().execute().getItems();

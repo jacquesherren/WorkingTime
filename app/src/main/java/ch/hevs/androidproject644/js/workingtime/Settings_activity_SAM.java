@@ -22,6 +22,7 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import ch.hevs.androidproject644.js.workingtime.DB.ActivityDataSource;
 import ch.hevs.androidproject644.js.workingtime.AsycnTasks.*;
@@ -44,6 +45,7 @@ public class Settings_activity_SAM extends AppCompatActivity {
     private TextView tv_choose_language;
     private String dateFormat;
     private Button _btn_AsyncTask;
+    private Button _btn_restore;
 
     private static final String TAG = Settings_activity_SAM.class.getName();
 
@@ -84,7 +86,6 @@ public class Settings_activity_SAM extends AppCompatActivity {
 
             }
         });
-
         tv_choose_language = (TextView) findViewById(R.id.tv_choose_language);
         final Button flag_en = (Button) findViewById(R.id.flag_en);
         flag_en.setOnClickListener(new View.OnClickListener() {
@@ -121,10 +122,13 @@ public class Settings_activity_SAM extends AppCompatActivity {
         });
     }
 
+
     private void syncDatasToGoogleCloud(View v) {
 
+        new ActivityAsyncTaskRemove().execute();
+
         // PUSH All activities
-        List<Activity> activities ;//= new ArrayList<Activity>();
+       List<Activity> activities ;//= new ArrayList<Activity>();
         ActivityDataSource getAllActivities = new ActivityDataSource(v.getContext());
         activities = new ArrayList<Activity>(getAllActivities.getAllActivities());
         for (Activity a : activities){
@@ -135,6 +139,8 @@ public class Settings_activity_SAM extends AppCompatActivity {
             ab.setActive(a.is_active());
             new ActivityAsyncTask(ab).execute();
         }
+
+        new CompanyAsyncTaskRemove().execute();
 
         // PUSH All activities
         List<Company> companies ;//= new ArrayList<Activity>();
@@ -147,6 +153,8 @@ public class Settings_activity_SAM extends AppCompatActivity {
             cb.setActive(c.is_active());
             new CompanyAsyncTask(cb).execute();
         }
+
+        new WorkerAsyncTaskRemove().execute();
 
         // PUSH All workers
         List<Worker> workers ;//= new ArrayList<Activity>();
@@ -164,6 +172,8 @@ public class Settings_activity_SAM extends AppCompatActivity {
             new WorkerAsyncTask(wb).execute();
         }
 
+        new TaskAsyncTaskRemove().execute();
+
         // PUSH All task
         List<Task> tasks ;//= new ArrayList<Activity>();
         TaskDataSource getAllTasks = new TaskDataSource(v.getContext());
@@ -180,7 +190,9 @@ public class Settings_activity_SAM extends AppCompatActivity {
             new TaskAsyncTask(tb).execute();
         }
 
-        // PUSH All task
+        new TimeAsyncTaskRemove().execute();
+
+        // PUSH All times
         List<Time> times ;//= new ArrayList<Activity>();
         TimeDataSource getAllTimes = new TimeDataSource(v.getContext());
         times = new ArrayList<Time>(getAllTimes.getAllTime());

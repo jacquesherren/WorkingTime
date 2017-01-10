@@ -60,9 +60,6 @@ public class TaskAsyncTask extends AsyncTask<Void, Void, List<Task>> {
             if(task != null) {
                 myApiTaskService.insert(task).execute();
                 Log.i(TAG, "insert task");
-                myApiTaskService.update(task.getId(), task).execute();
-                Log.i(TAG, "update task");
-
             }
             // and for instance return the list of all employees
             return myApiTaskService.list().execute().getItems();
@@ -84,7 +81,6 @@ public class TaskAsyncTask extends AsyncTask<Void, Void, List<Task>> {
                             " activityid : " + task.getActivityid() +
                             " companyid : " + task.getCompanyid() +
                             " is archived : " + task.getArchive()
-
                     );
 
                     /*for (Phone phone : employee.getPhones()) {

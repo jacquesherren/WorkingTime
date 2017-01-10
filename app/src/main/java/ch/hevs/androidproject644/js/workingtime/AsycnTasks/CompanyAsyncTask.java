@@ -60,9 +60,8 @@ public class CompanyAsyncTask extends AsyncTask<Void, Void, List<Company>> {
             if(company != null){
                 myApiCompanyService.insert(company).execute();
                 Log.i(TAG, "insert company");
-                myApiCompanyService.update(company.getId(),company).execute();
-                Log.i(TAG, "update company" );
             }
+
             // and for instance return the list of all employees
             return myApiCompanyService.list().execute().getItems();
 

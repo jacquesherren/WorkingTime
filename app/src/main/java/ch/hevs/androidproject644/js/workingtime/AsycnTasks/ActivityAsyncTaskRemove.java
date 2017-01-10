@@ -4,11 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-
-import ch.hevs.androidproject644.js.workingtime.backend.activityApi.ActivityApi;
-
-import ch.hevs.androidproject644.js.workingtime.backend.activityApi.model.Activity;
-
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -18,20 +13,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.backend.activityApi.ActivityApi;
+import ch.hevs.androidproject644.js.workingtime.backend.activityApi.model.Activity;
+
 /**
  * Created by Jacques on 04.01.2017.
  */
 
-public class ActivityAsyncTask extends AsyncTask<Void, Void, List<Activity>> {
+public class ActivityAsyncTaskRemove extends AsyncTask<Void, Void, List<Activity>> {
     private static ActivityApi myApiService = null;
-    private Context context;
-    private static final String TAG = ActivityAsyncTask.class.getName();
-    private Activity activity;
+    private static final String TAG = ActivityAsyncTaskRemove.class.getName();
 
-    public ActivityAsyncTask(Activity activity)
-    {
-        this.activity=activity;
-        if(myApiService == null) {  // Only do this once
+
+    public ActivityAsyncTaskRemove() {
+        if (myApiService == null) {  // Only do this once
             ActivityApi.Builder builder = new ActivityApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
@@ -51,6 +46,16 @@ public class ActivityAsyncTask extends AsyncTask<Void, Void, List<Activity>> {
         }
     }
 
+    /*public List<Activity> getItems() {
+        try {
+            return myApiService.list().execute().getItems();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<Activity>();
+        }
+    }*/
+
+
     @Override
     protected List<Activity> doInBackground(Void... params) {
         //context = params[0].first;
@@ -58,10 +63,19 @@ public class ActivityAsyncTask extends AsyncTask<Void, Void, List<Activity>> {
         try{
             // Call here the wished methods on the Endpoints
             // For instance insert
-            if(activity != null){
-                myApiService.insert(activity).execute();
-                Log.i(TAG, "insert activity");
+            if(myApiService.list().execute().getItems() != null)
+            {
+                long listSize = myApiService.list().execute().getItems().size();
+                Log.i(TAG, "size : " + listSize );
+                //if(activity != null){
+                for(long i = 1; i<= listSize;i++)
+                {
+                    myApiService.remove(i).execute();
+                    Log.i(TAG, "remove activity" );
+                }
             }
+
+            //}
             // and for instance return the list of all employees
             return myApiService.list().execute().getItems();
 

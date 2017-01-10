@@ -59,15 +59,10 @@ public class WorkerAsyncTask extends AsyncTask<Void, Void, List<Worker>> {
             if(worker != null) {
                 myApiWorkerService.insert(worker).execute();
                 Log.i(TAG, "insert worker");
-                myApiWorkerService.update(worker.getId(), worker).execute();
-                Log.i(TAG, "update worker");
-                /*if (cw == null) {
-                    //myApiWorkerService.insert(worker).execute();
-                    Log.i(TAG, "insert worker");
-                } else {
-                    Log.i(TAG, "update worker");
-                }*/
+                /*myApiWorkerService.update(worker.getId(), worker).execute();*/
             }
+
+
             // and for instance return the list of all employees
             return myApiWorkerService.list().execute().getItems();
 
