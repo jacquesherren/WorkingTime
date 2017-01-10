@@ -33,6 +33,22 @@ public class ActivitiesListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivitiesListActivity.this, ActivityEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                ActivitiesListActivity.this.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         _lvActivities = (ListView) findViewById(R.id.lv_activities);
         ActivityDataSource getAll = new ActivityDataSource(this);
         _activities = getAll.getAllActivities();
@@ -40,6 +56,11 @@ public class ActivitiesListActivity extends AppCompatActivity {
         ActivityAdapter adapter = new ActivityAdapter(ActivitiesListActivity.this,R.layout.activity_row, _activities);
         _lvActivities.setAdapter(adapter);
 
+        setListener();
+
+    }
+
+    private void setListener() {
         _lvActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -50,20 +71,9 @@ public class ActivitiesListActivity extends AppCompatActivity {
                 Intent intent = new Intent(ActivitiesListActivity.this, ActivityViewActivity.class);
                 intent.putExtra(Datas.MODE, Datas.VIEW);
                 intent.putExtra(Datas.VIEW, a);
-                ActivitiesListActivity.this.startActivityForResult(intent,1);
+                ActivitiesListActivity.this.startActivity(intent);
             }
         });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ActivitiesListActivity.this, ActivityEditActivity.class);
-                intent.putExtra(Datas.MODE, Datas.NEW);
-                ActivitiesListActivity.this.startActivityForResult(intent,1);
-            }
-        });
-
     }
 
     @Override
@@ -72,18 +82,4 @@ public class ActivitiesListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.list_menu, menu);
         return true;
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == ActivityEditActivity.RESULT_OK){
-                Activity result=data.getParcelableExtra("result");
-            }
-            if (resultCode == ActivityEditActivity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }//onActivityResult
-
 }

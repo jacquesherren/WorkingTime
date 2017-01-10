@@ -1,5 +1,7 @@
 package ch.hevs.androidproject644.js.workingtime;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
 import ch.hevs.androidproject644.js.workingtime.DB.CompanyDataSource;
+import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
 import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Company;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
@@ -63,17 +66,17 @@ public class CompanyEditActivity extends AppCompatActivity {
             // action with ID action_refresh was selected
             case R.id.action_save:
                 save();
+                finish();
                 break;
 
             // action with ID action_settings was selected
             case R.id.action_cancel:
-                Intent returnIntent = new Intent();
-                setResult(CompanyEditActivity.RESULT_CANCELED, returnIntent);
                 finish();
                 break;
 
             case R.id.action_delete:
                 delete();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -81,42 +84,60 @@ public class CompanyEditActivity extends AppCompatActivity {
 
     private void save(){
         if(_company!=null){
-            Toast.makeText(this, "Saving this company...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Saving this company...", Toast.LENGTH_SHORT).show();
 
             setCompany();
 
             CompanyDataSource updateCompany = new CompanyDataSource(this);
             updateCompany.updateCompany(_company);
 
+            Intent intent = new Intent(CompanyEditActivity.this, CompanyViewActivity.class);
+            intent.putExtra(Datas.MODE, Datas.VIEW);
+            intent.putExtra(Datas.VIEW, _company);
+            CompanyEditActivity.this.startActivity(intent);
         }
-        else {
-            Toast.makeText(this, "Creating a new company...", Toast.LENGTH_SHORT)
-                    .show();
+        else
+        {
+            Toast.makeText(this, "Creating a new company...", Toast.LENGTH_SHORT).show();
 
             _company = new Company();
             setCompany();
 
             CompanyDataSource addCompany = new CompanyDataSource(this);
             addCompany.createCompany(_company);
+
+
+
         }
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",_company);
-        setResult(CompanyEditActivity.RESULT_OK,returnIntent);
-        finish();
     }
 
 
     private  void delete(){
         if(_company!=null){
-            Toast.makeText(this, "Deleting this company...", Toast.LENGTH_SHORT)
-                    .show();
-            CompanyDataSource deleteCompany = new CompanyDataSource(this);
-            deleteCompany.deleteCompany(_company);
-        }
-        else {
-            Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
-                    .show();
+            TaskDataSource checkDelete = new TaskDataSource(this);
+            if(checkDelete.getTaskByCompanyID(_company.get_id())==true)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.checkDeleteCompany)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //do things
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+            else {
+
+                Toast.makeText(this, "Deleting this company...", Toast.LENGTH_SHORT).show();
+
+                CompanyDataSource deleteCompany = new CompanyDataSource(this);
+                deleteCompany.deleteCompany(_company);
+
+                Intent intent = new Intent(CompanyEditActivity.this, CompaniesListActivity.class);
+                navigateUpTo(intent);
+            }
         }
     }
 

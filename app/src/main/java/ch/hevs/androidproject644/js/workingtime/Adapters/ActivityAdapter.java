@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
 import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
 import ch.hevs.androidproject644.js.workingtime.model.Activity;
@@ -40,6 +41,7 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
         if(viewHolder == null){
             viewHolder = new ActivitiyViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.tv_name);
+            viewHolder.duration = (TextView) convertView.findViewById(R.id.tv_duration);
             convertView.setTag(viewHolder);
         }
 
@@ -48,7 +50,8 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(activity.get_name());
-
+        if(activity.get_duration()!=0)
+            viewHolder.duration.setText(C_Time.getFormatedDuration(activity.get_duration()));
         return convertView;
     }
 
@@ -65,5 +68,6 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
     }
     private class ActivitiyViewHolder{
         private  TextView name;
+        private  TextView duration;
     }
 }

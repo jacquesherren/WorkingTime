@@ -30,6 +30,11 @@ public class WorkerViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
         findViewsById();
 
         Intent intent = getIntent();
@@ -39,7 +44,7 @@ public class WorkerViewActivity extends AppCompatActivity {
             _worker = intent.getParcelableExtra(Datas.VIEW);
 
             _tv_firstname_lastname.setText(_worker.get_firstname() + " " +  _worker.get_lastname());
-            _tv_birthdate_value.setText(Datas.DATE_FORMATTER.format(_worker.get_birthdate().getTime()));
+            _tv_birthdate_value.setText(Datas.formatDate().format(_worker.get_birthdate().getTime()));
             _image_Sex.setImageDrawable(C_Worker.get_ImageSex(this,_worker.get_sex()));
 
             if(_worker.is_active()==true)
@@ -48,9 +53,6 @@ public class WorkerViewActivity extends AppCompatActivity {
                 _tv_Active.setText("Unavailable");
         }
     }
-
-
-
     private void findViewsById(){
         _tv_firstname_lastname = (TextView) findViewById(R.id.tv_firstname_lastname);
         _tv_birthdate_value = (TextView) findViewById(R.id.tv_birthdate_value);
@@ -74,22 +76,10 @@ public class WorkerViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(WorkerViewActivity.this, WorkerEditActivity.class);
                 intent.putExtra(Datas.MODE, Datas.EDIT);
                 intent.putExtra(Datas.EDIT, _worker);
-                WorkerViewActivity.this.startActivityForResult(intent,1);
+                WorkerViewActivity.this.startActivity(intent);
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == WorkerEditActivity.RESULT_OK){
-                Worker result=data.getParcelableExtra("result");
-            }
-            if (resultCode == WorkerEditActivity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }//onActivityResult
 }

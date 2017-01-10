@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Switch
+        android:text="@string/task_archive"
+        android:id="@+id/sw_task_archive"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"/>
+    <TextView
+        android:id="@+id/tv_firstname_lastname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:text="Firstname Lastname"
+        android:layout_alignTop="@+id/view"
+        android:layout_toEndOf="@+id/tv_company_name" />
+    <TextView
+        android:id="@+id/tv_worker_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/worker_label"
+        android:layout_below="@+id/sw_task_archive"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_worker_name"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/view" />
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/image_Sex"
+        android:layout_below="@+id/tv_worker_name"/>
+
+    <TextView
+        android:id="@+id/tv_birthdate_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_firstname_lastname"
+        android:layout_below="@+id/tv_firstname_lastname"
+        tools:text="Birthdate : " />
+
+    <TextView
+        android:id="@+id/tv_birthdate_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_firstname_lastname"
+        android:layout_toRightOf="@+id/tv_birthdate_name"
+        android:textColor="@android:color/black"
+        tools:text="17.07.1981" />
+
+    <TextView
+        android:id="@+id/tv_company_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/company_label"
+        android:layout_below="@+id/image_Sex"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_company_name"
+        android:background="@android:color/darker_gray"/>
+    <TextView
+        android:id="@+id/tv_company_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:text="Company name"
+        android:layout_below="@+id/tv_company_name"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tv_activity_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="textEnd"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/activity_label"
+        android:layout_below="@+id/tv_company_value"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_activity_name"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/tv_activity_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_activity_name"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:text="Activity name" />
+
+</RelativeLayout>

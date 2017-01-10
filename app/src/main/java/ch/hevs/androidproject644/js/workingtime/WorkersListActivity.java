@@ -32,6 +32,22 @@ public class WorkersListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_newWorker);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorkersListActivity.this, WorkerEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                WorkersListActivity.this.startActivity(intent);
+            }
+        });
+
+    }
+
+    protected void onResume(){
+        super.onResume();
+
         _lvWorkers = (ListView) findViewById(R.id.lv_workers);
         WorkerDataSource getAll = new WorkerDataSource(this);
         _workers = getAll.getAllWorkers();
@@ -39,6 +55,11 @@ public class WorkersListActivity extends AppCompatActivity {
         WorkerAdapter adapter = new WorkerAdapter(WorkersListActivity.this,R.layout.worker_row, _workers);
         _lvWorkers.setAdapter(adapter);
 
+        setListener();
+
+    }
+
+    private void setListener() {
         _lvWorkers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -49,20 +70,9 @@ public class WorkersListActivity extends AppCompatActivity {
                 Intent intent = new Intent(WorkersListActivity.this, WorkerViewActivity.class);
                 intent.putExtra(Datas.MODE, Datas.VIEW);
                 intent.putExtra(Datas.VIEW, w);
-                WorkersListActivity.this.startActivityForResult(intent,1);
+                WorkersListActivity.this.startActivity(intent);
             }
         });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_newWorker);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(WorkersListActivity.this, WorkerEditActivity.class);
-                intent.putExtra(Datas.MODE, Datas.NEW);
-                WorkersListActivity.this.startActivityForResult(intent,1);
-            }
-        });
-
     }
 
     @Override
@@ -72,17 +82,4 @@ public class WorkersListActivity extends AppCompatActivity {
         return true;
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == WorkerEditActivity.RESULT_OK){
-                Worker result=data.getParcelableExtra("result");
-            }
-            if (resultCode == WorkerEditActivity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }//onActivityResult
 }

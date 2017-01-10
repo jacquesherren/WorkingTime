@@ -72,6 +72,7 @@ public class DB_Contract  {
 
         //column from table tasks
         public static final String COLUMN_NAME_TASK_ID = "idTask";
+        public static final String COLUMN_NAME_ARCHIVE = "Archive";
         public static final String COLUMN_NAME_TASK_DATE = "Date";
         public static final String COLUMN_NAME_TASK_DURATION = "Duration";
         public static final String COLUMN_NAME_TASK_DESCRIPTION = "Description";
@@ -83,6 +84,7 @@ public class DB_Contract  {
         public static final String CREATE_TABLE_TASKS = "CREATE TABLE "
                 + TABLE_TASKS + "("
                 + tasks.COLUMN_NAME_TASK_ID + " INTEGER PRIMARY KEY, "
+                + tasks.COLUMN_NAME_ARCHIVE + " INTEGER, "
                 + tasks.COLUMN_NAME_TASK_DATE + " NUMERIC, "
                 + tasks.COLUMN_NAME_TASK_DURATION + " INTEGER, "
                 + tasks.COLUMN_NAME_TASK_DESCRIPTION + " TEXT, "
@@ -110,7 +112,7 @@ public class DB_Contract  {
                 + times.COLUMN_NAME_TIME_ID + " INTEGER PRIMARY KEY, "
                 + times.COLUMN_NAME_TIME_STARTTIME + " NUMERIC, "
                 + times.COLUMN_NAME_TIME_ENDTIME + " NUMERIC, "
-                + times.COLUMN_NAME_TIME_DURATION + " INTEGER, "
+                + times.COLUMN_NAME_TIME_DURATION + " NUMERIC, "
                 + times.FK_COLUMN_NAME_TIME_IDTASK + " INTEGER, "
                 + "FOREIGN KEY (" + times.FK_COLUMN_NAME_TIME_IDTASK +") REFERENCES " + tasks.TABLE_TASKS + " (" + tasks.COLUMN_NAME_TASK_ID + "));";
 

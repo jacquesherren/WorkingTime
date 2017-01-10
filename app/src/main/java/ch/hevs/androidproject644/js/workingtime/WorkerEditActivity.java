@@ -1,8 +1,10 @@
 package ch.hevs.androidproject644.js.workingtime;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -20,6 +22,7 @@ import java.util.Calendar;
 
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
+import ch.hevs.androidproject644.js.workingtime.DB.TaskDataSource;
 import ch.hevs.androidproject644.js.workingtime.DB.WorkerDataSource;
 import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
@@ -55,7 +58,7 @@ public class WorkerEditActivity extends AppCompatActivity {
 
             _etFirstname.setText(_worker.get_firstname());
             _etLastname.setText(_worker.get_lastname());
-            _etBirthdate.setText(Datas.DATE_FORMATTER.format(_worker.get_birthdate().getTime()));
+            _etBirthdate.setText(Datas.formatDate().format(_worker.get_birthdate().getTime()));
             if (_worker.get_sex() == 'M') {
                 _rbSexM.setChecked(true);
                 _rbSexF.setChecked(false);
@@ -92,7 +95,7 @@ public class WorkerEditActivity extends AppCompatActivity {
                 //Calendar newDate = Calendar.getInstance();
                 _birthdate = Calendar.getInstance();
                 _birthdate.set(year, monthOfYear, dayOfMonth);
-                _etBirthdate.setText(Datas.DATE_FORMATTER.format(_birthdate.getTime()));
+                _etBirthdate.setText(Datas.formatDate().format(_birthdate.getTime()));
             }
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -116,17 +119,18 @@ public class WorkerEditActivity extends AppCompatActivity {
             // action with ID action_refresh was selected
             case R.id.action_save:
                 save();
+                finish();
                 break;
 
             // action with ID action_settings was selected
             case R.id.action_cancel:
-                Intent returnIntent = new Intent();
-                setResult(WorkerEditActivity.RESULT_CANCELED, returnIntent);
                 finish();
                 break;
 
             case R.id.action_delete:
                 delete();
+                //Intent intent = new Intent(WorkerEditActivity.this,WorkersListActivity.class);
+                //navigateUpTo(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -134,18 +138,21 @@ public class WorkerEditActivity extends AppCompatActivity {
 
     private void save(){
         if(_worker!=null){
-            Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Saving this worker...", Toast.LENGTH_SHORT).show();
 
             setWorker();
 
             WorkerDataSource updateWorker = new WorkerDataSource(this);
             updateWorker.updateWorker(_worker);
 
+            Intent intent = new Intent(WorkerEditActivity.this, WorkerViewActivity.class);
+            intent.putExtra(Datas.MODE, Datas.VIEW);
+            intent.putExtra(Datas.VIEW, _worker);
+            WorkerEditActivity.this.startActivity(intent);
+
         }
         else {
-            Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(this, "Creating a new worker...", Toast.LENGTH_SHORT).show();
 
             _worker = new Worker();
             setWorker();
@@ -153,26 +160,34 @@ public class WorkerEditActivity extends AppCompatActivity {
             WorkerDataSource addWorker = new WorkerDataSource(this);
             addWorker.createWorker(_worker);
         }
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",_worker);
-        setResult(WorkerEditActivity.RESULT_OK,returnIntent);
-        finish();
     }
     private  void delete(){
         if(_worker!=null){
-            Toast.makeText(this, "Deleting this worker...", Toast.LENGTH_SHORT)
-                    .show();
-            WorkerDataSource deleteWorker = new WorkerDataSource(this);
-            deleteWorker.deleteWorker(_worker);
+
+            TaskDataSource checkDelete = new TaskDataSource(this);
+            if(checkDelete.getTaskByWorkerID(_worker.get_id())==true)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.checkDeleteWorker)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //do things
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+            else {
+                Toast.makeText(this, "Deleting this worker...", Toast.LENGTH_SHORT).show();
+
+                WorkerDataSource deleteWorker = new WorkerDataSource(this);
+                deleteWorker.deleteWorker(_worker);
+
+                Intent intent = new Intent(WorkerEditActivity.this,WorkersListActivity.class);
+                navigateUpTo(intent);
+            }
         }
-        else {
-            Toast.makeText(this, "Nothing to delete...", Toast.LENGTH_SHORT)
-                    .show();
-        }
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",_worker);
-        setResult(WorkerEditActivity.RESULT_OK,returnIntent);
-        finish();
     }
 
     private void setWorker(){

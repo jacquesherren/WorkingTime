@@ -10,15 +10,16 @@ import java.util.Calendar;
  */
 
 public class Worker implements Parcelable {
-    private int _id;
+    private long _id;
     private String _lastname;
     private String _firstname;
     private Calendar _birthdate;
     private char _sex;
     private boolean _active;
+    private long _duration = 0;
 
 
-    public Worker(int id,String lastname, String firstname, Calendar birthdate, char sex, boolean active){
+    public Worker(long id,String lastname, String firstname, Calendar birthdate, char sex, boolean active){
         this._id = id;
         this._lastname=lastname;
         this._firstname=firstname;
@@ -33,7 +34,7 @@ public class Worker implements Parcelable {
     }
 
     // SETTERS ***
-    public void set_id(int id) {
+    public void set_id(long id) {
         this._id = id;
     }
     public void set_lastname(String lastname) {
@@ -49,9 +50,13 @@ public class Worker implements Parcelable {
     public void set_active(boolean active) {
         this._active = active;
     }
+    public void set_duration(long _duration) {     this._duration = _duration;  }
+
+
+
 
     // GETTERS ***
-    public int get_id() { return _id; }
+    public long get_id() { return _id; }
     public String get_lastname() {
         return _lastname;
     }
@@ -65,6 +70,8 @@ public class Worker implements Parcelable {
         return _sex;
     }
     public boolean is_active() { return _active;  }
+    public long get_duration() {       return _duration;   }
+
 
 
     // Methods ***
@@ -86,7 +93,7 @@ public class Worker implements Parcelable {
     };
 
     protected Worker(Parcel in){
-        this._id = in.readInt();
+        this._id = in.readLong();
         this._lastname= in.readString();
         this._firstname= in.readString();
         this._birthdate = (Calendar) in.readValue(getClass().getClassLoader());
@@ -97,10 +104,12 @@ public class Worker implements Parcelable {
         boolean[] myBooleanArr = new boolean[1];
         in.readBooleanArray(myBooleanArr);
         _active = myBooleanArr[0];
+
+        this._duration=in.readLong();
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(_id);
+        dest.writeLong(_id);
         dest.writeString(_firstname);
         dest.writeString(_lastname);
         dest.writeValue(_birthdate);
@@ -110,6 +119,8 @@ public class Worker implements Parcelable {
 
         boolean[] myBooleanArr = {_active}; //= new boolean[1];
         dest.writeBooleanArray(myBooleanArr);
+
+        dest.writeLong(_duration);
     }
 
     public void set_birthdate(long birthdate) {

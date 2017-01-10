@@ -57,6 +57,58 @@ public class CompanyDataSource {
         return null;
     }
 
+    public List<Company> getSumTimeByCompany()
+    {
+        List<Company> companies = new ArrayList<Company>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_NAME + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_AVAILABLE + ", SUM(" + DB_Contract.times.TABLE_TIMES + "." +  DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.companies.TABLE_COMPANIES + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + " = " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + " AND " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK + " GROUP BY " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_NAME + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_AVAILABLE;
+        //String sql = "SELECT SUM(" + DB_Contract.times.TABLE_TIMES + "." +  DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.companies.TABLE_COMPANIES + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + " = " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + " AND " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK ;
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Company company = cursorToCompany(cursor);
+            company.set_duration(cursor.getInt(3));
+            companies.add(company);
+            cursor.moveToNext();
+        }
+        return companies;
+    }
+
+    public List<Company> getSumTimeByCompanybetweenDate(long dateFrom, long dateTo)
+    {
+        List<Company> companies = new ArrayList<Company>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_NAME + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_AVAILABLE + ", SUM(" + DB_Contract.times.TABLE_TIMES + "." +  DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.companies.TABLE_COMPANIES + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + " = " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + " AND " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK + " AND " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.COLUMN_NAME_TIME_STARTTIME + " BETWEEN " + dateFrom   + " AND " + dateTo  + " GROUP BY " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_NAME + ", " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_AVAILABLE;
+        //String sql = "SELECT SUM(" + DB_Contract.times.TABLE_TIMES + "." +  DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.companies.TABLE_COMPANIES + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + " = " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + " AND " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK ;
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Company company = cursorToCompany(cursor);
+            company.set_duration(cursor.getInt(3));
+            companies.add(company);
+            cursor.moveToNext();
+        }
+        return companies;
+    }
+
+    public List<Company> getCompanyByAvaiable()
+    {
+        List<Company> companies = new ArrayList<Company>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT * FROM " + DB_Contract.companies.TABLE_COMPANIES + " WHERE " + DB_Contract.companies.COLUMN_NAME_AVAILABLE + " = " + 1;
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Company company = cursorToCompany(cursor);
+            companies.add(company);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return companies;
+    }
+
     public List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<Company>();
         SQLiteDatabase db = _dbclass.getReadableDatabase();
@@ -87,6 +139,7 @@ public class CompanyDataSource {
         company.set_id(cursor.getInt(cursor.getColumnIndex(DB_Contract.companies.COLUMN_NAME_COMPANY_ID)));
         company.set_name(cursor.getString(cursor.getColumnIndex(DB_Contract.companies.COLUMN_NAME_COMPANY_NAME)));
         company.set_active_int(cursor.getInt(cursor.getColumnIndex(DB_Contract.companies.COLUMN_NAME_AVAILABLE)));
+        //company.set_duration(cursor.getInt(3));
         return company;
     }
 }

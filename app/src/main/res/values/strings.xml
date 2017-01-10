@@ -32,6 +32,13 @@
         <item>Projet 2</item>
     </string-array>
 
+    <string-array name="dateFormat">
+        <item>MM.dd.yyyy</item>
+        <item>dd/MM/yyyy</item>
+    </string-array>
+    <string name="checkDeleteWorker">This worker cannot be deleted</string>
+    <string name="checkDeleteActivity">This activity cannot be deleted</string>
+    <string name="checkDeleteCompany">This company cannot be deleted</string>
 
     <string name="btn_readyToStart">Ready to start...</string>
 
@@ -49,31 +56,56 @@
     <string name="title_activity_activities_list">Activities</string>
     <string name="activity_label">Activity : </string>
     <string name="title_activity_workers_list">Workers</string>
-    <string name="title_activity_worker_view"></string>
-    <string name="title_activity_worker_edit"></string>
+    <string name="title_activity_worker_view">View Workers</string>
+    <string name="title_activity_worker_edit">Edit worker</string>
 
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_save">Save</string>
     <string name="action_back">Back</string>
-    <string name="title_activity_view"></string>
+    <string name="title_activity_view">Activities views</string>
     <string name="activity_name">Name</string>
     <string name="activity_activated">Activity available</string>
-    <string name="title_activity_edit"></string>
+    <string name="title_activity_edit">Edit activity</string>
     <string name="activity_activated_hint">Activate this activity to make it available.</string>
-    <string name="title_activity_company_edit">CompanyEditActivity</string>
+    <string name="title_activity_company_edit">Edit Compagny</string>
 
     <string name="title_activity_companies_list">Companies</string>
     <string name="company_label">Company : </string>
     <string name="company_name">Name</string>
     <string name="company_activated_hint">Activate this company to make it available.</string>
     <string name="company_activated">Company available</string>
-    <string name="title_activity_company_view">CompanyViewActivity</string>
+    <string name="task_archive">Archived task</string>
+    <string name="title_activity_company_view">View Compagnies</string>
     <string name="title_activity_task_view">TaskViewActivity</string>
     <string name="title_activity_time_recording">TimeRecordingActivity</string>
     <string name="btn_createTask">Finalize and create task</string>
     <string name="btn_StartToWork">Start to work</string>
     <string name="tgb_WorkBreak_OFF">Let\'s go working</string>
     <string name="tgb_WorkBreak_ON">Let\'s take a break</string>
+    <string name="title_activity_edit_task">EditTask</string>
+    <string name="btn_start">GO</string>
+    <string name="title_activity_company">Company</string>
+
+    <string name="start_label">Start</string>
+    <string name="duration_label">Duration</string>
+    <string name="stop_label">Stop</string>
+    <string name="timelist_label">Times list</string>
+    <string name="title_activity_task">TaskActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="action_french">French</string>
+    <string name="action_english">English</string>
+    <string name="title_activity_reporting">Reporting</string>
+    <string name="_et_settings_date_format">Change date format</string>
+    <string name="_et_settings_language">Choose language</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings__sam">Setting</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="To">To</string>
+    <string name="From">From</string>
+    <string name="Choose_period">Choose period</string>
+    <string name="submit">Submit</string>
 </resources>

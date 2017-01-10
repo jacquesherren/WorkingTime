@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hevs.androidproject644.js.workingtime.Controler.C_Worker;
+import ch.hevs.androidproject644.js.workingtime.model.Activity;
 import ch.hevs.androidproject644.js.workingtime.model.Worker;
 
 /**
@@ -69,6 +70,37 @@ public class WorkerDataSource {
         return null;
     }
 
+    public Worker getTimeByWorker()
+    {
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT " + DB_Contract.workers.COLUMN_NAME_LASTNAME + "SUM (" + DB_Contract.times.COLUMN_NAME_TIME_DURATION + ")" + " FROM " + DB_Contract.workers.TABLE_WORKERS + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.workers.COLUMN_NAME_WORKER_ID + " = " + DB_Contract.tasks.FK_COLUMN_NAME_TASK_WORKERID + " AND " + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK + " GROUP BY " + DB_Contract.workers.COLUMN_NAME_LASTNAME;
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            Worker worker = cursorToWorker(cursor);
+            return worker;
+        }
+        return null;
+    }
+
+    public List<Worker> getWorkerByAvaiable()
+    {
+        List<Worker> workers = new ArrayList<Worker>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT * FROM " + DB_Contract.workers.TABLE_WORKERS + " WHERE " + DB_Contract.workers.COLUMN_NAME_AVAILABLE + " = " + 1;
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Worker worker = cursorToWorker(cursor);
+            workers.add(worker);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return workers;
+    }
+
     public List<Worker> getAllWorkers() {
         List<Worker> workers = new ArrayList<Worker>();
         SQLiteDatabase db = _dbclass.getReadableDatabase();
@@ -95,6 +127,23 @@ public class WorkerDataSource {
         db.close();
     }
 
+
+    public List<Worker> getSumTimeByWorkerbetweenDate(long dateFrom, long dateTo)
+    {
+        List<Worker> workers = new ArrayList<Worker>();
+        SQLiteDatabase db = _dbclass.getReadableDatabase();
+        String sql = "SELECT " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_WORKER_ID + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_FIRSTNAME + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_LASTNAME + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_BIRTHDATE + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_SEXE + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_AVAILABLE + ", SUM(" + DB_Contract.times.TABLE_TIMES + "." +  DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.workers.TABLE_WORKERS + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_WORKER_ID + " = " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.FK_COLUMN_NAME_TASK_WORKERID + " AND " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK + " AND " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.COLUMN_NAME_TIME_STARTTIME + " BETWEEN " + dateFrom   + " AND " + dateTo  + " GROUP BY " +  DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_WORKER_ID + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_FIRSTNAME + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_LASTNAME + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_BIRTHDATE + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_SEXE + ", " + DB_Contract.workers.TABLE_WORKERS + "." + DB_Contract.workers.COLUMN_NAME_AVAILABLE;
+        //String sql = "SELECT SUM(" + DB_Contract.times.TABLE_TIMES + "." +  DB_Contract.times.COLUMN_NAME_TIME_DURATION + ") FROM " + DB_Contract.companies.TABLE_COMPANIES + ", " + DB_Contract.tasks.TABLE_TASKS + ", " + DB_Contract.times.TABLE_TIMES + " WHERE " + DB_Contract.companies.TABLE_COMPANIES + "." + DB_Contract.companies.COLUMN_NAME_COMPANY_ID + " = " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.FK_COLUMN_NAME_TASK_COMPANYID + " AND " + DB_Contract.tasks.TABLE_TASKS + "." + DB_Contract.tasks.COLUMN_NAME_TASK_ID + " = " + DB_Contract.times.TABLE_TIMES + "." + DB_Contract.times.FK_COLUMN_NAME_TIME_IDTASK ;
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Worker worker = cursorToWorker(cursor);
+            worker.set_duration(cursor.getInt(6));
+            workers.add(worker);
+            cursor.moveToNext();
+        }
+        return workers;
+    }
     private Worker cursorToWorker(Cursor cursor) {
         Worker worker = new Worker();
 

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.hevs.androidproject644.js.workingtime">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -108,6 +110,15 @@
                 android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
         </activity>
         <activity
+            android:name=".ReportingActivity"
+            android:label=""
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
             android:name=".TaskViewActivity"
             android:label="@string/title_activity_task_view"
             android:parentActivityName=".TasksListActivity"
@@ -120,6 +131,32 @@
             android:name=".TimeRecordingActivity"
             android:label="@string/title_activity_time_recording"
             android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".TaskEditActivity"
+            android:label="@string/title_activity_edit_task"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".TaskActivity"
+            android:label="@string/title_activity_task"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hevs.androidproject644.js.workingtime.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Settings_activity_SAM"
+            android:label="@string/title_activity_settings__sam"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

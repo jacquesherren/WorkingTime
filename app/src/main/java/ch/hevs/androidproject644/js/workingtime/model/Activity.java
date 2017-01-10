@@ -8,9 +8,10 @@ import android.os.Parcelable;
  */
 
 public class Activity implements Parcelable {
-    private int _id;
+    private long _id;
     private String _name;
     private boolean _active;
+    private long _duration = 0;
 
     public Activity(int id, String name, boolean active) {
         this._id = id;
@@ -21,7 +22,7 @@ public class Activity implements Parcelable {
     public Activity() {    }
 
     // SETTERS
-    public void set_id(int id) {
+    public void set_id(long id) {
         this._id = id;
     }
     public void set_name(String name) {
@@ -30,15 +31,17 @@ public class Activity implements Parcelable {
     public void set_active(boolean active) {
         this._active = active;
     }
+    public void set_duration(long _duration) {        this._duration = _duration;    }
 
     // GETTERS
-    public int get_id() { return _id; }
+    public long get_id() { return _id; }
     public String get_name() {
         return _name;
     }
     public boolean is_active() {
         return _active;
     }
+    public long get_duration() {        return _duration;    }
 
     @Override
     public int describeContents() {  return 0; }
@@ -56,20 +59,24 @@ public class Activity implements Parcelable {
     };
 
     protected Activity(Parcel in){
-        this._id = in.readInt();
+        this._id = in.readLong();
         this._name= in.readString();
 
         boolean[] myBooleanArr = new boolean[1];
         in.readBooleanArray(myBooleanArr);
         _active = myBooleanArr[0];
+
+        this._duration=in.readLong();
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(_id);
+        dest.writeLong(_id);
         dest.writeString(_name.toString());
 
         boolean[] myBooleanArr = {_active}; //= new boolean[1];
         dest.writeBooleanArray(myBooleanArr);
+
+        dest.writeLong(_duration);
     }
 
     public int is_active_int() {

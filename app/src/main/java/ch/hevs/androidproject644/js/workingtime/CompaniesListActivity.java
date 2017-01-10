@@ -33,6 +33,22 @@ public class CompaniesListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CompaniesListActivity.this, CompanyEditActivity.class);
+                intent.putExtra(Datas.MODE, Datas.NEW);
+                CompaniesListActivity.this.startActivity(intent);
+                onPause();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         _lvCompanies = (ListView) findViewById(R.id.lv_companies);
         CompanyDataSource getAll = new CompanyDataSource(this);
         _companies = getAll.getAllCompanies();
@@ -40,6 +56,11 @@ public class CompaniesListActivity extends AppCompatActivity {
         CompanyAdapter adapter = new CompanyAdapter(CompaniesListActivity.this, R.layout.company_row,_companies);
         _lvCompanies.setAdapter(adapter);
 
+        setListener();
+
+    }
+
+    private void setListener(){
         _lvCompanies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -50,17 +71,8 @@ public class CompaniesListActivity extends AppCompatActivity {
                 Intent intent = new Intent(CompaniesListActivity.this, CompanyViewActivity.class);
                 intent.putExtra(Datas.MODE, Datas.VIEW);
                 intent.putExtra(Datas.VIEW, c);
-                CompaniesListActivity.this.startActivityForResult(intent,1);
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CompaniesListActivity.this, CompanyEditActivity.class);
-                intent.putExtra(Datas.MODE, Datas.NEW);
-                CompaniesListActivity.this.startActivityForResult(intent,1);
+                CompaniesListActivity.this.startActivity(intent);
+                onPause();
             }
         });
     }
@@ -71,17 +83,5 @@ public class CompaniesListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.list_menu, menu);
         return true;
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == CompanyEditActivity.RESULT_OK){
-                Company result=data.getParcelableExtra("result");
-            }
-            if (resultCode == CompanyEditActivity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }//onActivityResult
 
 }

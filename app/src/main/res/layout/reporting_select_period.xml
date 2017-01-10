@@ -1,0 +1,63 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="ch.hevs.androidproject644.js.workingtime.ReportingActivity">
+
+    <LinearLayout
+        android:id="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:id="@+id/tv_choose_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose period"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_choose_period"
+            android:background="#FFFFFF">
+        </View>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/et_date_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:textColor="#FFFFFF"
+                android:layout_weight="1"
+                android:hint="@string/From"/>
+
+
+            <EditText
+                android:id="@+id/et_date_to"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:textColor="#FFFFFF"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:hint="@string/To"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/submit"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</FrameLayout>

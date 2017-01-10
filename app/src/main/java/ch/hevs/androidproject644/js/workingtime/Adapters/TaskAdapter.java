@@ -1,73 +1,169 @@
 package ch.hevs.androidproject644.js.workingtime.Adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Company;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Task;
+import ch.hevs.androidproject644.js.workingtime.Controler.C_Time;
+import ch.hevs.androidproject644.js.workingtime.DB.TimeDataSource;
+import ch.hevs.androidproject644.js.workingtime.MainActivity;
 import ch.hevs.androidproject644.js.workingtime.R;
+import ch.hevs.androidproject644.js.workingtime.model.Datas;
 import ch.hevs.androidproject644.js.workingtime.model.Task;
+import ch.hevs.androidproject644.js.workingtime.model.Time;
 
 /**
  * Created by Jacques on 26.10.2016.
  */
 
 public class TaskAdapter extends ArrayAdapter<Task> {
+    private Context _context;
+    private List<Task> _tasks;
+    private List<Time> _times;
+    private boolean _hideButton;
+    int selected_position = -1;
+    long _runningTask = 0;
 
 
-    public TaskAdapter(Context context, List<Task> tasks) {
-        super(context, 0, tasks);
+    public TaskAdapter(Context context,int ressource, List<Task> tasks, boolean hideButton,long runningTask) {
+        super(context, ressource, tasks);
+        this._context = context;
+        this._tasks = tasks;
+        this._hideButton=hideButton;
+        this._runningTask=runningTask;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.task_row,parent, false);
+
+    public View getCustomView(final int position, View convertView, ViewGroup parent) {
+        final int pos = position;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.task_row, parent, false);
         }
 
         TaskViewHolder viewHolder = (TaskViewHolder) convertView.getTag();
-        if(viewHolder == null){
+        if (viewHolder == null) {
             viewHolder = new TaskViewHolder();
-            viewHolder.date = (TextView) convertView.findViewById(R.id.tv_date);
-            viewHolder.duration = (TextView) convertView.findViewById(R.id.tv_duration);
-            viewHolder.company_value = (TextView) convertView.findViewById(R.id.tv_company_value);
-            viewHolder.activity_value = (TextView) convertView.findViewById(R.id.tv_activity_value);
-            viewHolder.worker_value = (TextView) convertView.findViewById(R.id.tv_worker_value);
-            viewHolder.company_name = (TextView) convertView.findViewById(R.id.tv_company_name);
-            viewHolder.activity_name = (TextView) convertView.findViewById(R.id.tv_activity_name);
-            viewHolder.worker_name = (TextView) convertView.findViewById(R.id.tv_worker_name);
+
+            viewHolder.tv_duration = (TextView) convertView.findViewById(R.id.tv_duration);
+            viewHolder.tv_company_value = (TextView) convertView.findViewById(R.id.tv_company_value);
+            viewHolder.tv_activity_value = (TextView) convertView.findViewById(R.id.tv_activity_value);
+            viewHolder.tv_worker_value = (TextView) convertView.findViewById(R.id.tv_worker_value);
+            viewHolder.image_company = (ImageView) convertView.findViewById(R.id.image_company);
+            viewHolder.image_activity = (ImageView) convertView.findViewById(R.id.image_activity);
+            viewHolder.image_worker = (ImageView) convertView.findViewById(R.id.image_worker);
+            viewHolder.btn_start = (ToggleButton) convertView.findViewById(R.id.btn_start);
 
             convertView.setTag(viewHolder);
         }
 
         //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
-        Task task = getItem(position);
-
+        final Task task = getItem(position);
         //il ne reste plus qu'à remplir notre vue
-        viewHolder.date.setText(task.get_date().toString());
-        viewHolder.duration.setText(task.get_duration_hhmm());
-        viewHolder.company_name.setText(R.string.company_label);
-        viewHolder.activity_name.setText(R.string.activity_label);
-        viewHolder.worker_name.setText(R.string.worker_label);
-        viewHolder.company_value.setText(task.get_company().get_name());
-        viewHolder.activity_value.setText(task.get_activity().get_name());
-        viewHolder.worker_value.setText(task.get_worker().get_firstname() + " " + task.get_worker().get_lastname());
+
+        viewHolder.image_company.setImageDrawable(_context.getResources().getDrawable(R.drawable.ic_business_black_24dp));
+        viewHolder.image_activity.setImageDrawable(_context.getResources().getDrawable(R.drawable.ic_view_list_black_24dp));
+        viewHolder.image_worker.setImageDrawable(_context.getResources().getDrawable(R.drawable.ic_person_black_24dp));
+        viewHolder.tv_company_value.setText(task.get_company().get_name());
+        viewHolder.tv_activity_value.setText(task.get_activity().get_name());
+        viewHolder.tv_worker_value.setText(task.get_worker().get_firstname() + " " + task.get_worker().get_lastname());
+
+       TimeDataSource getTimeByIdTask = new TimeDataSource(_context);
+        _times = getTimeByIdTask.getTimeByTaskId(task.get_id());
+        String s = C_Time.getFormatedDuration(C_Task.getTotalDurationByTask(_times));
+        viewHolder.tv_duration.setText(s);
+        viewHolder.btn_start.setTextOff(s);
+        viewHolder.btn_start.setTextOn("STOP");
+
+
+        if (!_hideButton) {
+
+            if(task.get_id()==_runningTask) {
+                selected_position=position;
+                //viewHolder.btn_start.setChecked(true);
+            }
+            else {
+                //viewHolder.btn_start.setChecked(false);
+
+            }
+            viewHolder.btn_start.setChecked(position == selected_position);
+            viewHolder.btn_start.setVisibility(View.VISIBLE);
+            viewHolder.tv_duration.setVisibility(View.INVISIBLE);
+
+        } else {
+            viewHolder.btn_start.setVisibility(View.INVISIBLE);
+            viewHolder.tv_duration.setVisibility(View.VISIBLE);
+            //viewHolder.tv_duration.setText(task.get_duration_hhmm());
+        }
+        viewHolder.btn_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Time currentTime = C_Time.get_Time();
+                if(currentTime!=null){
+                    currentTime.set_stop(C_Time.getCurrentTimeInSecond());
+                    currentTime.cal_duration();
+                    TimeDataSource finishing = new TimeDataSource(_context);
+                    finishing.finishingTime(currentTime);
+                    C_Time.set_Time(null);
+                    _runningTask=0;
+                }
+
+                if (((ToggleButton) v).isChecked()) {
+                    TimeDataSource starting = new TimeDataSource(_context);
+                    Time time = new Time(task.get_id());
+                    time.set_id((int) starting.startingTime(time));
+                    C_Time.set_Time(time);
+                    selected_position = position;
+                } else {
+                    /*Time time = C_Time.get_Time();
+                    time.set_stop(C_Time.getCurrentTimeInSecond());
+                    time.cal_duration();
+
+                    TimeDataSource finishing = new TimeDataSource(_context);
+                    finishing.finishingTime(time);
+                    C_Time.set_Time(null);*/
+                    selected_position = -1;
+                }
+                notifyDataSetChanged();
+            }
+        });
 
         return convertView;
     }
 
-    private class TaskViewHolder{
-        private  TextView date;
-        private TextView duration;
-        private TextView company_name;
-        private TextView activity_name;
-        private TextView worker_name;
-        private TextView company_value;
-        private TextView activity_value;
-        private TextView worker_value;
+    public View getView(int position, View convertView, ViewGroup parent){
+        return getCustomView(position, convertView, parent);
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView,ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
+    }
+
+    private static class TaskViewHolder{
+        //private  TextView tv_date;
+        private TextView tv_duration;
+        private ImageView image_company;
+        private ImageView image_activity;
+        private ImageView image_worker;
+        private TextView tv_company_value;
+        private TextView tv_activity_value;
+        private TextView tv_worker_value;
+        private ToggleButton btn_start;
 
     }
 }
